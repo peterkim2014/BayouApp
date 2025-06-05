@@ -14,7 +14,7 @@ def check_card_presence():
         reader = r[0]
         connection = reader.createConnection()
         connection.connect()  
-        return {"status": "detected", "message": "✅ NFC card detected and connected."}
+        return {"status": "detected", "message": "NFC card detected and connected."}
 
     except NoCardException:
         return {"status": "not_detected", "message": "❌ No NFC card detected."}

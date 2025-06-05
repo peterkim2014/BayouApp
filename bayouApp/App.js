@@ -9,7 +9,7 @@ function NFCStatusDisplay() {
   return (
     <View style={{ marginTop: 20, alignItems: 'center' }}>
       <Text>{status}</Text>
-      {isDetected && <Text style={{ marginTop: 10 }}>✅ Card is present!</Text>}
+      {isDetected && <Text style={{ marginTop: 10 }}>Card is present!</Text>}
     </View>
   );
 }
@@ -24,7 +24,7 @@ export default function App() {
       </View>
     </NFCProvider>
   ); 
-  
+
 }
 
 const styles = StyleSheet.create({

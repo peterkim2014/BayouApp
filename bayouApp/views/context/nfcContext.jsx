@@ -19,7 +19,7 @@ export const NFCProvider = ({ children }) => {
         setStatus('⚠️ Cannot reach NFC service');
         setIsDetected(false);
       }
-    }, 1000);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
