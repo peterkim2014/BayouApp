@@ -18,26 +18,31 @@ export default function ThreadHome() {
 
   return (
     <View style={styles.container}>
-      {/* Toggle Tabs */}
-      <View style={styles.tabContainer}>
-        {['Lifestyle', 'Campaigns'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            onPress={() => setActiveTab(tab)}
-            style={[
-              styles.tab,
-              activeTab === tab && styles.activeTab
-            ]}
-          >
-            <Text style={[
-              styles.tabText,
-              activeTab === tab && styles.activeTabText
-            ]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+
+    {/* Header: Threads + Tabs */}
+    <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Threads</Text>
+        <View style={styles.tabRow}>
+            {['Lifestyle', 'Campaigns'].map((tab) => (
+            <TouchableOpacity
+                key={tab}
+                onPress={() => setActiveTab(tab)}
+                style={[
+                styles.tab,
+                activeTab === tab && styles.activeTab
+                ]}
+            >
+                <Text style={[
+                styles.tabText,
+                activeTab === tab && styles.activeTabText
+                ]}>
+                {tab}
+                </Text>
+            </TouchableOpacity>
+            ))}
+        </View>
+    </View>
+
 
       {/* Feed Content */}
       <FlatList

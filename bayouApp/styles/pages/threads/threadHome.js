@@ -8,13 +8,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  // Overlay Section (Thread Title + Tabs)
-  tabContainer: {
+  headerContainer: {
     paddingTop: 60,
-    paddingBottom: 10,
+    paddingBottom: 16,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
-    zIndex: 10,
+    zIndex: 4,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -22,6 +21,17 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
+    width: width,
+  },
+  
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    marginBottom: 10,
+  },
+  
+  tabRow: {
+    flexDirection: 'row',
   },
 
   tab: {
@@ -48,21 +58,17 @@ const styles = StyleSheet.create({
 
   feed: {
     paddingHorizontal: 10,
-    paddingTop: 20,
+    paddingTop: 15,
     paddingBottom: 100,
   },
 
   card: {
     width: width * 0.95, // Use more width
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
     backgroundColor: '#fff',
     borderRadius: 12,
     padding: 14,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
     elevation: 1,
   },
 
