@@ -6,6 +6,7 @@ import Navbar from './routes/Navbar';
 import styles from './styles/appStyle';
 
 import ThreadHome from './pages/threads/ThreadHome';
+import ProfileHome from './pages/profile/ProfileHome';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Navbar />
         <Routes>
          <Route path="/" element={<ThreadHome />} />
+         <Route path="/profile" element={<ProfileHome />} />
         </Routes>
       </View>
     </NativeRouter>

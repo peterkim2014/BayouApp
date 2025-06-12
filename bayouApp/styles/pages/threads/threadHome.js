@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   
   headerTitle: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: '600',
     marginBottom: 10,
   },
   
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
   },
 
   tabText: {
-    fontWeight: '500',
+    fontWeight: '200',
     color: '#333',
   },
 
   activeTabText: {
-    fontWeight: '700',
+    fontWeight: '400',
   },
 
   feed: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
 
   cardTitle: {
-    fontWeight: '700',
+    fontWeight: '600',
     fontSize: 16,
   },
 
