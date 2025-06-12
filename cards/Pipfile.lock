@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6a276d93fe242b05d7e24e26c1605814dde5497f5e2b830e967c30241a4cf1df"
+            "sha256": "d04ed3f6b0b59c8e98992515434f6729b5c1190e00538db9e99b7c54b0609d2a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -294,6 +294,15 @@
             "markers": "python_version >= '3.7'",
             "version": "==3.1.6"
         },
+        "libusb1": {
+            "hashes": [
+                "sha256:0ef69825173ce74af34444754c081cc324233edc6acc405658b3ad784833e076",
+                "sha256:3951d360f2daf0e0eacf839e15d2d1d2f4f5e7830231eb3188eeffef2dd17bad",
+                "sha256:6e21b772d80d6487fbb55d3d2141218536db302da82f1983754e96c72781c102",
+                "sha256:808c9362299dcee01651aa87e71e9d681ccedb27fc4dbd70aaf14e245fb855f1"
+            ],
+            "version": "==3.3.1"
+        },
         "markupsafe": {
             "hashes": [
                 "sha256:0bff5e0ae4ef2e1ae4fdf2dfd5b76c75e5c2fa4132d05fc1b0dabcd20c7e28c4",
@@ -361,6 +370,21 @@
             "markers": "python_version >= '3.9'",
             "version": "==3.0.2"
         },
+        "ndeflib": {
+            "hashes": [
+                "sha256:1d56828558b9b16f2822a4051824346347b66adf5320ea86070748b6f2454a88",
+                "sha256:c634b1af2ab454754f0fdbe1debd38247ed7bdaf94587359b857726f3ee7decb"
+            ],
+            "version": "==0.3.3"
+        },
+        "nfcpy": {
+            "hashes": [
+                "sha256:c1f3ecdd9755f9af46e89a945ed490354d089d5b19422e307159e256ff8c1b3d",
+                "sha256:e5bd08d0119e1d9e95d05215f838b07b44d03b651adddc523cc1a38892b8af6b"
+            ],
+            "index": "pypi",
+            "version": "==1.0.4"
+        },
         "persistent": {
             "hashes": [
                 "sha256:030eaf3f723925e44eabfc12d43828e692f1d7023c5ffe3f375c344a21ad2ad8",
@@ -412,6 +436,12 @@
             "markers": "python_version >= '3.8'",
             "version": "==2.22"
         },
+        "pydes": {
+            "hashes": [
+                "sha256:e2ab8e21d2b83e90d90dbfdcb6fb8ac0000b813238b7ecaede04f8435c389012"
+            ],
+            "version": "==2.0.1"
+        },
         "pyscard": {
             "hashes": [
                 "sha256:1480fc9e760487e4fe18b668647cd88bb4d0fd94e075bba6a00a582a93b6def7",
@@ -435,6 +465,21 @@
             ],
             "index": "pypi",
             "version": "==2.2.2"
+        },
+        "pyserial": {
+            "hashes": [
+                "sha256:3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb",
+                "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0"
+            ],
+            "version": "==3.5"
+        },
+        "pyusb": {
+            "hashes": [
+                "sha256:3af070b607467c1c164f49d5b0caabe8ac78dbed9298d703a8dbf9df4052d17e",
+                "sha256:bf9b754557af4717fe80c2b07cc2b923a9151f5c08d17bdb5345dac09d6a0430"
+            ],
+            "index": "pypi",
+            "version": "==1.3.1"
         },
         "requests": {
             "hashes": [

@@ -9,6 +9,8 @@ smartcard = "*"
 flask-cors = "*"
 pyscard = "*"
 requests = "*"
+nfcpy = "*"
+pyusb = "*"
 
 [dev-packages]
 

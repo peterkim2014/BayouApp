@@ -1,37 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NFCProvider, useNFC } from './views/context/nfcContext';
+// App.js
+import { NativeRouter, Routes, Route } from 'react-router-native';
+import React from 'react';
+import { SafeAreaView, View, StatusBar, TouchableOpacity, Text, Image } from 'react-native';
+import Navbar from './routes/Navbar';
+import styles from './styles/appStyle';
 
-// Inline example component
-function NFCStatusDisplay() {
-  const { status, isDetected } = useNFC();
-
-  return (
-    <View style={{ marginTop: 20, alignItems: 'center' }}>
-      <Text>{status}</Text>
-      {isDetected && <Text style={{ marginTop: 10 }}>Card is present!</Text>}
-    </View>
-  );
-}
+import ThreadHome from './pages/threads/ThreadHome';
 
 export default function App() {
   return (
-    <NFCProvider>
+    <NativeRouter>
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <NFCStatusDisplay />
-        <StatusBar style="auto" />
+        <Navbar />
+        <Routes>
+         <Route path="/" element={<ThreadHome />} />
+        </Routes>
       </View>
-    </NFCProvider>
-  ); 
-
+    </NativeRouter>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
