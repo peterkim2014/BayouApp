@@ -24,14 +24,26 @@ const styles = StyleSheet.create({
   },
 
   link: {
-    flex: 1, 
+    flex: 1,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  
+  iconStack: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
+  icon: {
+    width: 23,
+    height: 23,
+  },
+  
   linkText: {
     fontSize: 11.5,
+    marginTop: -2,
   },
 });
 
