@@ -173,30 +173,27 @@ const styles = StyleSheet.create({
     marginTop: 2,
     borderRadius: 2,
   },
-
-  grid: {
-    paddingBottom: 100,
-    paddingHorizontal: 10, // tighten side padding
-  },
   
-  gridRow: {
-    justifyContent: 'space-between',
-    marginBottom: 14,
-    right: 10,
+  cardContainerStyle: {
+    width: (width - 55) / 3,
+    marginBottom: 20,
+    alignItems: 'flex-start',
+    marginHorizontal: 3,
   },
   
   card: {
-    width: (width - 60) / 3, // expand horizontally
+    width: '100%',
     aspectRatio: 1,
     backgroundColor: '#eee',
     borderRadius: 10,
-    justifyContent: 'flex-end',
-    padding: 8,
-    margin: 4,
   },
   
   cardText: {
+    marginTop: 2,
     fontWeight: '400',
+    fontSize: 11,
+    textAlign: 'flex-start',
+    paddingLeft: 4,
   },
   
 });

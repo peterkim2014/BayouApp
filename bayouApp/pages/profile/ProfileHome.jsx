@@ -85,8 +85,9 @@ export default function ProfileHome() {
             columnWrapperStyle={styles.gridRow}
             contentContainerStyle={styles.grid}
             renderItem={({ item }) => (
-                <View style={styles.card}>
-                <Text style={styles.cardText}>{item.label}</Text>
+              <View style={styles.cardContainerStyle}>
+                  <View style={styles.card} />
+                  <Text style={styles.cardText}>{item.label}</Text>
                 </View>
             )}
         />
