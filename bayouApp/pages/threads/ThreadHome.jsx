@@ -1,7 +1,9 @@
 // components/ThreadHome.js
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
 import styles from '../../styles/pages/threads/threadHome';
+
+import logo from '../../assets/bayouLogo.png'
 
 export default function ThreadHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
@@ -47,7 +49,13 @@ export default function ThreadHome() {
 
     {/* Header: Threads + Tabs */}
     <View style={styles.headerContainer}>
+      <View style={styles.headerTitleRow}>
+        <Image
+          source={logo}
+          style={styles.headerIcon}
+        />
         <Text style={styles.headerTitle}>Threads</Text>
+      </View>
         <View style={styles.tabRow}>
             {['Lifestyle', 'Campaigns'].map((tab) => (
             <TouchableOpacity

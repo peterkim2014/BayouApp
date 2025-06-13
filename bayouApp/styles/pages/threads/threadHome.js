@@ -23,6 +23,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     width: width,
   },
+
+  headerTitleRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 10,
+  },
+
+  headerIcon: {
+    height: '100%',
+    alignItems: 'center',
+    width: 27,
+    height: 27,
+    marginRight: 2,
+    marginBottom: 10,
+  },
+
   
   headerTitle: {
     fontSize: 24,
