@@ -5,15 +5,41 @@ import styles from '../../styles/pages/threads/threadHome';
 
 export default function ThreadHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
+  const [expandedThreadId, setExpandedThreadId] = useState(null);
 
   const data = {
     Lifestyle: [
-      { id: '1', title: 'Toyo / TJ Hunt', description: 'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear' },
-      { id: '2', title: 'Toyo / TJ Hunt', description: 'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear' },
+      {
+        id: '1',
+        title: 'Toyo / TJ Hunt',
+        description: 'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear',
+        comments: [
+          { name: 'Timothy Smith', text: "This is my comment that I’m posting as a thought, but what do you guys think?", likes: '67k', dislikes: "" },
+          { name: 'Anthony Garner', text: "Excited to see this collaboration happen", likes: '67k', dislikes: "" },
+        ],
+      },
+      {
+        id: '2',
+        title: 'Toyo / TJ Hunt',
+        description: 'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear',
+        comments: [
+          { name: 'Timothy Smith', text: "This is my comment that I’m posting as a thought, but what do you guys think?", likes: '67k', dislikes: "" },
+          { name: 'Anthony Garner', text: "Excited to see this collaboration happen", likes: '67k', dislikes: "" },
+        ],
+      },
     ],
     Campaigns: [
-      { id: '3', title: 'Goodyear Campaign', description: 'A new Goodyear campaign is launching for eco-friendly tires.' },
+      { id: '3', title: 'Goodyear Campaign', description: 'A new Goodyear campaign is launching for eco-friendly tires.',
+      comments: [
+        { name: 'Timothy Smith', text: "This is my comment that I’m posting as a thought, but what do you guys think?", likes: '67k', dislikes: "" },
+        { name: 'Anthony Garner', text: "Excited to see this collaboration happen", likes: '67k', dislikes: "" },
+      ],
+    },
     ],
+  };
+
+  const toggleComments = (id) => {
+    setExpandedThreadId(expandedThreadId === id ? null : id);
   };
 
   return (
@@ -61,9 +87,30 @@ export default function ThreadHome() {
             <View style={styles.placeholderBox} />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardDescription}>{item.description}</Text>
-            <TouchableOpacity style={styles.commentButton}>
-              <Text style={styles.commentButtonText}>▾ Open Comments</Text>
+            <TouchableOpacity style={styles.commentButton} onPress={() => toggleComments(item.id)}>
+              <Text style={styles.commentButtonText}>
+                {expandedThreadId === item.id ? '▾ Close Comments' : '▾ Open Comments'}
+              </Text>
             </TouchableOpacity>
+
+            {/* Conditional Comments Section */}
+            {expandedThreadId === item.id && (
+              <View style={styles.commentSection}>
+                {item.comments.map((comment, index) => (
+                  <View key={index} style={styles.commentBlock}>
+                    <View style={styles.commentHeader}>
+                      <Text style={styles.commentAuthor}>{comment.name}</Text>
+                      <View style={styles.commentActions}>
+                        <Text>👍 {comment.likes.toLocaleString()}</Text>
+                        <Text>👎 {comment.dislikes.toLocaleString()}</Text>
+                      </View>
+                    </View>
+                    <Text style={styles.commentText}>{comment.text}</Text>
+                    {index === item.comments.length - 1 && <Text style={styles.seeMore}>See more</Text>}
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         )}
       />

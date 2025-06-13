@@ -118,6 +118,46 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '500',
   },
+
+  commentSection: {
+    marginTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    paddingTop: 10,
+    marginLeft: 10,
+  },
+  
+  commentBlock: {
+    marginBottom: 12,
+    width: '100%',
+  },
+  
+  commentHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  
+  commentAuthor: {
+    fontWeight: '600',
+  },
+  
+  commentActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  
+  commentText: {
+    color: '#333',
+    fontSize: 14,
+  },
+  
+  seeMore: {
+    color: '#007bff',
+    marginTop: 4,
+    fontSize: 13,
+  }
+  
 });
 
 export default styles;
