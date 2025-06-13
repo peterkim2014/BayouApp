@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#ffffff',
     alignSelf: 'center',
-    borderRadius: 6,
+    borderRadius: 9,
     marginBottom: 5,
   
     // Shadow
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 3,
     zIndex: 5,
   },
 
@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  linkText: {
+    fontSize: 11.5,
   },
 });
 

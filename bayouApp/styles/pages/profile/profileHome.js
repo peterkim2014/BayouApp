@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
   name: {
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '600',
   },
 
   bio: {

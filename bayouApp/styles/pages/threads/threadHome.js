@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   
   headerTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: '475',
     marginBottom: 10,
   },
   
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
 
   tab: {
     marginRight: 10,
-    paddingVertical: 6,
+    paddingVertical: 4,
     paddingHorizontal: 16,
-    borderRadius: 10,
-    backgroundColor: '#f1f1f1',
+    borderRadius: 5,
+    // backgroundColor: '#f1f1f1',
     alignSelf: 'flex-start',
   },
 
@@ -48,12 +48,13 @@ const styles = StyleSheet.create({
   },
 
   tabText: {
-    fontWeight: '200',
+    fontWeight: '500',
+    fontSize: 12,
     color: '#333',
   },
 
   activeTabText: {
-    fontWeight: '400',
+    fontWeight: '700',
   },
 
   feed: {
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
 
   username: {
     fontWeight: '600',
+    fontSize: 15.5,
   },
 
   actions: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   placeholderBox: {
-    height: 120,
+    height: 140,
     backgroundColor: '#ddd',
     borderRadius: 8,
     marginBottom: 10,
@@ -97,18 +99,19 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 15,
   },
 
   cardDescription: {
     marginTop: 4,
     marginBottom: 10,
     color: '#444',
+    fontSize: 12.25,
   },
 
   commentButton: {
     backgroundColor: '#497E8D',
-    paddingVertical: 6,
+    paddingVertical: 2,
     paddingHorizontal: 12,
     borderRadius: 6,
     alignSelf: 'flex-start',
@@ -116,20 +119,19 @@ const styles = StyleSheet.create({
 
   commentButtonText: {
     color: '#fff',
-    fontWeight: '500',
+    fontWeight: '400',
+    fontSize: 12.5,
   },
 
   commentSection: {
     marginTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
     paddingTop: 10,
-    marginLeft: 10,
+    marginLeft: 20,
   },
   
   commentBlock: {
-    marginBottom: 12,
-    width: '100%',
+    marginBottom: 10,
+    width: '94%',
   },
   
   commentHeader: {
@@ -145,17 +147,25 @@ const styles = StyleSheet.create({
   commentActions: {
     flexDirection: 'row',
     gap: 12,
+    fontSize: 10,
+  },
+
+  commentActionText: {
+    fontSize: 12.25,
   },
   
   commentText: {
     color: '#333',
-    fontSize: 14,
+    fontSize: 12.25,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#d6d6d6'
   },
   
   seeMore: {
     color: '#007bff',
-    marginTop: 4,
-    fontSize: 13,
+    marginTop: 2,
+    fontSize: 12,
   }
   
 });

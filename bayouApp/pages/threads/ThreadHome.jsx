@@ -101,8 +101,8 @@ export default function ThreadHome() {
                     <View style={styles.commentHeader}>
                       <Text style={styles.commentAuthor}>{comment.name}</Text>
                       <View style={styles.commentActions}>
-                        <Text>👍 {comment.likes.toLocaleString()}</Text>
-                        <Text>👎 {comment.dislikes.toLocaleString()}</Text>
+                        <Text style={styles.commentActionText}>👍 {comment.likes.toLocaleString()}</Text>
+                        <Text style={styles.commentActionText}>👎 {comment.dislikes.toLocaleString()}</Text>
                       </View>
                     </View>
                     <Text style={styles.commentText}>{comment.text}</Text>
