@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignSelf: 'flex-end',
     margin: 12,
-    paddingVertical: 4,
+    paddingVertical: 6,
     paddingHorizontal: 10,
-    borderRadius: 8,
+    borderRadius: 4,
     elevation: 4,
     bottom: 175,
   },
@@ -34,10 +34,11 @@ const styles = StyleSheet.create({
 
   watchingText: {
     fontWeight: '600',
+    fontSize: 11,
   },
 
   profileCard: {
-    marginTop: -30,
+    marginTop: -35,
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -47,11 +48,12 @@ const styles = StyleSheet.create({
 
   grabber: {
     alignSelf: 'center',
-    width: 50,
-    height: 5,
+    width: 100,
+    height: 4,
     borderRadius: 3,
     backgroundColor: '#ccc',
-    marginBottom: 12,
+    marginBottom: 20,
+    marginTop: -12,
   },
 
   name: {
@@ -78,41 +80,54 @@ const styles = StyleSheet.create({
   rightHeader: {
     alignItems: 'flex-end',
     gap: 6,
+    width: '40%',
   },
   
 
   followButton: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#000',
     paddingVertical: 4,
     paddingHorizontal: 16,
     borderRadius: 20,
+    width: '70%',
+    alignItems: 'center',
   },
 
   followText: {
-    fontWeight: '600',
+    fontWeight: '500',
   },
 
   creatorTag: {
     backgroundColor: '#0011cc',
     paddingHorizontal: 14,
-    paddingVertical: 4,
+    paddingVertical: 0,
     borderRadius: 20,
+    width: '70%',
+    alignItems: 'center',
   },
 
   creatorText: {
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: '400',
+    fontSize: 12,
   },
 
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: 10,
-    padding: 12,
-    backgroundColor: '#f9f9f9',
+    padding: 8,
+    backgroundColor: 'white',
     borderRadius: 12,
     elevation: 2,
+    // Shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+    zIndex: 5,
   },
 
   statBlock: {
@@ -121,12 +136,13 @@ const styles = StyleSheet.create({
 
   statNumber: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '500',
   },
 
   statLabel: {
-    fontSize: 12,
+    fontSize: 11.75,
     color: '#555',
+    fontWeight: '500',
   },
 
   tabRow: {
@@ -135,6 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     gap: 20,
     marginBottom: 12,
+    marginTop: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
@@ -142,7 +159,6 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 13,
     fontWeight: '500',
-    paddingBottom: 6,
     color: '#666',
   },
 
