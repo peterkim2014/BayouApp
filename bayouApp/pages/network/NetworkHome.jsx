@@ -11,6 +11,8 @@ import {
 import styles from '../../styles/pages/network/networkHome';
 import logo from '../../assets/bayouLogo.png'
 
+import ThreadCard from '../../components/cards/ThreadCard';
+
 const categories = [
   { id: '1', label: 'Vlogging', 
 //   icon: require('../../assets/icons/vlogging.png') 
@@ -137,16 +139,7 @@ export default function NetworkHome() {
           ListHeaderComponent={renderHeader}
           contentContainerStyle={styles.activityList}
           renderItem={({ item }) => (
-            <View style={styles.activityCard}>
-              <View style={styles.activityHeader}>
-                <Image source={item.image} style={styles.avatar} />
-                <Text style={styles.activityName}>{item.name}</Text>
-                <View style={styles.viewCount}>
-                  <Text>👥 {item.viewers} Watching</Text>
-                </View>
-              </View>
-              <View style={styles.activityContentBox} />
-            </View>
+            <ThreadCard item={item} />
           )}
         />
       </View>

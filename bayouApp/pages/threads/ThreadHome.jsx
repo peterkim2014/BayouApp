@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
 import styles from '../../styles/pages/threads/threadHome';
 
 import logo from '../../assets/bayouLogo.png'
+import ThreadCard from '../../components/cards/ThreadCard';
 
 export default function ThreadHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
@@ -84,42 +85,7 @@ export default function ThreadHome() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.feed}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.username}>John Doe</Text>
-              <View style={styles.actions}>
-                <Text>♡</Text>
-                <Text>💬</Text>
-              </View>
-            </View>
-            <View style={styles.placeholderBox} />
-            <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.cardDescription}>{item.description}</Text>
-            <TouchableOpacity style={styles.commentButton} onPress={() => toggleComments(item.id)}>
-              <Text style={styles.commentButtonText}>
-                {expandedThreadId === item.id ? '▾ Close Comments' : '▾ Open Comments'}
-              </Text>
-            </TouchableOpacity>
-
-            {/* Conditional Comments Section */}
-            {expandedThreadId === item.id && (
-              <View style={styles.commentSection}>
-                {item.comments.map((comment, index) => (
-                  <View key={index} style={styles.commentBlock}>
-                    <View style={styles.commentHeader}>
-                      <Text style={styles.commentAuthor}>{comment.name}</Text>
-                      <View style={styles.commentActions}>
-                        <Text style={styles.commentActionText}>👍 {comment.likes.toLocaleString()}</Text>
-                        <Text style={styles.commentActionText}>👎 {comment.dislikes.toLocaleString()}</Text>
-                      </View>
-                    </View>
-                    <Text style={styles.commentText}>{comment.text}</Text>
-                    {index === item.comments.length - 1 && <Text style={styles.seeMore}>See more</Text>}
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
+          <ThreadCard item={item} expandedId={expandedThreadId} toggleComments={toggleComments} />
         )}
       />
     </View>
