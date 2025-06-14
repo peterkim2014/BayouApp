@@ -195,6 +195,81 @@ const styles = StyleSheet.create({
     textAlign: 'flex-start',
     paddingLeft: 4,
   },
+
+
+  detailContainer: {
+    marginTop: 5,
+  },
+  
+  backButton: {
+    marginBottom: 5,
+  },
+  
+  backArrow: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  
+  detailRow: {
+    flexDirection: 'row',
+    gap: 20,
+  },
+  
+  detailImage: {
+    width: 160,
+    height: 160,
+    borderRadius: 16,
+    backgroundColor: '#ddd',
+    elevation: 2,
+  },
+  
+  detailInfo: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  
+  detailTitle: {
+    fontWeight: '600',
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  
+  starRating: {
+    fontSize: 16,
+    marginBottom: 30,
+  },
+  
+  metricRow: {
+    marginBottom: 6,
+  },
+  
+  metricHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 1,
+  },
+  
+  metricLabel: {
+    fontSize: 12.5,
+  },
+  
+  metricPercent: {
+    fontSize: 12.5,
+  },
+  
+  metricBarBackground: {
+    height: 4,
+    backgroundColor: '#ccc',
+    borderRadius: 4,
+    width: '100%',
+  },
+  
+  metricBarFill: {
+    width: '87%',
+    height: 4,
+    backgroundColor: '#000',
+    borderRadius: 4,
+  },  
   
 });
 

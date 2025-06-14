@@ -10,6 +10,8 @@ const { width } = Dimensions.get('window');
 export default function ProfileHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
 
 
   const sampleData = {
@@ -93,7 +95,13 @@ export default function ProfileHome() {
         {/* Tab Row */}
         <View style={styles.tabRow}>
           {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
-            <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
+            <TouchableOpacity
+              key={tab}
+              onPress={() => {
+                setActiveTab(tab);
+                setSelectedItem(null);
+              }}
+            >
               <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
                 {tab}
               </Text>
@@ -102,20 +110,61 @@ export default function ProfileHome() {
           ))}
         </View>
 
+
+
         {/* Grid */}
-        <FlatList
+        {selectedItem ? (
+          <View style={styles.detailContainer}>
+            {/* Back Button */}
+            <TouchableOpacity onPress={() => setSelectedItem(null)} style={styles.backButton}>
+              <Text style={styles.backArrow}>←</Text>
+            </TouchableOpacity>
+
+            {/* Row: Image + Details */}
+            <View style={styles.detailRow}>
+              {/* Image Box */}
+              <View style={styles.detailImage} />
+
+              {/* Right Section */}
+              <View style={styles.detailInfo}>
+                <Text style={styles.detailTitle}>{selectedItem.label}</Text>
+                <Text style={styles.starRating}>★★★★☆</Text>
+
+                {/* Metrics */}
+                {['Looks', 'Feel', 'Cost'].map((metric) => (
+                  <View key={metric} style={styles.metricRow}>
+                    <View style={styles.metricHeader}>
+                      <Text style={styles.metricLabel}>{metric}</Text>
+                      <Text style={styles.metricPercent}>87%</Text>
+                    </View>
+                    <View style={styles.metricBarBackground}>
+                      <View style={styles.metricBarFill} />
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
+        ) : (
+          <FlatList
             data={sampleData[activeTab]}
             keyExtractor={(item) => item.id}
             numColumns={3}
             columnWrapperStyle={styles.gridRow}
             contentContainerStyle={styles.grid}
             renderItem={({ item }) => (
-              <View style={styles.cardContainerStyle}>
-                  <View style={styles.card} />
-                  <Text style={styles.cardText}>{item.label}</Text>
-                </View>
+              <TouchableOpacity
+                style={styles.cardContainerStyle}
+                onPress={() => setSelectedItem(item)}
+              >
+                <View style={styles.card} />
+                <Text style={styles.cardText}>{item.label}</Text>
+              </TouchableOpacity>
             )}
-        />
+          />
+        )}
+
+
 
       </View>
     </View>
