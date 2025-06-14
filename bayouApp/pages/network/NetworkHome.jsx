@@ -4,145 +4,169 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  ScrollView,
   Image,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import styles from '../../styles/pages/network/networkHome';
-import logo from '../../assets/bayouLogo.png'
-
+import logo from '../../assets/bayouLogo.png';
 import ThreadCard from '../../components/cards/ThreadCard';
 
-const categories = [
-  { id: '1', label: 'Vlogging', 
-//   icon: require('../../assets/icons/vlogging.png') 
-},
-  { id: '2', label: 'Automotive', 
-//   icon: require('../../assets/icons/automotive.png') 
-},
-  { id: '3', label: 'Fishing', 
-//   icon: require('../../assets/icons/fishing.png') 
-},
-  { id: '4', label: 'Boats', 
-//   icon: require('../../assets/icons/boats.png') 
-},
-  { id: '5', label: 'Cooking', 
-//   icon: require('../../assets/icons/cooking.png') 
-},
-];
+const { width } = Dimensions.get('window');
 
-const topCreators = [
-  { id: '1', name: 'John Doe', 
-//   image: require('../../assets/creators/john.png') 
-},
-  { id: '2', name: 'Jane Doe', 
-//   image: require('../../assets/placeholders/blank.png') 
-},
-  { id: '3', name: 'James Doe', 
-//   image: require('../../assets/placeholders/blank.png') 
-},
-];
+// Configurable datasets per type
+const NETWORK_SECTIONS = {
+  Creators: {
+    label: 'Creator',
+    categories: [
+      { id: '1', label: 'Vlogging' },
+      { id: '2', label: 'Automotive' },
+      { id: '3', label: 'Fishing' },
+      { id: '4', label: 'Boats' },
+      { id: '5', label: 'Cooking' },
+    ],
+    top: [
+      { id: '1', name: 'John Doe' },
+      { id: '2', name: 'Jane Doe' },
+      { id: '3', name: 'James Doe' },
+    ],
+    activities: {
+      Lifestyle: [
+        { id: '1', name: 'John Doe', viewers: '2.1M' }
+      ],
+      Campaigns: [],
+    },
+  },
 
-const activities = {
-  Lifestyle: [
-    { id: '1', name: 'John Doe', viewers: '2.1M', 
-    // image: require('../../assets/creators/john.png') 
-}
-  ],
-  Campaigns: []
+  Brands: {
+    label: 'Brand',
+    categories: [
+      { id: '1', label: 'Auto' },
+      { id: '2', label: 'Sportswear' },
+    ],
+    top: [
+      { id: '1', name: 'Nike' },
+      { id: '2', name: 'Toyo' },
+    ],
+    activities: {
+      Lifestyle: [
+        { id: '1', name: 'Nike Drops', viewers: '1.3M' }
+      ],
+      Campaigns: [],
+    },
+  },
+
+  Viewers: {
+    label: 'Viewer',
+    categories: [
+      { id: '1', label: 'Watchers' },
+      { id: '2', label: 'Top Commenters' },
+    ],
+    top: [
+      { id: '1', name: 'ViewBot 9000' },
+      { id: '2', name: 'Active Annie' },
+    ],
+    activities: {
+      Lifestyle: [],
+      Campaigns: [],
+    },
+  },
 };
 
 export default function NetworkHome() {
-    const [activeTab, setActiveTab] = useState('Lifestyle');
-  
-    const renderHeader = () => (
-      <View style={styles.body}>
-        {/* Creator Categories */}
-        <Text style={styles.sectionTitle}>Creator Categories</Text>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={categories}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.categoryList}
-          renderItem={({ item }) => (
-            <View style={styles.categoryItem}>
-              <View style={styles.categoryCircle}>
-                {item.icon && <Image source={item.icon} style={styles.categoryIcon} />}
-              </View>
-              <Text style={styles.categoryLabel}>{item.label}</Text>
-            </View>
-          )}
-        />
-  
-        {/* Top Trending Creators */}
-        <Text style={styles.sectionTitle}>Top Trending Creators</Text>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={topCreators}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.creatorList}
-          renderItem={({ item }) => (
-            <View style={styles.creatorShadowWrapper}>
-              <View style={styles.creatorCard}>
-                <Image source={item.image} style={styles.creatorImage} />
-                <View style={styles.creatorNameOverlay}>
-                  <Text style={styles.creatorName}>{item.name}</Text>
-                </View>
+  const [mainTab, setMainTab] = useState('Creators');
+  const [activeSubTab, setActiveSubTab] = useState('Lifestyle');
+
+  const currentData = NETWORK_SECTIONS[mainTab];
+
+  const renderHeader = () => (
+    <View style={styles.body}>
+      <Text style={styles.sectionTitle}>{currentData.label} Categories</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={currentData.categories}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.categoryList}
+        renderItem={({ item }) => (
+          <View style={styles.categoryItem}>
+            <View style={styles.categoryCircle} />
+            <Text style={styles.categoryLabel}>{item.label}</Text>
+          </View>
+        )}
+      />
+
+      <Text style={styles.sectionTitle}>Top Trending {currentData.label}s</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={currentData.top}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.creatorList}
+        renderItem={({ item }) => (
+          <View style={styles.creatorShadowWrapper}>
+            <View style={styles.creatorCard}>
+              <View style={styles.creatorImage} />
+              <View style={styles.creatorNameOverlay}>
+                <Text style={styles.creatorName}>{item.name}</Text>
               </View>
             </View>
-          )}
-        />
-  
-        {/* Recent Activities Tabs */}
-        <Text style={styles.sectionTitle}>Recent Activities Creators</Text>
-        <View style={styles.activityTabs}>
-          {['Lifestyle', 'Campaigns'].map((tab) => (
-            <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
-              <Text style={[
-                styles.activityTabText,
-                activeTab === tab && styles.activeActivityTab
-              ]}>
+          </View>
+        )}
+      />
+
+      <Text style={styles.sectionTitle}>Recent Activities {currentData.label}s</Text>
+      <View style={styles.activityTabs}>
+        {['Lifestyle', 'Campaigns'].map((tab) => (
+          <TouchableOpacity key={tab} onPress={() => setActiveSubTab(tab)}>
+            <Text style={[
+              styles.activityTabText,
+              activeSubTab === tab && styles.activeActivityTab
+            ]}>
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        <View style={styles.headerTitleRow}>
+          <Image source={logo} style={styles.headerIcon} />
+          <Text style={styles.headerTitle}>Network</Text>
+        </View>
+
+        <View style={styles.tabRow}>
+          {Object.keys(NETWORK_SECTIONS).map((tab) => (
+            <TouchableOpacity
+              key={tab}
+              style={[styles.tab, mainTab === tab && styles.activeTab]}
+              onPress={() => {
+                setMainTab(tab);
+                setActiveSubTab('Lifestyle');
+              }}
+            >
+              <Text style={[styles.tabText, mainTab === tab && styles.activeTabText]}>
                 {tab}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
       </View>
-    );
-  
-    return (
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.headerContainer}>
-          <View style={styles.headerTitleRow}>
-            <Image source={logo} style={styles.headerIcon} />
-            <Text style={styles.headerTitle}>Network</Text>
-          </View>
-  
-          <View style={styles.tabRow}>
-            {['Creators', 'Brands', 'Viewers'].map((tab) => (
-              <TouchableOpacity key={tab} style={[styles.tab, tab === 'Creators' && styles.activeTab]}>
-                <Text style={[styles.tabText, tab === 'Creators' && styles.activeTabText]}>
-                  {tab}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-  
-        {/* Primary FlatList with header */}
-        <FlatList
-          data={activities[activeTab]}
-          keyExtractor={(item) => item.id}
-          ListHeaderComponent={renderHeader}
-          contentContainerStyle={styles.activityList}
-          renderItem={({ item }) => (
-            <ThreadCard item={item} />
-          )}
-        />
-      </View>
-    );
-  }
-  
+
+      {/* Activity Feed */}
+      <FlatList
+        data={currentData.activities[activeSubTab]}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={renderHeader}
+        contentContainerStyle={styles.activityList}
+        renderItem={({ item }) => (
+          <ThreadCard item={item} />
+        )}
+      />
+    </View>
+  );
+}
