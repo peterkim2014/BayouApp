@@ -58,23 +58,23 @@ export default function ThreadHome() {
         <Text style={styles.headerTitle}>Threads</Text>
       </View>
         <View style={styles.tabRow}>
-            {['Lifestyle', 'Campaigns'].map((tab) => (
-            <TouchableOpacity
-                key={tab}
-                onPress={() => setActiveTab(tab)}
-                style={[
-                styles.tab,
-                activeTab === tab && styles.activeTab
-                ]}
-            >
-                <Text style={[
-                styles.tabText,
-                activeTab === tab && styles.activeTabText
-                ]}>
-                {tab}
-                </Text>
-            </TouchableOpacity>
-            ))}
+          {['Lifestyle', 'Campaigns'].map((tab) => (
+          <TouchableOpacity
+              key={tab}
+              onPress={() => setActiveTab(tab)}
+              style={[
+              styles.tab,
+              activeTab === tab && styles.activeTab
+              ]}
+          >
+              <Text style={[
+              styles.tabText,
+              activeTab === tab && styles.activeTabText
+              ]}>
+              {tab}
+              </Text>
+          </TouchableOpacity>
+          ))}
         </View>
     </View>
 

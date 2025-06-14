@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 
   placeholderBox: {
-    height: 140,
+    height: 210,
     backgroundColor: '#ddd',
     borderRadius: 8,
     marginBottom: 10,
@@ -107,7 +107,81 @@ const styles = StyleSheet.create({
     color: '#007bff',
     marginTop: 2,
     fontSize: 12,
+  },
+
+
+  profileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  
+  profileImage: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    marginRight: 6,
+  },
+  
+  profileCircle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#ccc',
+    marginRight: 8,
+  },
+  
+
+  watchingText: {
+    fontSize: 12.5,
+    fontWeight: '600',
+  },
+  
+  upArrowToggle: {
+    position: 'absolute',
+    bottom: -30,
+    right: 10,
+    backgroundColor: '#fff',
+    zIndex: 3,
+  },
+  
+  upArrowIcon: {
+    width: 25,
+    height: 25,
+  },
+  
+  iconActionsRow: {
+    position: 'absolute',
+    bottom: 10,
+    right: 5,
+    flexDirection: 'column',
+    gap: 8,
+  },
+  
+  iconPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  
+  pillIcon: {
+    width: 16,
+    height: 16,
+    marginRight: 4,
+  },
+  
+  pillText: {
+    fontSize: 11,
+    fontWeight: '500',
   }
+  
   
 });
 

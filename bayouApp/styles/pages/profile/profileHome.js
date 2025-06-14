@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
   
   backArrow: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: '500',
   },
   
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   
   metricBarBackground: {
-    height: 4,
+    height: 2.5,
     backgroundColor: '#ccc',
     borderRadius: 4,
     width: '100%',
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   
   metricBarFill: {
     width: '87%',
-    height: 4,
+    height: 2.5,
     backgroundColor: '#000',
     borderRadius: 4,
   },  

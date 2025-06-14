@@ -1,21 +1,68 @@
-// components/shared/ThreadCard.js
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../../styles/components/threadCard';
 
+import likeIcon from '../../assets/likeIcon.png';
+import thoughtsIcon from '../../assets/thoughtsIcon.png';
+import waitlistIcon from '../../assets/waitlistIcon.png';
+import watchIcon from '../../assets/watchIcon.png';
+import UpArrow from '../UpArrow';
+// import profilePic from '../../assets/profileImage.png'; 
+
 export default function ThreadCard({ item, expandedId, toggleComments }) {
+  const [showActions, setShowActions] = useState(false);
+
   return (
     <View style={styles.card}>
+      {/* Header Row */}
       <View style={styles.cardHeader}>
-        <Text style={styles.username}>John Doe</Text>
-        <View style={styles.actions}>
-          <Text>♡</Text>
-          <Text>💬</Text>
+        <View style={styles.profileRow}>
+          {/* <Image source={profilePic} style={styles.profileImage} /> */}
+          <View style={styles.profileCircle} />
+
+          <Text style={styles.username}>John Doe</Text>
         </View>
+        <Text style={styles.watchingText}>👥 2.1M Watching</Text>
       </View>
-      <View style={styles.placeholderBox} />
+
+      {/* Placeholder */}
+      <View style={styles.placeholderBox}>
+        {/* Up arrow toggle */}
+        <TouchableOpacity
+          style={styles.upArrowToggle}
+          onPress={() => setShowActions(prev => !prev)}
+        >
+          <UpArrow
+            width={22}
+            height={22}
+            color="#333"
+            style={{ transform: [{ rotate: showActions ? '180deg' : '0deg' }] }}
+          />
+        </TouchableOpacity>
+
+
+        {showActions && (
+          <View style={styles.iconActionsRow}>
+            <View style={styles.iconPill}>
+              <Image source={likeIcon} style={styles.pillIcon} />
+              <Text style={styles.pillText}>Like</Text>
+            </View>
+            <View style={styles.iconPill}>
+              <Image source={thoughtsIcon} style={styles.pillIcon} />
+              <Text style={styles.pillText}>Thoughts</Text>
+            </View>
+            <View style={styles.iconPill}>
+              <Image source={waitlistIcon} style={styles.pillIcon} />
+              <Text style={styles.pillText}>Waitlist</Text>
+            </View>
+          </View>
+        )}
+      </View>
+
+      {/* Content */}
       <Text style={styles.cardTitle}>{item.title}</Text>
       <Text style={styles.cardDescription}>{item.description}</Text>
+
       {toggleComments && (
         <TouchableOpacity style={styles.commentButton} onPress={() => toggleComments(item.id)}>
           <Text style={styles.commentButtonText}>
@@ -23,6 +70,7 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
           </Text>
         </TouchableOpacity>
       )}
+
       {expandedId === item.id && item.comments && (
         <View style={styles.commentSection}>
           {item.comments.map((comment, idx) => (
