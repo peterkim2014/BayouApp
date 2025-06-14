@@ -1,10 +1,16 @@
 // components/ProfileHome.js
-import React, { useState } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity, FlatList, Image, Dimensions } from 'react-native';
+import { Asset } from 'expo-asset';
 import styles from '../../styles/pages/profile/profileHome';
+
+import profileImage from '../../assets/profileBackground.png'
+const { width } = Dimensions.get('window');
 
 export default function ProfileHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
+  const [imageLoaded, setImageLoaded] = useState(false);
+
 
   const sampleData = {
     Lifestyle: [
@@ -17,17 +23,36 @@ export default function ProfileHome() {
     Comments: [],
   };
 
+  useEffect(() => {
+    const load = async () => {
+      const asset = Asset.fromModule(profileImage);
+      await asset.downloadAsync(); 
+      setImageLoaded(true);
+    };
+  
+    load();
+  }, []);
+  
+
   return (
     <View style={styles.container}>
-      {/* Header Image */}
-      <ImageBackground
-        style={styles.headerImage}
-      >
-        <View style={styles.watchingBadge}>
-          <Text style={styles.watchingIcon}>👥</Text>
-          <Text style={styles.watchingText}>2.1M Watching</Text>
+      {imageLoaded && (
+        <View style={styles.headerBackground}>
+          <ImageBackground
+            source={profileImage}
+            style={styles.headerImage}
+            resizeMode="center"
+            imageStyle={{ width: width, top: 50 }}
+          >
+            <View style={styles.watchingBadge}>
+              <Text style={styles.watchingIcon}>👥</Text>
+              <Text style={styles.watchingText}>2.1M Watching</Text>
+            </View>
+          </ImageBackground>
         </View>
-      </ImageBackground>
+      )}
+
+
 
       {/* Profile Card */}
       <View style={styles.profileCard}>

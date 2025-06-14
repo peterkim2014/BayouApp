@@ -8,6 +8,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  headerImage: {
+    width: '100%',
+    // height: 260, 
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    // overflow: 'hidden',
+    backgroundColor: '#eee', 
+    justifyContent: 'flex-end',
+  },
+  
+  headerBackground: {
+    height: 200,
+    width: width
+  },
+  
+
   headerContainer: {
     paddingTop: 60,
     paddingBottom: 16,
@@ -27,7 +43,7 @@ const styles = StyleSheet.create({
   headerTitleRow: {
   flexDirection: 'row',
   alignItems: 'center',
-  marginBottom: 10,
+  marginBottom: 7.5,
   },
 
   headerIcon: {
@@ -36,14 +52,12 @@ const styles = StyleSheet.create({
     width: 27,
     height: 27,
     marginRight: 2,
-    marginBottom: 10,
   },
 
   
   headerTitle: {
     fontSize: 24,
     fontWeight: '475',
-    marginBottom: 10,
   },
   
   tabRow: {
@@ -55,12 +69,11 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 16,
     borderRadius: 5,
-    // backgroundColor: '#f1f1f1',
     alignSelf: 'flex-start',
   },
 
   activeTab: {
-    backgroundColor: '#ddd',
+    backgroundColor: '#e6e6e6',
   },
 
   tabText: {
