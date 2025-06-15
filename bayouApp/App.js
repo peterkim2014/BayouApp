@@ -10,6 +10,7 @@ import AppLoading from 'expo-app-loading';
 import ThreadHome from './pages/threads/ThreadHome';
 import ProfileHome from './pages/profile/ProfileHome';
 import NetworkHome from './pages/network/NetworkHome';
+import CampaignHome from './pages/campaigns/CampaignHome';
 
 
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
          <Route path="/" element={<ThreadHome />} />
          <Route path="/profile" element={<ProfileHome />} />
          <Route path="/network" element={<NetworkHome />} />
+         <Route path="/campaign" element={<CampaignHome />} />
         </Routes>
       </View>
     </NativeRouter>
