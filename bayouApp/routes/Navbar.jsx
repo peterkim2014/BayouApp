@@ -1,43 +1,53 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, Image } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, useLocation } from 'react-router-native';
 import styles from '../styles/navStyle';
 
-import threads from '../assets/threadsIcon.png'
-import network from '../assets/networkIcon.png'
-import campaign from '../assets/campaignIcon.png'
-import profile from '../assets/profileIcon.png'
+import threads from '../assets/threadsIcon.png';
+import network from '../assets/networkIcon.png';
+import campaign from '../assets/campaignIcon.png';
+import profile from '../assets/profileIcon.png';
 
 export default function NavBar() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const tabs = [
+    { path: '/', label: 'Threads', icon: threads },
+    { path: '/network', label: 'Network', icon: network },
+    { path: '/campaign', label: 'Campaigns', icon: campaign },
+    { path: '/profile', label: 'Profile', icon: profile },
+  ];
+
   return (
     <View style={styles.container}>
-      <Link to="/" component={TouchableHighlight} underlayColor="#ddd" style={styles.link}>
-        <View style={styles.iconStack}>
-          <Image source={threads} style={styles.icon} />
-          <Text style={styles.linkText}>Threads</Text>
-        </View>
-      </Link>
+      {tabs.map((tab, index) => {
+        const isActive = currentPath === tab.path;
 
-      <Link to="/network" component={TouchableHighlight} underlayColor="#ddd" style={styles.link}>
-        <View style={styles.iconStack}>
-          <Image source={network} style={styles.icon} />
-          <Text style={styles.linkText}>Network</Text>
-        </View>
-      </Link>
-
-      <Link to="/campaign" component={TouchableHighlight} underlayColor="#ddd" style={styles.link}>
-        <View style={styles.iconStack}>
-          <Image source={campaign} style={styles.icon} />
-          <Text style={styles.linkText}>Campaign</Text>
-        </View>
-      </Link>
-
-      <Link to="/profile" component={TouchableHighlight} underlayColor="#ddd" style={styles.link}>
-        <View style={styles.iconStack}>
-          <Image source={profile} style={styles.icon} />
-          <Text style={styles.linkText}>Profile</Text>
-        </View>
-      </Link>
+        return (
+          <Link
+            key={index}
+            to={tab.path}
+            component={TouchableHighlight}
+            underlayColor="transparent"
+            style={styles.link}
+          >
+            <View style={styles.iconStack}>
+            {isActive && <View style={styles.activeTabBump} />}
+              <View style={[styles.iconWrapper, isActive && styles.activeIconWrapper]}>
+                {isActive && <View style={styles.activeIconBackgroundCircle} />}
+                <Image
+                  source={tab.icon}
+                  style={[styles.icon, isActive && styles.activeIcon]}
+                />
+              </View>
+              <Text style={[styles.linkText, isActive && styles.activeText]}>
+                {tab.label}
+              </Text>
+            </View>
+          </Link>
+        );
+      })}
     </View>
   );
 }

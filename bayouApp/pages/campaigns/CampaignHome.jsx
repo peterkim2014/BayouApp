@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import styles from '../../styles/pages/campaign/campaignHome';
 import logo from '../../assets/bayouLogo.png';
+import { useNavigate } from 'react-router-native';
 
 const categories = [
   { id: '1', label: 'Vlogging' },
@@ -38,6 +39,7 @@ const campaigns = {
 };
 
 export default function CampaignHome() {
+    const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Planning');
 
   return (
@@ -92,22 +94,23 @@ export default function CampaignHome() {
           ))}
         </View>
         <FlatList
-          horizontal
-          data={campaigns[activeTab]}
-          keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.cardList}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
+            horizontal
+            data={campaigns[activeTab]}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <TouchableOpacity
+                onPress={() => navigate(`/campaign/${item.id}`, { state: item })}
+                style={styles.card}
+                >
                 <View style={styles.cardImage}>
                     <View style={styles.viewerTag}>
-                        <Text style={styles.viewerIcon}>👥</Text>
-                        <Text style={styles.viewerText}>{item.viewers}</Text>
+                    <Text style={styles.viewerIcon}>👥</Text>
+                    <Text style={styles.viewerText}>{item.viewers}</Text>
                     </View>
                 </View>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-            </View>
-          )}
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                </TouchableOpacity>
+            )}
         />
       </ScrollView>
     </View>
