@@ -1,118 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
-  FlatList,
+  StyleSheet,
   Image,
-  Dimensions,
+  ImageBackground,
+  TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import styles from '../../styles/pages/campaign/campaignHome';
-import logo from '../../assets/bayouLogo.png';
-import { useNavigate } from 'react-router-native';
-
-const categories = [
-  { id: '1', label: 'Vlogging' },
-  { id: '2', label: 'Automotive' },
-  { id: '3', label: 'Fishing' },
-  { id: '4', label: 'Boats' },
-  { id: '5', label: 'Cooking' },
-];
-
-const campaigns = {
-  Planning: [
-    {
-      id: '1',
-      title: 'Mizuno 243 / Grant Horvat',
-      viewers: '2.1M',
-    },
-    {
-      id: '2',
-      title: 'Toyo X TJ Hunt',
-      viewers: '2.1M',
-    },
-  ],
-  Building: [],
-  Testing: [],
-  Launch: [],
-};
+import { Ionicons } from '@expo/vector-icons';
+import styles from '../../styles/pages/campaign/campaignHome'
 
 export default function CampaignHome() {
-    const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('Planning');
-
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerContainer}>
-        <View style={styles.headerTitleRow}>
-          <Image source={logo} style={styles.headerIcon} />
-          <Text style={styles.headerTitle}>Campaigns</Text>
-        </View>
-        <View style={styles.tabRow}>
-          {['Most Viewed', 'Trending', 'Most Recent'].map((tab) => (
-            <TouchableOpacity
-              key={tab}
-              style={[styles.tab, tab === 'Most Viewed' && styles.activeTab]}
-            >
-              <Text style={[styles.tabText, tab === 'Most Viewed' && styles.activeTabText]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+    <View style={styles.campaignContainer}>
+      {/* Hero Header */}
+      <ImageBackground
+        source={{ uri: 'https://via.placeholder.com/600x400?text=Louis+Vuitton+Nike' }}
+        style={styles.heroImage}
+      >
+        {/* Search Icon */}
+        <TouchableOpacity style={styles.searchButton}>
+          <Ionicons name="search" size={18} color="#000" />
+        </TouchableOpacity>
 
-      {/* Body w/ padding */}
-      <ScrollView contentContainerStyle={styles.body}>
-        {/* Categories */}
-        <Text style={styles.sectionTitle}>Product Categories</Text>
-        <FlatList
+        {/* Dot menu */}
+        <View style={styles.dotStack}>
+          <View style={styles.dot} />
+          <View style={styles.dot} />
+          <View style={styles.dot} />
+        </View>
+
+        {/* Overlay Card */}
+        <View style={styles.heroCard}>
+          <View>
+            <Text style={styles.heroTitle}>Louis Vuitton / Nike</Text>
+            <Text style={styles.heroDesc}>
+              Collaboration for shoe enthusiasts to feel the comfort and luxury feel
+            </Text>
+          </View>
+          <Ionicons name="arrow-forward" size={20} color="#000" />
+        </View>
+
+        {/* 🔥 ScrollView goes INSIDE the ImageBackground */}
+        <ScrollView
           horizontal
-          data={categories}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.categoryList}
-          renderItem={({ item }) => (
-            <View style={styles.categoryItem}>
-              <View style={styles.categoryCircle} />
-              <Text style={styles.categoryLabel}>{item.label}</Text>
+          contentContainerStyle={styles.categoryRow}
+          style={styles.scrollOverlay}
+        >
+          <View style={styles.categoryCard}>
+            <Image
+              source={{ uri: 'https://via.placeholder.com/300x300?text=Shoes' }}
+              style={styles.categoryImage}
+            />
+            <View style={styles.campaignBadge}>
+              <Text style={styles.campaignBadgeText}>11K Campaigns</Text>
             </View>
-          )}
-        />
+            <View style={styles.categoryLabel}>
+              <Text style={styles.labelText}>Shoes</Text>
+            </View>
+          </View>
 
-        {/* Popular Selection */}
-        <Text style={styles.sectionTitle}>Popular Selection</Text>
-        <View style={styles.subTabRow}>
-          {['Planning', 'Building', 'Testing', 'Launch'].map((tab) => (
-            <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
-              <Text style={[styles.subTabText, activeTab === tab && styles.activeSubTab]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-        <FlatList
-            horizontal
-            data={campaigns[activeTab]}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-                <TouchableOpacity
-                onPress={() => navigate(`/campaign/${item.id}`, { state: item })}
-                style={styles.card}
-                >
-                <View style={styles.cardImage}>
-                    <View style={styles.viewerTag}>
-                    <Text style={styles.viewerIcon}>👥</Text>
-                    <Text style={styles.viewerText}>{item.viewers}</Text>
-                    </View>
-                </View>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                </TouchableOpacity>
-            )}
-        />
-      </ScrollView>
+          <View style={styles.categoryCard}>
+            <Image
+              source={{ uri: 'https://via.placeholder.com/300x300?text=Golf' }}
+              style={styles.categoryImage}
+            />
+            <View style={styles.campaignBadge}>
+              <Text style={styles.campaignBadgeText}>103K Campaigns</Text>
+            </View>
+            <View style={styles.categoryLabel}>
+              <Text style={styles.labelText}>Golf</Text>
+            </View>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+
     </View>
   );
 }
