@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   searchButton: {
     position: 'absolute',
     top: 50,
-    right: 20,
+    right: 25,
     backgroundColor: '#fff',
     padding: 8,
     borderRadius: 20,
@@ -45,10 +45,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  heroCardOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#ffffff',
+    opacity: 0.7,
+    borderRadius: 8,
+    zIndex: -1,
+  },
+
   heroCard: {
-    backgroundColor: '#fff',
+    position: 'relative',
     padding: 15,
-    borderRadius: 14,
+    borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -57,10 +65,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-  },
+    overflow: 'hidden', // to match borderRadius
+  },  
 
   heroTitle: {
-    fontSize: 18,
+    fontSize: 21,
     fontWeight: 'bold',
     color: '#000',
   },
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
   categoryCard: {
     width: width * 0.475,
     height: 220,
-    borderRadius: 16,
+    borderRadius: 8,
     overflow: 'hidden',
     backgroundColor: '#fff',
     marginRight: 16,

@@ -31,18 +31,23 @@ export default function CampaignHome() {
           <View style={styles.dot} />
         </View>
 
-        {/* Overlay Card */}
         <View style={styles.heroCard}>
-          <View>
-            <Text style={styles.heroTitle}>Louis Vuitton / Nike</Text>
-            <Text style={styles.heroDesc}>
-              Collaboration for shoe enthusiasts to feel the comfort and luxury feel
-            </Text>
+          {/* Background overlay */}
+          <View style={styles.heroCardOverlay} />
+
+          {/* Foreground content */}
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View>
+              <Text style={styles.heroTitle}>Louis Vuitton / Nike</Text>
+              <Text style={styles.heroDesc}>
+                Collaboration for shoe enthusiasts to feel the comfort and luxury feel
+              </Text>
+            </View>
+            <Ionicons name="arrow-forward" size={20} color="#000" />
           </View>
-          <Ionicons name="arrow-forward" size={20} color="#000" />
         </View>
 
-        {/* 🔥 ScrollView goes INSIDE the ImageBackground */}
+
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
