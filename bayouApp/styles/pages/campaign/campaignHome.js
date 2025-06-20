@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
   heroImage: {
     width: width,
-    height: 450,
+    height: 475,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
     paddingBottom: 40,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
 
   categoryCard: {
-    width: width * 0.55,
+    width: width * 0.475,
     height: 220,
     borderRadius: 16,
     overflow: 'hidden',
