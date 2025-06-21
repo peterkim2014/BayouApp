@@ -141,12 +141,19 @@ const styles = StyleSheet.create({
   },
 
   gridItem: {
-    width: (width - 68) / 3,
+    width: (width - 60) / 3,
+    height: 10,
     aspectRatio: 1,
-    backgroundColor: '#ddd',
+    backgroundColor: '#fff', // ⬅️ match profileCard
     borderRadius: 12,
     marginBottom: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.10,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 5,
   },
+  
 });
 
 export default styles;
