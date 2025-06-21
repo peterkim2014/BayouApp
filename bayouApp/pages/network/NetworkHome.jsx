@@ -30,13 +30,13 @@ export default function NetworkHome() {
   // Interpolated values for profile cards
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [120, 80],
+    outputRange: [120, 55],
     extrapolate: 'clamp',
   });
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, 80],
+    outputRange: [205, 40],
     extrapolate: 'clamp',
   });
 
@@ -48,9 +48,16 @@ export default function NetworkHome() {
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, -50],
+    outputRange: [0, -15],
     extrapolate: 'clamp',
   });
+
+  const animatedHeaderHeight = scrollY.interpolate({
+    inputRange: [0, snapHeight],
+    outputRange: [370, 300],
+    extrapolate: 'clamp',
+  });
+  
 
   const handleScrollEnd = (e) => {
     const offsetY = e.nativeEvent.contentOffset.y;
@@ -79,7 +86,8 @@ export default function NetworkHome() {
   return (
     <View style={styles.networkContainer}>
       {/* Header */}
-      <View style={styles.networkHeaderContainer}>
+      <Animated.View style={[styles.networkHeaderContainer, { height: animatedHeaderHeight }]}>
+
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.12)']}
           style={styles.insetShadowBottom}
@@ -176,7 +184,7 @@ export default function NetworkHome() {
             ))}
           </Animated.ScrollView>
         </Animated.View>
-      </View>
+      </Animated.View>
 
       {/* Scrollable Body (What's Happening) */}
       <Animated.ScrollView

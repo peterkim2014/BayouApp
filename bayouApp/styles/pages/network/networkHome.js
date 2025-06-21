@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     zIndex: 5,
     width: width,
-    height: 380,
+    // height: 380,
     position: 'relative',
   },
 
