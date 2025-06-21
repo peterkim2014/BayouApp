@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 
   networkHeaderContainer: {
     backgroundColor: '#fff',
-    paddingHorizontal: 30,
     marginleft: 32,
     paddingTop: 70,
     paddingBottom: 20,
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 22,
     fontWeight: '700',
+    paddingHorizontal: 30,
   },
 
   searchIcon: {
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   tabRow: {
     flexDirection: 'row',
     marginTop: 12,
+    paddingHorizontal: 30,
   },
 
   tab: {
@@ -75,8 +76,6 @@ const styles = StyleSheet.create({
   },
 
   scrollBodyWrapper: {
-    position: 'absolute',
-    top: 175,
     zIndex: 3,
     width: width,
     gap: 35,
@@ -89,12 +88,13 @@ const styles = StyleSheet.create({
 
   scrollBodyContent: {
     gap: 30,
+    top: 175,
   },
   
 
   profileScroll: { 
     paddingVertical: 16,
-    paddingLeft: 30,
+    paddingHorizontal: 30,
   },
 
   profileCard: {
