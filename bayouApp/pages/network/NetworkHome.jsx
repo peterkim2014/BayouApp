@@ -19,11 +19,18 @@ export default function NetworkHome() {
   const snapPoint = 250;
   const [activeTab, setActiveTab] = useState('Creators');
 
-  const profileCardSize = scrollY.interpolate({
+  const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapPoint],
-    outputRange: [205, 80],
+    outputRange: [120, 80],
     extrapolate: 'clamp',
   });
+  
+  const profileCardHeight = scrollY.interpolate({
+    inputRange: [0, snapPoint],
+    outputRange: [205, 160], // 2x of width values above
+    extrapolate: 'clamp',
+  });
+  
 
   const profileBorderRadius = scrollY.interpolate({
     inputRange: [0, snapPoint],
@@ -36,6 +43,13 @@ export default function NetworkHome() {
     outputRange: [0, -50], // moves upward
     extrapolate: 'clamp',
   });
+
+  const contentOffset = scrollY.interpolate({
+    inputRange: [0, snapPoint],
+    outputRange: [75, 20], // Snap the "what's happening" section upward
+    extrapolate: 'clamp',
+  });
+  
 
   const mockPeople = [
     { name: 'John Doe', title: 'Golf Influencer' },
@@ -81,24 +95,65 @@ export default function NetworkHome() {
             },
           ]}
         >
-          <ScrollView horizontal contentContainerStyle={styles.profileScroll} showsHorizontalScrollIndicator={false}>
-            {mockPeople.map((person, index) => (
-              <Animated.View
-                key={index}
-                style={[
-                  styles.profileCard,
-                  {
-                    height: profileCardSize,
-                    borderRadius: profileBorderRadius,
-                  },
-                ]}
-              >
-                <View style={styles.profilePlaceholder} />
-                <Text style={styles.name}>{person.name}</Text>
-                <Text style={styles.title}>{person.title}</Text>
-              </Animated.View>
-            ))}
-          </ScrollView>
+<ScrollView horizontal contentContainerStyle={styles.profileScroll} showsHorizontalScrollIndicator={false}>
+  {mockPeople.map((person, index) => (
+    <Animated.View
+  key={index}
+  style={[
+    styles.profileCard,
+    {
+      height: profileCardHeight,
+      width: profileCardWidth,
+      borderRadius: profileBorderRadius,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  ]}
+>
+  <Animated.View
+    style={[
+      styles.profilePlaceholder,
+      {
+        height: profileCardHeight,
+        width: profileCardWidth,
+        borderRadius: profileBorderRadius,
+      },
+    ]}
+  />
+  <Animated.Text
+    style={[
+      styles.name,
+      {
+        opacity: scrollY.interpolate({
+          inputRange: [0, snapPoint / 2],
+          outputRange: [1, 0],
+          extrapolate: 'clamp',
+        }),
+      },
+    ]}
+  >
+    {person.name}
+  </Animated.Text>
+  <Animated.Text
+    style={[
+      styles.title,
+      {
+        opacity: scrollY.interpolate({
+          inputRange: [0, snapPoint / 2],
+          outputRange: [1, 0],
+          extrapolate: 'clamp',
+        }),
+      },
+    ]}
+  >
+    {person.title}
+  </Animated.Text>
+</Animated.View>
+
+
+  ))}
+</ScrollView>
+
         </Animated.View>
       </View>
 
@@ -106,22 +161,26 @@ export default function NetworkHome() {
       <View style={styles.scrollBodyWrapper}>
         {/* Horizontal Profile Scroll */}
         <Animated.ScrollView
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: false }
-          )}
-          scrollEventThrottle={16}
-          contentContainerStyle={styles.scrollBodyContent}
-        >
-          <View style={styles.scrollBody}>
-            <Text style={styles.sectionTitle}>Whats happening</Text>
-            <View style={styles.gridContainer}>
-              {Array(12).fill(null).map((_, i) => (
-                <View key={i} style={styles.gridItem} />
-              ))}
-            </View>
-          </View>
-        </Animated.ScrollView>
+  onScroll={Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+    { useNativeDriver: false }
+  )}
+  scrollEventThrottle={16}
+  contentContainerStyle={[
+    styles.scrollBodyContent,
+    { paddingTop: contentOffset },
+  ]}
+>
+  <View style={styles.scrollBody}>
+    <Text style={styles.sectionTitle}>Whats happening</Text>
+    <View style={styles.gridContainer}>
+      {Array(12).fill(null).map((_, i) => (
+        <View key={i} style={styles.gridItem} />
+      ))}
+    </View>
+  </View>
+</Animated.ScrollView>
+
       </View>
     </View>
   );
