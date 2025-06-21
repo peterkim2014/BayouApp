@@ -11,13 +11,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#ffffff',
     alignSelf: 'center',
-    borderRadius: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
-    elevation: 6,
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    // elevation: 1,
     zIndex: 5,
   },
 
@@ -47,8 +46,8 @@ const styles = StyleSheet.create({
   activeTabBump: {
     position: 'absolute',
     top: -15,
-    width: 65,
-    height: 40,
+    width: 55,
+    height: 30,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     backgroundColor: '#ffffff',
@@ -61,16 +60,17 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 40,
-    marginTop: -14, 
+    marginTop: -15, 
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#ffffff', 
+    
   },
 
   activeIconBackgroundCircle: {
     position: 'absolute',
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     borderRadius: 22.5,
     backgroundColor: '#00C2B3',
     zIndex: 0,
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 2,
     elevation: 2,
+    
   },
   
 

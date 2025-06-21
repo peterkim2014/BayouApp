@@ -3,153 +3,50 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
-  Image,
+  ScrollView,
+  StyleSheet,
   Dimensions,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/network/networkHome';
-import logo from '../../assets/bayouLogo.png';
-import ThreadCard from '../../components/cards/ThreadCard';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
-
-// Configurable datasets per type
-const NETWORK_SECTIONS = {
-  Creators: {
-    label: 'Creator',
-    categories: [
-      { id: '1', label: 'Vlogging' },
-      { id: '2', label: 'Automotive' },
-      { id: '3', label: 'Fishing' },
-      { id: '4', label: 'Boats' },
-      { id: '5', label: 'Cooking' },
-    ],
-    top: [
-      { id: '1', name: 'John Doe' },
-      { id: '2', name: 'Jane Doe' },
-      { id: '3', name: 'James Doe' },
-    ],
-    activities: {
-      Lifestyle: [
-        { id: '1', name: 'John Doe', viewers: '2.1M' }
-      ],
-      Campaigns: [],
-    },
-  },
-
-  Brands: {
-    label: 'Brand',
-    categories: [
-      { id: '1', label: 'Auto' },
-      { id: '2', label: 'Sportswear' },
-    ],
-    top: [
-      { id: '1', name: 'Nike' },
-      { id: '2', name: 'Toyo' },
-    ],
-    activities: {
-      Lifestyle: [
-        { id: '1', name: 'Nike Drops', viewers: '1.3M' }
-      ],
-      Campaigns: [],
-    },
-  },
-
-  Viewers: {
-    label: 'Viewer',
-    categories: [
-      { id: '1', label: 'Watchers' },
-      { id: '2', label: 'Top Commenters' },
-    ],
-    top: [
-      { id: '1', name: 'ViewBot 9000' },
-      { id: '2', name: 'Active Annie' },
-    ],
-    activities: {
-      Lifestyle: [],
-      Campaigns: [],
-    },
-  },
-};
+const TABS = ['Creators', 'Brands', 'Viewers'];
 
 export default function NetworkHome() {
-  const [mainTab, setMainTab] = useState('Creators');
-  const [activeSubTab, setActiveSubTab] = useState('Lifestyle');
+  const [activeTab, setActiveTab] = useState('Creators');
 
-  const currentData = NETWORK_SECTIONS[mainTab];
-
-  const renderHeader = () => (
-    <View style={styles.body}>
-      <Text style={styles.sectionTitle}>{currentData.label} Categories</Text>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={currentData.categories}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.categoryList}
-        renderItem={({ item }) => (
-          <View style={styles.categoryItem}>
-            <View style={styles.categoryCircle} />
-            <Text style={styles.categoryLabel}>{item.label}</Text>
-          </View>
-        )}
-      />
-
-      <Text style={styles.sectionTitle}>Top Trending {currentData.label}s</Text>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={currentData.top}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.creatorList}
-        renderItem={({ item }) => (
-          <View style={styles.creatorShadowWrapper}>
-            <View style={styles.creatorCard}>
-              <View style={styles.creatorImage} />
-              <View style={styles.creatorNameOverlay}>
-                <Text style={styles.creatorName}>{item.name}</Text>
-              </View>
-            </View>
-          </View>
-        )}
-      />
-
-      <Text style={styles.sectionTitle}>Recent Activities {currentData.label}s</Text>
-      <View style={styles.activityTabs}>
-        {['Lifestyle', 'Campaigns'].map((tab) => (
-          <TouchableOpacity key={tab} onPress={() => setActiveSubTab(tab)}>
-            <Text style={[
-              styles.activityTabText,
-              activeSubTab === tab && styles.activeActivityTab
-            ]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
-  );
+  const mockPeople = [
+    { name: 'John Doe', title: 'Golf Influencer' },
+    { name: 'Jane Doe', title: 'Beauty Influencer' },
+    { name: 'James Doe', title: 'Music Producer' },
+  ];
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerContainer}>
-        <View style={styles.headerTitleRow}>
-          <Image source={logo} style={styles.headerIcon} />
-          <Text style={styles.headerTitle}>Network</Text>
-        </View>
+    <View style={styles.networkContainer}>
+      {/* Fixed Header */}
+      <View style={styles.networkHeaderContainer}>
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.12)']}
+        locations={[0, 1]}
+        style={styles.insetShadowBottom}
+        pointerEvents="none"
+      />
+        <Text style={styles.networkHeaderTitle}>Where the connection{'\n'}meets collaboration</Text>
+
+        <TouchableOpacity style={styles.searchIcon}>
+          <Ionicons name="search" size={20} color="#000" />
+        </TouchableOpacity>
 
         <View style={styles.tabRow}>
-          {Object.keys(NETWORK_SECTIONS).map((tab) => (
+          {TABS.map((tab) => (
             <TouchableOpacity
               key={tab}
-              style={[styles.tab, mainTab === tab && styles.activeTab]}
-              onPress={() => {
-                setMainTab(tab);
-                setActiveSubTab('Lifestyle');
-              }}
+              style={[styles.tab, activeTab === tab && styles.activeTab]}
+              onPress={() => setActiveTab(tab)}
             >
-              <Text style={[styles.tabText, mainTab === tab && styles.activeTabText]}>
+              <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
                 {tab}
               </Text>
             </TouchableOpacity>
@@ -157,16 +54,31 @@ export default function NetworkHome() {
         </View>
       </View>
 
-      {/* Activity Feed */}
-      <FlatList
-        data={currentData.activities[activeSubTab]}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={renderHeader}
-        contentContainerStyle={styles.activityList}
-        renderItem={({ item }) => (
-          <ThreadCard item={item} />
-        )}
-      />
+      {/* Combined Scrollable Body */}
+      <View style={styles.scrollBodyWrapper}>
+        {/* Horizontal Profile Scroll */}
+        <ScrollView contentContainerStyle={styles.scrollBodyContent}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.profileScroll}>
+            {mockPeople.map((person, index) => (
+              <View key={index} style={styles.profileCard}>
+                <View style={styles.profilePlaceholder} />
+                <Text style={styles.name}>{person.name}</Text>
+                <Text style={styles.title}>{person.title}</Text>
+              </View>
+            ))}
+          </ScrollView>
+
+          <ScrollView contentContainerStyle={styles.scrollBody}>
+            {/* Whats Happening Section */}
+            <Text style={styles.sectionTitle}>Whats happening</Text>
+            <View style={styles.gridContainer}>
+              {Array(12).fill(null).map((_, i) => (
+                <View key={i} style={styles.gridItem} />
+              ))}
+            </View>
+          </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 }

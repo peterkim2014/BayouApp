@@ -2,6 +2,9 @@
 import { NativeRouter, Routes, Route } from 'react-router-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, StatusBar, TouchableOpacity, Text, Image, ActivityIndicator } from 'react-native';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router';
+import { createMemoryHistory } from 'history';
+const history = createMemoryHistory({ initialEntries: ['/'] });
 import Navbar from './routes/Navbar';
 import styles from './styles/appStyle';
 import * as Font from 'expo-font';
@@ -48,7 +51,13 @@ export default function App() {
   }
 
   return (
-    <NativeRouter>
+    <NativeRouter
+      history={history}
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <View style={styles.container}>
         <Navbar />
         <Routes>

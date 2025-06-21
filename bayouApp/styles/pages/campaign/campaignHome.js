@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: width,
     height: 475,
     justifyContent: 'flex-end',
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     paddingBottom: 40,
     position: 'relative',
     backgroundColor: 'grey',
@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
 
   scrollOverlay: {
     position: 'absolute',
-    bottom: -225,
+    bottom: -237.5,
     left: 0,
     right: 0,
-    paddingLeft: 16,
+    paddingLeft: 25,
     paddingBottom: 20,
   },
 
@@ -98,24 +98,25 @@ const styles = StyleSheet.create({
   },
 
   categoryCard: {
-    width: width * 0.475,
-    height: 220,
+    width: width * 0.46,
+    height: 230,
     borderRadius: 8,
-    overflow: 'hidden',
     backgroundColor: '#fff',
     marginRight: 16,
-    elevation: 4,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 6,
+    elevation: 5,
   },
-
+  
   categoryImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+
   },
+  
 
   campaignBadge: {
     position: 'absolute',
