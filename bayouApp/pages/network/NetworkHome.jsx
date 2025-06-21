@@ -77,7 +77,7 @@ export default function NetworkHome() {
           style={[
             {
               transform: [{ translateY: profileTranslateY }],
-              marginTop: 40,
+              marginTop: 10,
             },
           ]}
         >

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
   insetShadowBottom: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 75,
     left: 0,
     right: 0,
     height: 50,
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     marginleft: 32,
     paddingTop: 70,
     paddingBottom: 20,
-    // zIndex: 5,
+    zIndex: 5,
     width: width,
-    height: 250,
+    height: 380,
     position: 'relative',
   },
 
@@ -76,9 +76,7 @@ const styles = StyleSheet.create({
   },
 
   scrollBodyWrapper: {
-    zIndex: 3,
     width: width,
-    gap: 35,
   },
   
   scrollBody: {
@@ -87,13 +85,12 @@ const styles = StyleSheet.create({
   },
 
   scrollBodyContent: {
-    gap: 30,
-    top: 175,
+    paddingTop: 75,
   },
   
 
   profileScroll: { 
-    paddingVertical: 16,
+    paddingVertical: 20,
     paddingHorizontal: 30,
   },
 
@@ -109,7 +106,7 @@ const styles = StyleSheet.create({
 
   profilePlaceholder: {
     backgroundColor: '#ddd',
-    height: 205,
+    height: 188,
     borderRadius: 8,
     marginBottom: 6,
   },
