@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   Animated,
   Dimensions,
 } from 'react-native';
@@ -13,56 +12,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 const TABS = ['Creators', 'Brands', 'Viewers'];
+const snapHeight = 250; // How far down the "What's Happening" section moves when active
 
 export default function NetworkHome() {
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [activeTab, setActiveTab] = useState('Creators');
-  const scrollViewRef = useRef(null);
-  const snapPoint = 25;
-
   const [snapped, setSnapped] = useState(false);
-
-  // Interpolated values
-  const profileCardWidth = scrollY.interpolate({
-    inputRange: [0, snapPoint],
-    outputRange: [120, 80],
-    extrapolate: 'clamp',
-  });
-
-  const profileCardHeight = scrollY.interpolate({
-    inputRange: [0, snapPoint],
-    outputRange: [205, 80],
-    extrapolate: 'clamp',
-  });
-
-  const profileBorderRadius = scrollY.interpolate({
-    inputRange: [0, snapPoint],
-    outputRange: [8, 80],
-    extrapolate: 'clamp',
-  });
-
-  const profileTranslateY = scrollY.interpolate({
-    inputRange: [0, snapPoint],
-    outputRange: [0, 0],
-    extrapolate: 'clamp',
-  });
-
-  const contentOffset = scrollY.interpolate({
-    inputRange: [0, snapPoint],
-    outputRange: [25, 20],
-    extrapolate: 'clamp',
-  });
-
-  // On scroll end, force snap
-  const handleScrollEndDrag = (e) => {
-    const y = e.nativeEvent.contentOffset.y;
-    const target = y < snapPoint / 2 ? snapPoint : 0;
-
-    if ((target === snapPoint && !snapped) || (target === 0 && snapped)) {
-      scrollViewRef.current?.scrollTo({ y: target, animated: true });
-      setSnapped(target === snapPoint);
-    }
-  };
+  const [activeTab, setActiveTab] = useState('Creators');
+  const scrollRef = useRef(null);
+  const isSnappingRef = useRef(false);
 
   const mockPeople = [
     { name: 'John Doe', title: 'Golf Influencer' },
@@ -70,13 +27,61 @@ export default function NetworkHome() {
     { name: 'James Doe', title: 'Music Producer' },
   ];
 
+  // Interpolated values for profile cards
+  const profileCardWidth = scrollY.interpolate({
+    inputRange: [0, snapHeight],
+    outputRange: [120, 80],
+    extrapolate: 'clamp',
+  });
+
+  const profileCardHeight = scrollY.interpolate({
+    inputRange: [0, snapHeight],
+    outputRange: [205, 80],
+    extrapolate: 'clamp',
+  });
+
+  const profileBorderRadius = scrollY.interpolate({
+    inputRange: [0, snapHeight],
+    outputRange: [8, 80],
+    extrapolate: 'clamp',
+  });
+
+  const profileTranslateY = scrollY.interpolate({
+    inputRange: [0, snapHeight],
+    outputRange: [0, -50],
+    extrapolate: 'clamp',
+  });
+
+  const handleScrollEnd = (e) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+  
+    if (isSnappingRef.current) return; // Prevent re-triggering during snap
+  
+    const shouldSnapUp = offsetY > snapHeight / 2;
+    const snapTo = shouldSnapUp ? snapHeight : 0;
+  
+    if ((shouldSnapUp && snapped) || (!shouldSnapUp && !snapped)) return; // Already in correct state
+  
+    isSnappingRef.current = true; // Lock
+  
+    Animated.timing(scrollY, {
+      toValue: snapTo,
+      duration: 180,
+      useNativeDriver: false,
+    }).start(() => {
+      scrollRef.current?.scrollTo({ y: snapTo, animated: false });
+      setSnapped(shouldSnapUp);
+      isSnappingRef.current = false; // Unlock
+    });
+  };
+  
+
   return (
     <View style={styles.networkContainer}>
       {/* Header */}
       <View style={styles.networkHeaderContainer}>
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.12)']}
-          locations={[0, 1]}
           style={styles.insetShadowBottom}
           pointerEvents="none"
         />
@@ -101,6 +106,7 @@ export default function NetworkHome() {
           ))}
         </View>
 
+        {/* Animated Profile Cards */}
         <Animated.View
           style={[
             {
@@ -109,14 +115,14 @@ export default function NetworkHome() {
             },
           ]}
         >
-          <ScrollView
+          <Animated.ScrollView
             horizontal
             contentContainerStyle={styles.profileScroll}
             showsHorizontalScrollIndicator={false}
           >
-            {mockPeople.map((person, index) => (
+            {mockPeople.map((person, i) => (
               <Animated.View
-                key={index}
+                key={i}
                 style={[
                   styles.profileCard,
                   {
@@ -143,7 +149,7 @@ export default function NetworkHome() {
                     styles.name,
                     {
                       opacity: scrollY.interpolate({
-                        inputRange: [0, snapPoint / 2],
+                        inputRange: [0, snapHeight / 2],
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
@@ -157,7 +163,7 @@ export default function NetworkHome() {
                     styles.title,
                     {
                       opacity: scrollY.interpolate({
-                        inputRange: [0, snapPoint / 2],
+                        inputRange: [0, snapHeight / 2],
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
@@ -168,26 +174,24 @@ export default function NetworkHome() {
                 </Animated.Text>
               </Animated.View>
             ))}
-          </ScrollView>
+          </Animated.ScrollView>
         </Animated.View>
       </View>
 
-      {/* Scrollable Body */}
-      <View style={styles.scrollBodyWrapper}>
+      {/* Scrollable Body (What's Happening) */}
       <Animated.ScrollView
-        ref={scrollViewRef}
+        ref={scrollRef}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: false }
         )}
-        onScrollEndDrag={handleScrollEndDrag}
-        scrollEventThrottle={16}
+        onScrollEndDrag={handleScrollEnd}
+        onMomentumScrollEnd={handleScrollEnd}
+        scrollEventThrottle={15}
         contentContainerStyle={styles.scrollBodyContent}
       >
-        <View style={{ height: snapped ? 20 : -300 }} />
-        
         <View style={styles.scrollBody}>
-          <Text style={styles.sectionTitle}>Whats happening</Text>
+          <Text style={styles.sectionTitle}>What's happening</Text>
           <View style={styles.gridContainer}>
             {Array(12)
               .fill(null)
@@ -197,8 +201,6 @@ export default function NetworkHome() {
           </View>
         </View>
       </Animated.ScrollView>
-
-      </View>
     </View>
   );
 }
