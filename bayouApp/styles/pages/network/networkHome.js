@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     bottom: 75,
     left: 0,
     right: 0,
-    height: 50,
+    // height: 50,
     width: width,
     borderBottomLeftRadius: 32,
     // zIndex: 5,
@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginleft: 32,
     paddingTop: 70,
-    paddingBottom: 20,
+    // paddingBottom: 20,
     zIndex: 5,
     width: width,
     // height: 380,
-    position: 'relative',
+    // position: 'relative',
   },
 
   networkHeaderTitle: {
@@ -80,12 +80,12 @@ const styles = StyleSheet.create({
   },
   
   scrollBody: {
-    paddingBottom: 100,
+    // paddingBottom: 100,
     paddingLeft: 5
   },
 
   scrollBodyContent: {
-    marginTop: 85,
+    marginTop: 105,
   },
   
 

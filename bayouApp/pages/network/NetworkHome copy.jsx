@@ -29,14 +29,14 @@ export default function NetworkHome() {
 
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [width * 0.32, width * -0.18],
+    outputRange: [width * 0.32, width * -0.06],
     extrapolate: 'clamp',
   });
   
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, -240],
+    outputRange: [205, -140],
     extrapolate: 'clamp',
   });
 
@@ -54,13 +54,13 @@ export default function NetworkHome() {
 
   const animatedHeaderHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [370, 50],
+    outputRange: [370, -10],
     extrapolate: 'clamp',
   });
 
   const animatedHeaderPadding = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [60, 60],
+    outputRange: [60, 20],
     extrapolate: 'clamp',
   });
   
@@ -98,14 +98,9 @@ export default function NetworkHome() {
         style={[
           styles.insetShadowBottom,
           {
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 55,
-            height: 30,
             top: scrollY.interpolate({
-              inputRange: [0, snapHeight],
-              outputRange: [330, -40],
+              inputRange: [0, 100],
+              outputRange: [225, 150],
               extrapolate: 'clamp',
             }),
           },
@@ -113,11 +108,10 @@ export default function NetworkHome() {
       >
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.12)']}
-          style={{ flex: 1, borderRadius: 20 }}
+          style={{ flex: 1 }}
           pointerEvents="none"
         />
       </Animated.View>
-
         <Text style={styles.networkHeaderTitle}>
           Where the connection{'\n'}meets collaboration
         </Text>
@@ -174,7 +168,7 @@ export default function NetworkHome() {
                     alignItems: 'center',
                     width: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [width * 0.32, width * -0.1],
+                      outputRange: [width * 0.32, width * 0.2],
                       extrapolate: 'clamp',
                     }),
                     marginTop: scrollY.interpolate({
@@ -205,11 +199,6 @@ export default function NetworkHome() {
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
-                      fontSize: scrollY.interpolate({
-                        inputRange: [0, snapHeight / 2],
-                        outputRange: [12, -10],
-                        extrapolate: 'clamp',
-                      }),
                       height: width * 0,
                     },
                   ]}
@@ -222,12 +211,7 @@ export default function NetworkHome() {
                     {
                       opacity: scrollY.interpolate({
                         inputRange: [0, snapHeight / 2],
-                        outputRange: [1, -101],
-                        extrapolate: 'clamp',
-                      }),
-                      fontSize: scrollY.interpolate({
-                        inputRange: [0, snapHeight / 2],
-                        outputRange: [12, 0],
+                        outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
                     },
@@ -255,7 +239,6 @@ export default function NetworkHome() {
         onMomentumScrollEnd={handleScrollEnd}
         scrollEventThrottle={15}
         contentContainerStyle={styles.scrollBodyContent}
-        showsVerticalScrollIndicator={false}
       >
 
       
