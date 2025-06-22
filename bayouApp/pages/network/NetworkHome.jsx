@@ -29,32 +29,32 @@ export default function NetworkHome() {
 
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [width * 0.32, width * -0.18],
+    outputRange: [width * 0.32, width * -0.20],
     extrapolate: 'clamp',
   });
   
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, -240],
+    outputRange: [205, -300],
     extrapolate: 'clamp',
   });
 
   const profileBorderRadius = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [8, 80],
+    outputRange: [8, 100],
     extrapolate: 'clamp',
   });
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, -15],
+    outputRange: [0, -28],
     extrapolate: 'clamp',
   });
 
   const animatedHeaderHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [370, 50],
+    outputRange: [320, 50],
     extrapolate: 'clamp',
   });
 
@@ -105,7 +105,7 @@ export default function NetworkHome() {
             height: 30,
             top: scrollY.interpolate({
               inputRange: [0, snapHeight],
-              outputRange: [330, -40],
+              outputRange: [280, 0],
               extrapolate: 'clamp',
             }),
           },
