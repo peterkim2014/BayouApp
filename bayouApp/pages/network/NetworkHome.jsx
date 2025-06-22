@@ -209,15 +209,21 @@ export default function NetworkHome() {
       {/* Scrollable Body (What's Happening) */}
       <Animated.ScrollView
         ref={scrollRef}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
+        bounces={false}
+        overScrollMode="never"
+        onScroll={(e) => {
+          const offsetY = e.nativeEvent.contentOffset.y;
+          const clampedY = Math.max(0, Math.min(snapHeight, offsetY));
+          scrollY.setValue(clampedY);
+        }}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
         scrollEventThrottle={15}
         contentContainerStyle={styles.scrollBodyContent}
       >
+
+      
+
         <View style={styles.scrollBody}>
           <Text style={styles.sectionTitle}>What's happening</Text>
           <View style={styles.gridContainer}>
