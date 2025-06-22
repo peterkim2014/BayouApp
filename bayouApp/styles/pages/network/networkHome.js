@@ -96,11 +96,11 @@ const styles = StyleSheet.create({
   },
 
   profileCard: {
-    width: width * 0.33,
+    // width: width * 0.32,
     marginRight: 10,
     shadowColor: '#000',
     shadowOpacity: 0.10,
-    shadowRadius: 6,
+    shadowRadius: 2,
     shadowOffset: { width: 0, height: 3 },
     elevation: 5,
   },

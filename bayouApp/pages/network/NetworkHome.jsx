@@ -27,16 +27,16 @@ export default function NetworkHome() {
     { name: 'James Doe', title: 'Music Producer' },
   ];
 
-  // Interpolated values for profile cards
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [120, 55],
+    outputRange: [width * 0.32, width * 0.12],
     extrapolate: 'clamp',
   });
+  
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, 40],
+    outputRange: [205, 30],
     extrapolate: 'clamp',
   });
 
@@ -119,7 +119,7 @@ export default function NetworkHome() {
           style={[
             {
               transform: [{ translateY: profileTranslateY }],
-              marginTop: 10,
+              // marginTop: 10,
             },
           ]}
         >
@@ -134,14 +134,33 @@ export default function NetworkHome() {
                 style={[
                   styles.profileCard,
                   {
-                    height: profileCardHeight,
-                    width: profileCardWidth,
+                    transform: [
+                      { translateY: profileTranslateY },
+                      {
+                        scale: scrollY.interpolate({
+                          inputRange: [0, snapHeight],
+                          outputRange: [1, 1], // keep scale 1 for now
+                          extrapolate: 'clamp',
+                        }),
+                      },
+                    ],
                     borderRadius: profileBorderRadius,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    width: scrollY.interpolate({
+                      inputRange: [0, snapHeight],
+                      outputRange: [width * 0.32, width * 0.15],
+                      extrapolate: 'clamp',
+                    }),
+                    marginRight: scrollY.interpolate({
+                      inputRange: [0, snapHeight],
+                      outputRange: [10, 0],
+                      extrapolate: 'clamp',
+                    }),
                   },
                 ]}
               >
+            
                 <Animated.View
                   style={[
                     styles.profilePlaceholder,
@@ -161,6 +180,7 @@ export default function NetworkHome() {
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
+                      height: width * 0,
                     },
                   ]}
                 >
