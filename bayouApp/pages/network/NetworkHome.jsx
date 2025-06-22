@@ -16,6 +16,7 @@ const snapHeight = 250; // How far down the "What's Happening" section moves whe
 
 export default function NetworkHome() {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollOffsetRef = useRef(0); // Live scroll position
   const [snapped, setSnapped] = useState(false);
   const [activeTab, setActiveTab] = useState('Creators');
   const scrollRef = useRef(null);
@@ -36,13 +37,13 @@ export default function NetworkHome() {
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, -300],
+    outputRange: [205, -320],
     extrapolate: 'clamp',
   });
 
   const profileBorderRadius = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [8, 100],
+    outputRange: [8, 110],
     extrapolate: 'clamp',
   });
 
@@ -79,12 +80,12 @@ export default function NetworkHome() {
   
     Animated.timing(scrollY, {
       toValue: snapTo,
-      duration: 180,
+      duration: 10, // 5 is too fast
       useNativeDriver: false,
     }).start(() => {
       scrollRef.current?.scrollTo({ y: snapTo, animated: false });
       setSnapped(shouldSnapUp);
-      isSnappingRef.current = false; // Unlock
+      isSnappingRef.current = false;
     });
   };
   
@@ -244,16 +245,18 @@ export default function NetworkHome() {
       {/* Scrollable Body (What's Happening) */}
       <Animated.ScrollView
         ref={scrollRef}
-        bounces={false}
+        bounces={false} 
         overScrollMode="never"
         onScroll={(e) => {
           const offsetY = e.nativeEvent.contentOffset.y;
-          const clampedY = Math.max(0, Math.min(snapHeight, offsetY));
+          const clampedY = Math.max(0, Math.min(65, offsetY));
           scrollY.setValue(clampedY);
         }}
+        
+        
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
-        scrollEventThrottle={15}
+        scrollEventThrottle={5}
         contentContainerStyle={styles.scrollBodyContent}
         showsVerticalScrollIndicator={false}
       >

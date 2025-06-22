@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
 
   scrollBodyContent: {
     marginTop: 105,
+    overscroll: none,
   },
   
 
