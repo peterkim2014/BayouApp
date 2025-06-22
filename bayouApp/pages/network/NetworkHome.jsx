@@ -48,7 +48,7 @@ export default function NetworkHome() {
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, -28],
+    outputRange: [0, -34],
     extrapolate: 'clamp',
   });
 
