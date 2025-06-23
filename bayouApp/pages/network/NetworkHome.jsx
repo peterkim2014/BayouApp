@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+// pages/NetworkHome.js
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,25 +8,28 @@ import {
   Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from '../../styles/pages/network/networkHome';
 import { LinearGradient } from 'expo-linear-gradient';
+import styles from '../../styles/pages/network/networkHome';
+import useScrollBehavior from '../../components/useScrollBehavior';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const TABS = ['Creators', 'Brands', 'Viewers'];
-const snapHeight = 250; // How far down the "What's Happening" section moves when active
+const snapHeight = 250;
 
 export default function NetworkHome() {
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const scrollOffsetRef = useRef(0); // Live scroll position
-  const [snapped, setSnapped] = useState(false);
-  const [phase, setPhase] = useState('outer'); // 'outer' or 'inner'
-  const [innerUnlocked, setInnerUnlocked] = useState(false);
-const innerScrollRef = useRef(null);
-const innerScrollY = useRef(0); // live tracker
+  const {
+    scrollY,
+    scrollRef,
+    innerScrollRef,
+    phase,
+    setPhase,
+    handleScrollEnd,
+    handleOuterScroll,
+    handleInnerScroll,
+    outerScrollEnabled,
+  } = useScrollBehavior(snapHeight);
 
   const [activeTab, setActiveTab] = useState('Creators');
-  const scrollRef = useRef(null);
-  const isSnappingRef = useRef(false);
 
   const mockPeople = [
     { name: 'John Doe', title: 'Golf Influencer' },
@@ -35,14 +39,13 @@ const innerScrollY = useRef(0); // live tracker
 
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [width * 0.32, width * -0.20],
+    outputRange: [width * 0.32, width * 0.16],
     extrapolate: 'clamp',
   });
-  
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, -320],
+    outputRange: [205, 55],
     extrapolate: 'clamp',
   });
 
@@ -54,13 +57,13 @@ const innerScrollY = useRef(0); // live tracker
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, -34],
+    outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 
   const animatedHeaderHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [320, 50],
+    outputRange: [320, 220],
     extrapolate: 'clamp',
   });
 
@@ -69,60 +72,42 @@ const innerScrollY = useRef(0); // live tracker
     outputRange: [60, 60],
     extrapolate: 'clamp',
   });
-  
 
-  const handleScrollEnd = (e) => {
-    const offsetY = e.nativeEvent.contentOffset.y;
-  
-    if (isSnappingRef.current) return; // Prevent re-triggering during snap
-  
-    const shouldSnapUp = offsetY > snapHeight / 2;
-    const snapTo = shouldSnapUp ? snapHeight : 0;
-  
-    if ((shouldSnapUp && snapped) || (!shouldSnapUp && !snapped)) return; // Already in correct state
-  
-    isSnappingRef.current = true; // Lock
-  
-    Animated.timing(scrollY, {
-      toValue: snapTo,
-      duration: 10, // 5 is too fast
-      useNativeDriver: false,
-    }).start(() => {
-      scrollRef.current?.scrollTo({ y: snapTo, animated: false });
-      setSnapped(shouldSnapUp);
-      isSnappingRef.current = false;
-    });
-  };
-  
 
   return (
     <View style={styles.networkContainer}>
-      {/* Header */}
-      <Animated.View style={[styles.networkHeaderContainer, { height: animatedHeaderHeight, paddingTop: animatedHeaderPadding }]}>
-
       <Animated.View
         style={[
-          styles.insetShadowBottom,
+          styles.networkHeaderContainer,
           {
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 55,
-            height: 30,
-            top: scrollY.interpolate({
-              inputRange: [0, snapHeight],
-              outputRange: [280, 0],
-              extrapolate: 'clamp',
-            }),
+            height: animatedHeaderHeight,
+            paddingTop: animatedHeaderPadding,
           },
         ]}
       >
-        <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.12)']}
-          style={{ flex: 1, borderRadius: 20 }}
-          pointerEvents="none"
-        />
-      </Animated.View>
+        <Animated.View
+          style={[
+            styles.insetShadowBottom,
+            {
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 55,
+              height: 30,
+              top: scrollY.interpolate({
+                inputRange: [0, snapHeight],
+                outputRange: [280, 190],
+                extrapolate: 'clamp',
+              }),
+            },
+          ]}
+        >
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.12)']}
+            style={{ flex: 1, borderRadius: 20 }}
+            pointerEvents="none"
+          />
+        </Animated.View>
 
         <Text style={styles.networkHeaderTitle}>
           Where the connection{'\n'}meets collaboration
@@ -145,15 +130,7 @@ const innerScrollY = useRef(0); // live tracker
           ))}
         </View>
 
-        {/* Animated Profile Cards */}
-        <Animated.View
-          style={[
-            {
-              transform: [{ translateY: profileTranslateY }],
-              // marginTop: 10,
-            },
-          ]}
-        >
+        <Animated.View style={{ transform: [{ translateY: profileTranslateY }] }}>
           <Animated.ScrollView
             horizontal
             contentContainerStyle={styles.profileScroll}
@@ -165,33 +142,19 @@ const innerScrollY = useRef(0); // live tracker
                 style={[
                   styles.profileCard,
                   {
-                    transform: [
-                      { translateY: profileTranslateY },
-                      {
-                        scale: scrollY.interpolate({
-                          inputRange: [0, snapHeight],
-                          outputRange: [1, 1], // keep scale 1 for now
-                          extrapolate: 'clamp',
-                        }),
-                      },
-                    ],
+                    transform: [{ translateY: profileTranslateY }],
                     borderRadius: profileBorderRadius,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    width: scrollY.interpolate({
-                      inputRange: [0, snapHeight],
-                      outputRange: [width * 0.32, width * -0.1],
-                      extrapolate: 'clamp',
-                    }),
+                    width: profileCardWidth,
                     marginTop: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [10, -85],
+                      outputRange: [10, -20],
                       extrapolate: 'clamp',
                     }),
                   },
                 ]}
               >
-            
                 <Animated.View
                   style={[
                     styles.profilePlaceholder,
@@ -247,45 +210,39 @@ const innerScrollY = useRef(0); // live tracker
         </Animated.View>
       </Animated.View>
 
-      {/* Scrollable Body (What's Happening) */}
+      {/* What's Happening */}
       <Animated.ScrollView
         ref={scrollRef}
         bounces={false}
-        showsVerticalScrollIndicator={false}
         overScrollMode="never"
-        scrollEnabled={phase === 'outer'}
-        onScroll={(e) => {
-          const offsetY = e.nativeEvent.contentOffset.y;
-          const clampedY = Math.max(0, Math.min(65, offsetY));
-          scrollY.setValue(clampedY);
-
-          if (clampedY === 65 && phase === 'outer') {
-            setPhase('inner');
-          }
-        }}
+        scrollEnabled={outerScrollEnabled}
+        showsVerticalScrollIndicator={false}
+        onScroll={handleOuterScroll}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
         scrollEventThrottle={10}
         contentContainerStyle={styles.scrollBodyContent}
       >
-        <View style={styles.scrollBody}>
-          <Text style={styles.sectionTitle}>What's happening</Text>
+        <Animated.View
+          style={[
+            styles.scrollBody,
+            {
+              marginTop: scrollY.interpolate({
+                inputRange: [0, snapHeight],
+                outputRange: [0, 150],
+                extrapolate: 'clamp',
+              }),
+            },
+          ]}
+        >
 
-          {/* PHASE 3: Inner Scroll */}
+          <Text style={styles.sectionTitle}>What's happening</Text>
           <Animated.ScrollView
             ref={innerScrollRef}
             scrollEnabled={phase === 'inner'}
-            onScroll={(e) => {
-              const innerOffset = e.nativeEvent.contentOffset.y;
-              innerScrollY.current = innerOffset;
-
-              // If user scrolls back to top of inner, switch control back to outer
-              if (innerOffset <= 0) {
-                setPhase('outer');
-              }
-            }}
+            onScroll={handleInnerScroll}
             scrollEventThrottle={10}
-            style={{ maxHeight: Dimensions.get('window').height - 130 }}
+            style={{ maxHeight: height - 130 }}
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.gridContainer}>
@@ -296,9 +253,8 @@ const innerScrollY = useRef(0); // live tracker
                 ))}
             </View>
           </Animated.ScrollView>
-        </View>
+        </Animated.View>
       </Animated.ScrollView>
-
     </View>
   );
 }

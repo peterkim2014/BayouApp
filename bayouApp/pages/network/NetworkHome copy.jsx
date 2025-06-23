@@ -16,7 +16,13 @@ const snapHeight = 250; // How far down the "What's Happening" section moves whe
 
 export default function NetworkHome() {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollOffsetRef = useRef(0); // Live scroll position
   const [snapped, setSnapped] = useState(false);
+  const [phase, setPhase] = useState('outer'); // 'outer' or 'inner'
+  const [innerUnlocked, setInnerUnlocked] = useState(false);
+const innerScrollRef = useRef(null);
+const innerScrollY = useRef(0); // live tracker
+
   const [activeTab, setActiveTab] = useState('Creators');
   const scrollRef = useRef(null);
   const isSnappingRef = useRef(false);
@@ -29,38 +35,38 @@ export default function NetworkHome() {
 
   const profileCardWidth = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [width * 0.32, width * -0.06],
+    outputRange: [width * 0.32, width * -0.20],
     extrapolate: 'clamp',
   });
   
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, -140],
+    outputRange: [205, -320],
     extrapolate: 'clamp',
   });
 
   const profileBorderRadius = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [8, 80],
+    outputRange: [8, 110],
     extrapolate: 'clamp',
   });
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, -15],
+    outputRange: [0, -34],
     extrapolate: 'clamp',
   });
 
   const animatedHeaderHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [370, -10],
+    outputRange: [320, 50],
     extrapolate: 'clamp',
   });
 
   const animatedHeaderPadding = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [60, 20],
+    outputRange: [60, 60],
     extrapolate: 'clamp',
   });
   
@@ -79,12 +85,12 @@ export default function NetworkHome() {
   
     Animated.timing(scrollY, {
       toValue: snapTo,
-      duration: 180,
+      duration: 10, // 5 is too fast
       useNativeDriver: false,
     }).start(() => {
       scrollRef.current?.scrollTo({ y: snapTo, animated: false });
       setSnapped(shouldSnapUp);
-      isSnappingRef.current = false; // Unlock
+      isSnappingRef.current = false;
     });
   };
   
@@ -98,9 +104,14 @@ export default function NetworkHome() {
         style={[
           styles.insetShadowBottom,
           {
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 55,
+            height: 30,
             top: scrollY.interpolate({
-              inputRange: [0, 100],
-              outputRange: [225, 150],
+              inputRange: [0, snapHeight],
+              outputRange: [280, 0],
               extrapolate: 'clamp',
             }),
           },
@@ -108,10 +119,11 @@ export default function NetworkHome() {
       >
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.12)']}
-          style={{ flex: 1 }}
+          style={{ flex: 1, borderRadius: 20 }}
           pointerEvents="none"
         />
       </Animated.View>
+
         <Text style={styles.networkHeaderTitle}>
           Where the connection{'\n'}meets collaboration
         </Text>
@@ -168,7 +180,7 @@ export default function NetworkHome() {
                     alignItems: 'center',
                     width: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [width * 0.32, width * 0.2],
+                      outputRange: [width * 0.32, width * -0.1],
                       extrapolate: 'clamp',
                     }),
                     marginTop: scrollY.interpolate({
@@ -199,6 +211,11 @@ export default function NetworkHome() {
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
                       }),
+                      fontSize: scrollY.interpolate({
+                        inputRange: [0, snapHeight / 2],
+                        outputRange: [12, -10],
+                        extrapolate: 'clamp',
+                      }),
                       height: width * 0,
                     },
                   ]}
@@ -211,7 +228,12 @@ export default function NetworkHome() {
                     {
                       opacity: scrollY.interpolate({
                         inputRange: [0, snapHeight / 2],
-                        outputRange: [1, 0],
+                        outputRange: [1, -101],
+                        extrapolate: 'clamp',
+                      }),
+                      fontSize: scrollY.interpolate({
+                        inputRange: [0, snapHeight / 2],
+                        outputRange: [12, 0],
                         extrapolate: 'clamp',
                       }),
                     },
@@ -229,31 +251,63 @@ export default function NetworkHome() {
       <Animated.ScrollView
         ref={scrollRef}
         bounces={false}
+        showsVerticalScrollIndicator={false}
         overScrollMode="never"
+        scrollEnabled={phase === 'outer'}
         onScroll={(e) => {
           const offsetY = e.nativeEvent.contentOffset.y;
-          const clampedY = Math.max(0, Math.min(snapHeight, offsetY));
+          const clampedY = Math.max(0, Math.min(66, offsetY));
+        
           scrollY.setValue(clampedY);
+        
+          // Only transition once, when locked at 65
+          if (clampedY === 66 && phase !== 'inner') {
+            setPhase('inner');
+            setSnapped(true);
+            scrollRef.current?.scrollTo({ y: 66, animated: false });
+          }
+        
+          if (clampedY < 66 && phase !== 'outer') {
+            setPhase('outer');
+          }
         }}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
-        scrollEventThrottle={15}
+        scrollEventThrottle={10}
         contentContainerStyle={styles.scrollBodyContent}
       >
-
-      
-
         <View style={styles.scrollBody}>
           <Text style={styles.sectionTitle}>What's happening</Text>
-          <View style={styles.gridContainer}>
-            {Array(12)
-              .fill(null)
-              .map((_, i) => (
-                <View key={i} style={styles.gridItem} />
-              ))}
-          </View>
+
+          {/* PHASE 3: Inner Scroll */}
+          <Animated.ScrollView
+            ref={innerScrollRef}
+            scrollEnabled={phase === 'inner'}
+            onScroll={(e) => {
+              const innerOffset = e.nativeEvent.contentOffset.y;
+              innerScrollY.current = innerOffset;
+            
+              // Prevent inner from scrolling down unless it's active
+              if (phase === 'inner' && innerOffset <= 0) {
+                setPhase('outer');
+                scrollRef.current?.scrollTo({ y: 0, animated: true });
+              }
+            }}
+            scrollEventThrottle={10}
+            style={{ maxHeight: Dimensions.get('window').height - 130 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.gridContainer}>
+              {Array(24)
+                .fill(null)
+                .map((_, i) => (
+                  <View key={i} style={styles.gridItem} />
+                ))}
+            </View>
+          </Animated.ScrollView>
         </View>
       </Animated.ScrollView>
+
     </View>
   );
 }
