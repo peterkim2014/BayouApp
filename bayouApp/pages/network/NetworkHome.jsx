@@ -18,6 +18,11 @@ export default function NetworkHome() {
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollOffsetRef = useRef(0); // Live scroll position
   const [snapped, setSnapped] = useState(false);
+  const [phase, setPhase] = useState('outer'); // 'outer' or 'inner'
+  const [innerUnlocked, setInnerUnlocked] = useState(false);
+const innerScrollRef = useRef(null);
+const innerScrollY = useRef(0); // live tracker
+
   const [activeTab, setActiveTab] = useState('Creators');
   const scrollRef = useRef(null);
   const isSnappingRef = useRef(false);
@@ -245,35 +250,55 @@ export default function NetworkHome() {
       {/* Scrollable Body (What's Happening) */}
       <Animated.ScrollView
         ref={scrollRef}
-        bounces={false} 
+        bounces={false}
+        showsVerticalScrollIndicator={false}
         overScrollMode="never"
+        scrollEnabled={phase === 'outer'}
         onScroll={(e) => {
           const offsetY = e.nativeEvent.contentOffset.y;
           const clampedY = Math.max(0, Math.min(65, offsetY));
           scrollY.setValue(clampedY);
+
+          if (clampedY === 65 && phase === 'outer') {
+            setPhase('inner');
+          }
         }}
-        
-        
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
-        scrollEventThrottle={5}
+        scrollEventThrottle={10}
         contentContainerStyle={styles.scrollBodyContent}
-        showsVerticalScrollIndicator={false}
       >
-
-      
-
         <View style={styles.scrollBody}>
           <Text style={styles.sectionTitle}>What's happening</Text>
-          <View style={styles.gridContainer}>
-            {Array(12)
-              .fill(null)
-              .map((_, i) => (
-                <View key={i} style={styles.gridItem} />
-              ))}
-          </View>
+
+          {/* PHASE 3: Inner Scroll */}
+          <Animated.ScrollView
+            ref={innerScrollRef}
+            scrollEnabled={phase === 'inner'}
+            onScroll={(e) => {
+              const innerOffset = e.nativeEvent.contentOffset.y;
+              innerScrollY.current = innerOffset;
+
+              // If user scrolls back to top of inner, switch control back to outer
+              if (innerOffset <= 0) {
+                setPhase('outer');
+              }
+            }}
+            scrollEventThrottle={10}
+            style={{ maxHeight: Dimensions.get('window').height - 130 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.gridContainer}>
+              {Array(24)
+                .fill(null)
+                .map((_, i) => (
+                  <View key={i} style={styles.gridItem} />
+                ))}
+            </View>
+          </Animated.ScrollView>
         </View>
       </Animated.ScrollView>
+
     </View>
   );
 }
