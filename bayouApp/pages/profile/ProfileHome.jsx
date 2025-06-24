@@ -14,6 +14,7 @@ import styles from '../../styles/pages/profile/profileHome';
 import profileImage from '../../assets/profileBackground.png';
 import settingsIcon from '../../assets/settingsIcon.png'; // gear icon
 // import placeholderAvatar from '../../assets/placeholderAvatar.png'; 
+import HeaderCurve from '../../components/HeaderCurve';
 
 const { width } = Dimensions.get('window');
 
@@ -39,16 +40,21 @@ export default function ProfileHome() {
     <View style={styles.container}>
       {imageLoaded && (
         <View style={styles.headerContainer}>
-          <ImageBackground
-            source={profileImage}
-            style={styles.headerImage}
-            resizeMode="cover"
-          >
-            <TouchableOpacity style={styles.settingsIcon}>
-              <Image source={settingsIcon} style={styles.settingsImage} />
-            </TouchableOpacity>
-          </ImageBackground>
+        <ImageBackground
+          source={profileImage}
+          style={styles.headerImage}
+          resizeMode="cover"
+        >
+          <TouchableOpacity style={styles.settingsIcon}>
+            <Image source={settingsIcon} style={styles.settingsImage} />
+          </TouchableOpacity>
+        </ImageBackground>
+      
+        <View style={styles.curveWrapper}>
+          <HeaderCurve height={20} color="#fff" />
         </View>
+      </View>
+      
       )}
 
       <View style={styles.profileCard}>

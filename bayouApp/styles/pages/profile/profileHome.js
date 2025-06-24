@@ -5,20 +5,29 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    width: width,
   },
 
   headerContainer: {
     overflow: 'hidden',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    width: width
+    width: width,
+    position: 'relative',
   },
 
   headerImage: {
-    width,
     height: 250,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    width: width,
+    borderBottomLeftRadius: 57,
+    borderBottomRightRadius: 57,
+  },
+
+  curveWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 
   settingsIcon: {
