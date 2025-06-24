@@ -16,7 +16,7 @@ export default function useScrollBehavior(snapHeight = 300, snapThreshold = 120)
     isSnappingRef.current = true;
 
     const toValue = toInner ? snapHeight : 0;
-    setOuterScrollEnabled(false); // ⛔️ Disable all scroll before snap
+    setOuterScrollEnabled(false);
 
     Animated.timing(scrollY, {
       toValue,
@@ -25,7 +25,7 @@ export default function useScrollBehavior(snapHeight = 300, snapThreshold = 120)
     }).start(() => {
       scrollRef.current?.scrollTo({ y: toValue, animated: false });
       setPhase(toInner ? 'inner' : 'outer');
-      setOuterScrollEnabled(!toInner); // ✅ Only enable scroll after snap
+      setOuterScrollEnabled(!toInner);
       isSnappingRef.current = false;
     });
   };
@@ -37,10 +37,10 @@ export default function useScrollBehavior(snapHeight = 300, snapThreshold = 120)
     const clampedY = Math.max(0, Math.min(snapHeight, offsetY));
     scrollY.setValue(clampedY);
 
-    // ✅ Trigger snap early based on threshold
     if (offsetY > snapThreshold && phase === 'outer') {
       triggerSnap(true);
     }
+
   };
 
   const handleScrollEnd = (e) => {
