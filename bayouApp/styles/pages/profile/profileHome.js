@@ -1,133 +1,100 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 const { width } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
 
+  headerContainer: {
+    overflow: 'hidden',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    width: width
+  },
+
   headerImage: {
-    height: 260,
-    width: width,
+    width,
+    height: 250,
     justifyContent: 'flex-end',
-    backgroundColor: 'grey'
-  },
-
-  watchingBadge: {
-    flexDirection: 'row',
     alignItems: 'center',
+  },
+
+  settingsIcon: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
     backgroundColor: '#fff',
-    alignSelf: 'flex-end',
-    margin: 12,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 4,
-    elevation: 4,
-    bottom: 175,
+    padding: 8,
+    borderRadius: 999,
+    elevation: 3,
   },
 
-  watchingIcon: {
-    marginRight: 6,
+  settingsImage: {
+    width: 20,
+    height: 20,
   },
 
-  watchingText: {
-    fontWeight: '600',
-    fontSize: 11,
+  profileImageWrapper: {
+    position: 'absolute',
+    top: -95,
+    right: width / 2.6,
+    borderWidth: 0,
+    borderColor: '#fff',
+    borderRadius: 50,
+    overflow: 'hidden',
   },
+
+  blankProfileCircle: {
+    width: 87,
+    height: 87,
+    borderRadius: 40,
+    backgroundColor: 'grey',
+    // borderWidth: 2,
+    borderColor: '#fff',
+    zIndex: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  
 
   profileCard: {
-    marginTop: -35,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
+    marginTop: 50,
+    paddingHorizontal: 20,
     flex: 1,
-  },
-
-  grabber: {
-    alignSelf: 'center',
-    width: 100,
-    height: 4,
-    borderRadius: 3,
-    backgroundColor: '#ccc',
-    marginBottom: 20,
-    marginTop: -12,
   },
 
   name: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '600',
+    textAlign: 'center',
+  },
+
+  username: {
+    textAlign: 'center',
+    color: '#555',
+    marginBottom: 6,
   },
 
   bio: {
-    marginTop: 4,
+    textAlign: 'center',
     color: '#555',
-  },
-
-  profileHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginBottom: 16,
-  },
-  
-  leftHeader: {
-    flex: 1,
-  },
-  
-  rightHeader: {
-    alignItems: 'flex-end',
-    gap: 6,
-    width: '40%',
-  },
-  
-
-  followButton: {
-    borderWidth: 0.5,
-    borderColor: '#000',
-    paddingVertical: 4,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    width: '70%',
-    alignItems: 'center',
+    fontSize: 13.5,
   },
 
-  followText: {
-    fontWeight: '500',
-  },
-
-  creatorTag: {
-    backgroundColor: '#0011cc',
-    paddingHorizontal: 14,
-    paddingVertical: 0,
-    borderRadius: 20,
-    width: '70%',
-    alignItems: 'center',
-  },
-
-  creatorText: {
-    color: '#fff',
-    fontWeight: '400',
-    fontSize: 12,
-  },
-
-  statsRow: {
+  statsCard: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 10,
-    padding: 8,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
+    paddingVertical: 12,
     borderRadius: 12,
-    elevation: 2,
-    // Shadow
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 2,
-    zIndex: 5,
+    elevation: 3,
+    marginBottom: 20,
   },
 
   statBlock: {
@@ -136,30 +103,24 @@ const styles = StyleSheet.create({
 
   statNumber: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '600',
   },
 
   statLabel: {
-    fontSize: 11.75,
+    fontSize: 12,
     color: '#555',
-    fontWeight: '500',
   },
 
   tabRow: {
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
     justifyContent: 'space-around',
-    gap: 20,
-    marginBottom: 12,
-    marginTop: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    marginBottom: 10,
   },
 
   tabText: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#666',
+    color: '#555',
   },
 
   activeTabText: {
@@ -169,108 +130,24 @@ const styles = StyleSheet.create({
 
   tabIndicator: {
     height: 3,
-    backgroundColor: '#88C2C0',
-    marginTop: 2,
-    borderRadius: 2,
+    backgroundColor: '#3B9CA1',
+    borderRadius: 10,
+    marginTop: 4,
   },
-  
-  cardContainerStyle: {
+
+  grid: {
+    paddingTop: 10,
+  },
+
+  gridRow: {
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+
+  gridBox: {
     width: (width - 55) / 3,
-    marginBottom: 20,
-    alignItems: 'flex-start',
-    marginHorizontal: 3,
-  },
-  
-  card: {
-    width: '100%',
     aspectRatio: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#e0e0e0',
     borderRadius: 10,
   },
-  
-  cardText: {
-    marginTop: 2,
-    fontWeight: '400',
-    fontSize: 11,
-    textAlign: 'flex-start',
-    paddingLeft: 4,
-  },
-
-
-  detailContainer: {
-    marginTop: 5,
-  },
-  
-  backButton: {
-    marginBottom: 5,
-  },
-  
-  backArrow: {
-    fontSize: 25,
-    fontWeight: '500',
-  },
-  
-  detailRow: {
-    flexDirection: 'row',
-    gap: 20,
-  },
-  
-  detailImage: {
-    width: 160,
-    height: 160,
-    borderRadius: 16,
-    backgroundColor: '#ddd',
-    elevation: 2,
-  },
-  
-  detailInfo: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
-  
-  detailTitle: {
-    fontWeight: '600',
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  
-  starRating: {
-    fontSize: 16,
-    marginBottom: 30,
-  },
-  
-  metricRow: {
-    marginBottom: 6,
-  },
-  
-  metricHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 1,
-  },
-  
-  metricLabel: {
-    fontSize: 12.5,
-  },
-  
-  metricPercent: {
-    fontSize: 12.5,
-  },
-  
-  metricBarBackground: {
-    height: 2.5,
-    backgroundColor: '#ccc',
-    borderRadius: 4,
-    width: '100%',
-  },
-  
-  metricBarFill: {
-    width: '87%',
-    height: 2.5,
-    backgroundColor: '#000',
-    borderRadius: 4,
-  },  
-  
 });
-
-export default styles;
