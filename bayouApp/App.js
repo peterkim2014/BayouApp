@@ -15,6 +15,7 @@ import ProfileHome from './pages/profile/ProfileHome';
 import NetworkHome from './pages/network/NetworkHome';
 import CampaignHome from './pages/campaigns/CampaignHome';
 import CampaignDetail from './pages/campaigns/CampaignDetail';
+import BurstHome from './pages/burst/BurstHome'
 
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
          <Route path="/profile" element={<ProfileHome />} />
          <Route path="/network" element={<NetworkHome />} />
          <Route path="/campaign" element={<CampaignHome />} />
+         <Route path="/burst" element={<BurstHome />} />
          <Route path="/campaign/:id" element={<CampaignDetail />} />
          
         </Routes>

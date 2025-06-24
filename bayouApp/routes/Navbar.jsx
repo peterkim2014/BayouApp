@@ -7,6 +7,7 @@ import threads from '../assets/threadsIcon.png';
 import network from '../assets/networkIcon.png';
 import campaign from '../assets/campaignIcon.png';
 import profile from '../assets/profileIcon.png';
+import burst from '../assets/burstsIcon.png';
 
 export default function NavBar() {
   const location = useLocation();
@@ -16,6 +17,7 @@ export default function NavBar() {
     { path: '/', label: 'Threads', icon: threads },
     { path: '/network', label: 'Network', icon: network },
     { path: '/campaign', label: 'Campaigns', icon: campaign },
+    { path: '/burst', label: 'Bursts', icon: burst },
     { path: '/profile', label: 'Profile', icon: profile },
   ];
 
