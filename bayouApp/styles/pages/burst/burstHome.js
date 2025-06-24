@@ -15,7 +15,7 @@ export default StyleSheet.create({
   pageDots: {
     position: 'absolute',
     right: 20,
-    top: height / 4,
+    top: height / 6,
     zIndex: 10,
     gap: 5,
   },
@@ -41,12 +41,12 @@ export default StyleSheet.create({
   card: {
     width: width * 0.9,
     backgroundColor: '#ffffffee',
-    borderRadius: 16,
+    borderRadius: 8,
     padding: 20,
     marginBottom: 125,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 5,
     position: 'relative',
