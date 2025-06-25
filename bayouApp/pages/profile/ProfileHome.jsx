@@ -29,8 +29,8 @@ export default function ProfileHome() {
   const scrollAtTopRef = useRef(true);
 
   const fadeOutOpacity = translateY.interpolate({
-    inputRange: [-165, -80, 0],
-    outputRange: [0, 0.3, 1],
+    inputRange: [-165, -40, 0],
+    outputRange: [0, 0, 1],
     extrapolate: 'clamp',
   });
 
@@ -73,6 +73,11 @@ export default function ProfileHome() {
         <View style={styles.blankProfileCircle} />
       </View>
 
+      <View style={styles.profileUserHeader}>
+        <Text style={styles.name}>Freddy Mac</Text>
+        <Text style={styles.username}>@Justfilming</Text>
+      </View>
+
       <Animated.View
   style={[
     styles.profileCard,
@@ -86,8 +91,6 @@ export default function ProfileHome() {
 
         {/* Content that fades in/out */}
         <Animated.View style={{ opacity: fadeOutOpacity }}>
-          <Text style={styles.name}>Freddy Mac</Text>
-          <Text style={styles.username}>@Justfilming</Text>
           <Text style={styles.bio}>
             This is my tagline and I’m going to write something that helps market myself to be more exposed
           </Text>
@@ -123,7 +126,7 @@ export default function ProfileHome() {
         <ScrollView
           contentContainerStyle={styles.grid}
           scrollEnabled={true}
-          scrollEventThrottle={16}
+          scrollEventThrottle={6}
           onScroll={(e) => {
             const offsetY = e.nativeEvent.contentOffset.y;
             scrollAtTopRef.current = offsetY <= 0;
@@ -133,9 +136,9 @@ export default function ProfileHome() {
             const velocityY = e.nativeEvent.velocity?.y || 0;
 
             // 🧠 Flick up = velocityY > 0 (toward negative offset)
-            if (!isCollapsed && velocityY > 0.25) {
+            if (!isCollapsed && velocityY > 0.0001) {
               Animated.spring(translateY, {
-                toValue: -165,
+                toValue: -135,
                 useNativeDriver: true,
               }).start(() => {
                 setIsCollapsed(true);
@@ -143,7 +146,7 @@ export default function ProfileHome() {
             }
 
             // 🧠 Flick down at scroll top = expand
-            if (isCollapsed && scrollAtTopRef.current && velocityY < -0.25) {
+            if (isCollapsed && scrollAtTopRef.current && velocityY < -0.55) {
               Animated.spring(translateY, {
                 toValue: 0,
                 useNativeDriver: true,

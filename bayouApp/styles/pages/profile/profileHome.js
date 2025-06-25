@@ -69,10 +69,14 @@ export default StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
+
+  profileUserHeader: {
+    marginTop: 50,
+  },
   
 
   profileCard: {
-    marginTop: 50,
+    marginTop: 10,
     paddingHorizontal: 20,
     flex: 1,
   },
