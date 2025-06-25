@@ -136,9 +136,9 @@ export default function ProfileHome() {
             const velocityY = e.nativeEvent.velocity?.y || 0;
 
             // 🧠 Flick up = velocityY > 0 (toward negative offset)
-            if (!isCollapsed && velocityY > 0.0001) {
+            if (!isCollapsed && velocityY > 0.000001 * 0.0000001) {
               Animated.spring(translateY, {
-                toValue: -135,
+                toValue: -115,
                 useNativeDriver: true,
               }).start(() => {
                 setIsCollapsed(true);
