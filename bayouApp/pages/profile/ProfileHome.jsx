@@ -18,6 +18,7 @@ import settingsIcon from '../../assets/settingsIcon.png';
 import HeaderCurve from '../../components/HeaderCurve';
 
 const { width } = Dimensions.get('window');
+const screenHeight = Dimensions.get('window').height;
 
 export default function ProfileHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
@@ -73,12 +74,16 @@ export default function ProfileHome() {
       </View>
 
       <Animated.View
-        style={[
-          styles.profileCard,
-          { transform: [{ translateY }] },
-          isCollapsed,
-        ]}
-      >
+  style={[
+    styles.profileCard,
+    {
+      transform: [{ translateY }],
+      flex: 1,
+      minHeight: isCollapsed ? screenHeight - 230 : undefined, // ensures enough space when collapsed
+    },
+  ]}
+>
+
         {/* Content that fades in/out */}
         <Animated.View style={{ opacity: fadeOutOpacity }}>
           <Text style={styles.name}>Freddy Mac</Text>
@@ -114,6 +119,7 @@ export default function ProfileHome() {
         </View>
 
         {/* ScrollView Interaction */}
+        <View style={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={styles.grid}
           scrollEnabled={true}
@@ -151,7 +157,7 @@ export default function ProfileHome() {
             <View key={item.id} style={styles.gridBox} />
           ))}
         </ScrollView>
-
+        </View>
       </Animated.View>
 
     </View>
