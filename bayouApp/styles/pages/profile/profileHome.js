@@ -47,7 +47,7 @@ export default StyleSheet.create({
 
   profileImageWrapper: {
     position: 'absolute',
-    top: -95,
+    top: 210,
     right: width / 2.6,
     borderWidth: 0,
     borderColor: '#fff',
