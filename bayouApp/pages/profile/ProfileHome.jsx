@@ -146,7 +146,7 @@ export default function ProfileHome() {
             }
 
             // 🧠 Flick down at scroll top = expand
-            if (isCollapsed && scrollAtTopRef.current && velocityY < -0.55) {
+            if (isCollapsed && scrollAtTopRef.current && velocityY < -1.5) {
               Animated.spring(translateY, {
                 toValue: 0,
                 useNativeDriver: true,

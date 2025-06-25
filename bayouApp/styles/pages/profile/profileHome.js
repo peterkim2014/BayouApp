@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
 
   headerImage: {
-    height: 250,
+    height: 240,
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: width,
@@ -47,7 +47,7 @@ export default StyleSheet.create({
 
   profileImageWrapper: {
     position: 'absolute',
-    top: 210,
+    top: 195,
     right: width / 2.6,
     borderWidth: 0,
     borderColor: '#fff',
@@ -71,7 +71,7 @@ export default StyleSheet.create({
   },
 
   profileUserHeader: {
-    marginTop: 50,
+    marginTop: 45,
   },
   
 
@@ -104,10 +104,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#fff',
-    paddingVertical: 12,
+    paddingVertical: 5,
     borderRadius: 12,
     elevation: 3,
-    marginBottom: 20,
+    marginBottom: 18,
   },
 
   statBlock: {
