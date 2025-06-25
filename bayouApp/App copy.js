@@ -1,96 +1,76 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { NFCProvider, useNFC } from './views/context/nfcContext';
+// App.js
+import { NativeRouter, Routes, Route } from 'react-router-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, StatusBar, TouchableOpacity, Text, Image, ActivityIndicator } from 'react-native';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router';
+import { createMemoryHistory } from 'history';
+const history = createMemoryHistory({ initialEntries: ['/'] });
+import Navbar from './routes/Navbar';
+import styles from './styles/appStyle';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
-// 🧠 Shows current NFC polling status
-function NFCStatusDisplay() {
-  const { status } = useNFC();
+import ThreadHome from './pages/threads/ThreadHome';
+import ProfileHome from './pages/profile/ProfileHome';
+import NetworkHome from './pages/network/NetworkHome';
+import CampaignHome from './pages/campaigns/CampaignHome';
+import CampaignDetail from './pages/campaigns/CampaignDetail';
+import BurstHome from './pages/burst/BurstHome'
 
-  return (
-    <View style={{ marginTop: 20, alignItems: 'center' }}>
-      <Text>{status}</Text>
-    </View>
-  );
-}
 
-// 📝 Registration form component
-function RegisterCardForm() {
-  const { registerCard } = useNFC();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  return (
-    <View style={{ width: '80%', marginTop: 30 }}>
-      <TextInput
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-        keyboardType="email-address"
-      />
-      <Button title="Register NFC Card" onPress={() => registerCard(name, email)} />
-    </View>
-  );
-}
+  useEffect(() => {
+    const load = async () => {
+      try {
+        await Font.loadAsync({
+          'OpenSans': require('./assets/fonts/OpenSansRegular.ttf'),
+        });
+  
+        Text.defaultProps = Text.defaultProps || {};
+        Text.defaultProps.style = [
+          Text.defaultProps.style || {},
+          { fontFamily: 'OpenSans' },
+        ];
+  
+        setFontsLoaded(true);
+      } catch (error) {
+        console.warn('❌ Font failed to load:', error);
+      }
+    };
+  
+    load();
+  }, []);
 
-// 🎯 Conditionally render based on card presence
-function NFCInteractionPanel() {
-  const { cardData } = useNFC();
-
-  if (cardData) {
+  if (!fontsLoaded) {
     return (
-      <View style={{ alignItems: 'center', marginTop: 20 }}>
-        <Text>User ID: {cardData.userId}</Text>
-        <Text>Passkey: {cardData.passkey}</Text>
-        <View style={{ marginTop: 15 }}>
-          <Button title="Edit Info" onPress={() => alert('Edit flow coming soon')} />
-        </View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
-  return <RegisterCardForm />;
-}
-
-export default function App() {
   return (
-    <NFCProvider>
+    <NativeRouter
+      history={history}
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <View style={styles.container}>
-        <Text style={styles.header}>Bayou NFC Registration</Text>
-        <NFCInteractionPanel />
-        <NFCStatusDisplay />
-        <StatusBar style="auto" />
+        <Navbar />
+        <Routes>
+         <Route path="/" element={<ThreadHome />} />
+         <Route path="/profile" element={<ProfileHome />} />
+         <Route path="/network" element={<NetworkHome />} />
+         <Route path="/campaign" element={<CampaignHome />} />
+         <Route path="/burst" element={<BurstHome />} />
+         <Route path="/campaign/:id" element={<CampaignDetail />} />
+         
+        </Routes>
       </View>
-    </NFCProvider>
+    </NativeRouter>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 12,
-    padding: 10,
-    borderRadius: 6,
-    backgroundColor: '#f9f9f9',
-  },
-  header: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-});

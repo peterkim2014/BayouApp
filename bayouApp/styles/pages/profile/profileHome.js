@@ -145,18 +145,18 @@ export default StyleSheet.create({
   },
 
   grid: {
-    paddingTop: 10,
-  },
-
-  gridRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    alignItems: 'center',
+    
   },
 
   gridBox: {
-    width: (width - 55) / 3,
+    width: (width - 55) / 3, // total side + inner spacing removed
     aspectRatio: 1,
     backgroundColor: '#e0e0e0',
     borderRadius: 10,
+    marginBottom: 12,
   },
 });
