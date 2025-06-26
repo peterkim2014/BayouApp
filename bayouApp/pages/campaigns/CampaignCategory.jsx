@@ -21,14 +21,13 @@ export default function CampaignCategory() {
   const [activeStage, setActiveStage] = useState('Planning');
   const [collapsed, setCollapsed] = useState(false);
   const [scrollLocked, setScrollLocked] = useState(false);
+  const [isDraggingDown, setIsDraggingDown] = useState(false);
 
   const collapsedRef = useRef(false);
   const scrollOffsetY = useRef(0);
 
-
   const translateY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
-
   const collapseDistance = -260;
 
   const stages = ['Planning', 'Building', 'Testing', 'Launch'];
@@ -42,35 +41,33 @@ export default function CampaignCategory() {
 
   const panResponder = useRef(
     PanResponder.create({
-        onMoveShouldSetPanResponder: (_, gestureState) => {
-            const { dy } = gestureState;
-            if (dragLocked.current) return false;
-          
-            // ✅ Only collapse if scroll is at top
-            const isAtTop = scrollOffsetY.current <= 0;
-          
-            if (!collapsedRef.current && dy < -10) return true;       // Always allow collapse
-            if (collapsedRef.current && dy > 10 && isAtTop) return true; // Allow expand only if grid is at top
-          
-            return false;
-          },
-          
-  
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        const { dy } = gestureState;
+        if (dragLocked.current) return false;
+        const isAtTop = scrollOffsetY.current <= 0;
+        if (!collapsedRef.current && dy < -10) return true;
+        if (collapsedRef.current && dy > 10 && isAtTop) return true;
+        return false;
+      },
+
       onPanResponderMove: (_, gestureState) => {
         const dy = gestureState.dy;
-  
+
         if (collapsedRef.current && dy > 0) {
+          setIsDraggingDown(true);
           const offset = collapseDistance + dy * 0.25;
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
+          setIsDraggingDown(false);
           const offset = Math.max(collapseDistance, dy);
           translateY.setValue(offset);
         }
       },
-  
+
       onPanResponderRelease: (_, gestureState) => {
         const dy = gestureState.dy;
-      
+        setIsDraggingDown(false);
+
         if (!collapsedRef.current && dy < -50) {
           dragLocked.current = true;
           Animated.timing(translateY, {
@@ -81,9 +78,9 @@ export default function CampaignCategory() {
             setCollapsed(true);
             collapsedRef.current = true;
             dragLocked.current = false;
-            setScrollLocked(false); // ✅ unlock after collapse
+            setScrollLocked(false);
           });
-      
+
         } else if (collapsedRef.current && dy > 100) {
           dragLocked.current = true;
           Animated.timing(translateY, {
@@ -94,33 +91,24 @@ export default function CampaignCategory() {
             setCollapsed(false);
             collapsedRef.current = false;
             dragLocked.current = false;
-            setScrollLocked(false); // ✅ unlock after expand
+            setScrollLocked(false);
           });
-      
+
         } else {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
             duration: 200,
             useNativeDriver: true,
           }).start(() => {
-            setScrollLocked(false); // ✅ unlock even after cancel
+            setScrollLocked(false);
           });
         }
-      }
-      
+      },
     })
   ).current;
-  
-  
-  
-  
-  
-  
-  
 
   return (
     <View style={styles.campaignCategory__container}>
-      {/* Hero */}
       <ImageBackground
         source={{ uri: 'https://via.placeholder.com/800x400?text=Hero' }}
         style={styles.campaignCategory__heroImage}
@@ -142,66 +130,58 @@ export default function CampaignCategory() {
         </View>
       </ImageBackground>
 
-      {/* Collapsible Section */}
-      <Animated.View
-  style={{ transform: [{ translateY }] }}
-  {...panResponder.panHandlers}
->
-  <View style={{ backgroundColor: '#fff' }}>
-    {/* Fixed section title + tabs */}
-    <View style={styles.campaignCategory__scrollContainer}>
-      <View style={styles.campaignCategory__stageRow}>
-        <Text style={styles.campaignCategory__sectionTitle}>Featured Campaigns</Text>
-        <TouchableOpacity>
-          <Ionicons name="search" size={20} color="#000" />
-        </TouchableOpacity>
-      </View>
+      <Animated.View style={{ transform: [{ translateY }] }} {...panResponder.panHandlers}>
+        <View style={{ backgroundColor: '#fff' }}>
+          <View style={styles.campaignCategory__scrollContainer}>
+            <View style={styles.campaignCategory__stageRow}>
+              <Text style={styles.campaignCategory__sectionTitle}>Featured Campaigns</Text>
+              <TouchableOpacity>
+                <Ionicons name="search" size={20} color="#000" />
+              </TouchableOpacity>
+            </View>
 
-      <View style={styles.campaignCategory__tabRow}>
-        {stages.map((stage) => (
-          <TouchableOpacity key={stage} onPress={() => setActiveStage(stage)}>
-            <Text
-              style={[
-                styles.campaignCategory__tabText,
-                activeStage === stage && styles.campaignCategory__activeTabText,
-              ]}
-            >
-              {stage}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
+            <View style={styles.campaignCategory__tabRow}>
+              {stages.map((stage) => (
+                <TouchableOpacity key={stage} onPress={() => setActiveStage(stage)}>
+                  <Text
+                    style={[
+                      styles.campaignCategory__tabText,
+                      activeStage === stage && styles.campaignCategory__activeTabText,
+                    ]}
+                  >
+                    {stage}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
 
-    {/* Only the grid scrolls */}
-    <ScrollView
-  ref={scrollViewRef}
-  scrollEnabled={collapsed && !scrollLocked}
-  onScroll={(e) => {
-    scrollOffsetY.current = e.nativeEvent.contentOffset.y;
-  }}
-  scrollEventThrottle={16}
-  contentContainerStyle={styles.campaignCategory__grid}
-  bounces={false}                 
-  overScrollMode="never"          
-  showsVerticalScrollIndicator={false}
->
-
-      {sampleCampaigns.map((campaign, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => navigate(`/campaign/${index}`, { state: campaign })}
-        >
-          <Image
-            source={{ uri: campaign.uri }}
-            style={styles.campaignCategory__gridItem}
-          />
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
-  </View>
-</Animated.View>
-
+          <ScrollView
+            ref={scrollViewRef}
+            scrollEnabled={collapsed && !scrollLocked}
+            onScroll={(e) => {
+              scrollOffsetY.current = e.nativeEvent.contentOffset.y;
+            }}
+            scrollEventThrottle={16}
+            contentContainerStyle={styles.campaignCategory__grid}
+            bounces={!isDraggingDown}
+            overScrollMode="never"
+            showsVerticalScrollIndicator={false}
+          >
+            {sampleCampaigns.map((campaign, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => navigate(`/campaign/${index}`, { state: campaign })}
+              >
+                <Image
+                  source={{ uri: campaign.uri }}
+                  style={styles.campaignCategory__gridItem}
+                />
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      </Animated.View>
     </View>
   );
 }
