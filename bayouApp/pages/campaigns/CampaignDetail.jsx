@@ -13,6 +13,7 @@ import styles from '../../styles/pages/campaign/campaignDetail';
 import likeIcon from '../../assets/likeIcon.png';
 import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
+import BackSwipeWrapper from '../../components/BackSwipeWrapper';
 
 
 export default function CampaignDetail() {
@@ -24,6 +25,7 @@ export default function CampaignDetail() {
   if (!campaign) return <Text>Loading campaign...</Text>;
 
   return (
+    <BackSwipeWrapper>
     <View style={styles.container}>
       <ImageBackground
         source={{ uri: 'https://via.placeholder.com/600x400' }}
@@ -68,5 +70,6 @@ export default function CampaignDetail() {
     </View>
 
     </View>
+    </BackSwipeWrapper>
   );
 }

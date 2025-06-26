@@ -13,6 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/campaign/campaignCategory';
 import { useNavigate } from 'react-router-native';
+import BackSwipeWrapper from '../../components/BackSwipeWrapper';
 
 const { width } = Dimensions.get('window');
 
@@ -108,6 +109,9 @@ export default function CampaignCategory() {
   ).current;
 
   return (
+    <BackSwipeWrapper>
+
+    
     <View style={styles.campaignCategory__container}>
       <ImageBackground
         source={{ uri: 'https://via.placeholder.com/800x400?text=Hero' }}
@@ -183,5 +187,6 @@ export default function CampaignCategory() {
         </View>
       </Animated.View>
     </View>
+    </BackSwipeWrapper>
   );
 }
