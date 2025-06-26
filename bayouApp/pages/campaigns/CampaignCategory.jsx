@@ -62,13 +62,13 @@ export default function CampaignCategory() {
         ))}
       </View>
 
-      {/* Grid of images */}
-      <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.campaignCategory__grid}>
-        {sampleImages.map((uri, index) => (
-            <Image key={index} source={{ uri }} style={styles.campaignCategory__gridItem} />
-        ))}
-        </ScrollView>
+        {/* Grid of images */}
+        <View style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={styles.campaignCategory__grid}>
+            {sampleImages.map((uri, index) => (
+                <Image key={index} source={{ uri }} style={styles.campaignCategory__gridItem} />
+            ))}
+            </ScrollView>
         </View>
 
     </View>

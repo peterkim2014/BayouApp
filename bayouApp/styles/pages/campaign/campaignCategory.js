@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginTop: 25,
+    marginTop: 20,
     width: width * 0.96,
   },
 
@@ -81,18 +81,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: gridGap,
-    justifyContent: 'space-between',
-    // backgroundColor: '#fff',
+    justifyContent: 'center',
+    // backgroundColor: 'grey',
     paddingBottom: 100,
+    marginTop: 5,
+    gap: 10,
   },
   
   campaignCategory__gridItem: {
-    width: (width - gridGap * 3) / 2,
+    width: (width - gridGap * 4.5) / 2,
     height: 10,
     aspectRatio: 1,
     borderRadius: 10,
-    marginBottom: gridGap,
-    backgroundColor: '#fff',
+    marginBottom: gridGap / 15,
+    backgroundColor: 'grey',
   },
   
 });
