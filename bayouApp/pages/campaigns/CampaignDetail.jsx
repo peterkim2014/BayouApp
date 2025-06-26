@@ -57,22 +57,28 @@ export default function CampaignDetail() {
 
         <View style={styles.bodyWrapper}>
 
-          {/* Title, Subtitle, Stars */}
-          <Text style={styles.cardTitle}>{campaign.title}</Text>
-          <Text style={styles.subtitleText}>{campaign.brand} / {campaign.creator}</Text>
-          <View style={styles.ratingRow}>
-            <Text style={styles.ratingStars}>★★★★☆</Text>
-          </View>
+          {/* Info + Follow */}
+          <View style={styles.infoRow}>
+            {/* Left: Title, Subtitle, Stars */}
+            <View style={styles.infoLeft}>
+              <Text style={styles.cardTitle}>{campaign.title}</Text>
+              <Text style={styles.subtitleText}>{campaign.brand} / {campaign.creator}</Text>
+              <View style={styles.ratingRow}>
+                <Text style={styles.ratingStars}>★★★★☆</Text>
+              </View>
+            </View>
 
-          {/* Follow + Status */}
-          <View style={styles.followRow}>
-            <TouchableOpacity style={styles.followButton}>
-              <Text style={styles.followText}>+ Follow</Text>
-            </TouchableOpacity>
-            <View style={styles.statusPill}>
-              <Text style={styles.statusText}>{campaign.status}</Text>
+            {/* Right: Follow + Status */}
+            <View style={styles.infoRight}>
+              <TouchableOpacity style={styles.followButton}>
+                <Text style={styles.followText}>+ Follow</Text>
+              </TouchableOpacity>
+              <View style={styles.statusPill}>
+                <Text style={styles.statusText}>{campaign.status}</Text>
+              </View>
             </View>
           </View>
+
 
           {/* Stats */}
           <View style={styles.statsRow}>

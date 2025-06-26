@@ -109,6 +109,24 @@ const styles = StyleSheet.create({
     height: 20,
   },
 
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 5,
+    width: '100%',
+  },
+
+  infoLeft: {
+    flex: 1,
+    paddingRight: 10,
+  },
+
+  infoRight: {
+    alignItems: 'flex-end',
+    gap: 8,
+  },
+
   cardTitle: {
     fontSize: 20,
     fontWeight: '700',
@@ -131,14 +149,6 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 
-  followRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-    width: '100%',
-  },
-
   followButton: {
     borderWidth: 1,
     borderColor: '#333',
@@ -157,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E2FE1',
     borderRadius: 14,
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
 
   statusText: {
@@ -168,14 +178,19 @@ const styles = StyleSheet.create({
 
   statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     marginBottom: 20,
     width: '100%',
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: 'grey'
   },
 
   statBox: {
     alignItems: 'center',
-    flex: 1,
+    justifyContent: 'center',
+    height: 50,
   },
 
   statNumber: {
@@ -184,7 +199,7 @@ const styles = StyleSheet.create({
   },
 
   statLabel: {
-    fontSize: 12,
+    fontSize: 10.4,
     color: '#777',
   },
 
