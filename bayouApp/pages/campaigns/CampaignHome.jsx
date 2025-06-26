@@ -10,8 +10,12 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/campaign/campaignHome'
+import { useNavigate } from 'react-router-native';
+
 
 export default function CampaignHome() {
+  const navigate = useNavigate();
+
   return (
     <View style={styles.campaignContainer}>
       {/* Hero Header */}
@@ -54,18 +58,22 @@ export default function CampaignHome() {
           contentContainerStyle={styles.categoryRow}
           style={styles.scrollOverlay}
         >
-          <View style={styles.categoryCard}>
-            <Image
-              source={{ uri: 'https://via.placeholder.com/300x300?text=Shoes' }}
-              style={styles.categoryImage}
-            />
-            <View style={styles.campaignBadge}>
-              <Text style={styles.campaignBadgeText}>11K Campaigns</Text>
-            </View>
-            <View style={styles.categoryLabel}>
-              <Text style={styles.labelText}>Shoes</Text>
-            </View>
-          </View>
+            <TouchableOpacity
+              style={styles.categoryCard}
+              onPress={() => navigate('/campaign/category/Shoes')}
+            >
+              <Image
+                // source={{ uri: 'https://via.placeholder.com/300x300?text=Shoes' }}
+                style={styles.categoryImage}
+              />
+              <View style={styles.campaignBadge}>
+                <Text style={styles.campaignBadgeText}>11K Campaigns</Text>
+              </View>
+              <View style={styles.categoryLabel}>
+                <Text style={styles.labelText}>Shoes</Text>
+              </View>
+            </TouchableOpacity>
+
 
           <View style={styles.categoryCard}>
             <Image

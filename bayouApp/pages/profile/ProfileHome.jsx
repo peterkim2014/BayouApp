@@ -79,16 +79,15 @@ export default function ProfileHome() {
       </View>
 
       <Animated.View
-  style={[
-    styles.profileCard,
-    {
-      transform: [{ translateY }],
-      flex: 1,
-      minHeight: isCollapsed ? screenHeight - 230 : undefined, // ensures enough space when collapsed
-    },
-  ]}
->
-
+        style={[
+          styles.profileCard,
+          {
+            transform: [{ translateY }],
+            flex: 1,
+            minHeight: isCollapsed ? screenHeight - 230 : undefined, // ensures enough space when collapsed
+          },
+        ]}
+      >
         {/* Content that fades in/out */}
         <Animated.View style={{ opacity: fadeOutOpacity }}>
           <Text style={styles.bio}>

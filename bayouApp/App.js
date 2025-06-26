@@ -16,6 +16,7 @@ import NetworkHome from './pages/network/NetworkHome';
 import CampaignHome from './pages/campaigns/CampaignHome';
 import CampaignDetail from './pages/campaigns/CampaignDetail';
 import BurstHome from './pages/burst/BurstHome'
+import CampaignCategory from './pages/campaigns/CampaignCategory';
 
 
 export default function App() {
@@ -68,7 +69,7 @@ export default function App() {
          <Route path="/campaign" element={<CampaignHome />} />
          <Route path="/burst" element={<BurstHome />} />
          <Route path="/campaign/:id" element={<CampaignDetail />} />
-         
+         <Route path="/campaign/category/:categoryName" element={<CampaignCategory />} />
         </Routes>
       </View>
     </NativeRouter>

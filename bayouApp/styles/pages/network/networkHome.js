@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
     height: height * 1.5,
-
     flexGrow: 1,
   },
 
