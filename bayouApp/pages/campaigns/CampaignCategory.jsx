@@ -20,6 +20,7 @@ export default function CampaignCategory() {
   const navigate = useNavigate();
   const [activeStage, setActiveStage] = useState('Planning');
   const [collapsed, setCollapsed] = useState(false);
+  const collapsedRef = useRef(false);
 
   const translateY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
@@ -33,55 +34,75 @@ export default function CampaignCategory() {
     viewers: `${(Math.random() * 2 + 1).toFixed(1)}M Watching`,
   }));
 
+  const dragLocked = useRef(false);
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) => {
-        return Math.abs(gestureState.dy) > 10;
-      },
-      onPanResponderGrant: () => {
-        if (!collapsed) {
-          scrollViewRef.current?.scrollTo({ y: 0, animated: false });
-        }
-      },
-      onPanResponderMove: (_, gestureState) => {
-        const dragOffset = gestureState.dy;
+        const { dy } = gestureState;
+        if (dragLocked.current) return false;
   
-        if (collapsed && dragOffset > 0) {
-          // Dragging down to expand with resistance
-          const offset = collapseDistance + dragOffset * 0.25; // resistance factor
+        // Check current value using the ref
+        if (!collapsedRef.current && dy < -10) return true;
+        if (collapsedRef.current && dy > 10) return true;
+  
+        return false;
+      },
+  
+      onPanResponderMove: (_, gestureState) => {
+        const dy = gestureState.dy;
+  
+        if (collapsedRef.current && dy > 0) {
+          const offset = collapseDistance + dy * 0.25;
           translateY.setValue(Math.min(offset, 0));
-        } else if (!collapsed && dragOffset < 0) {
-          // Dragging up to collapse
-          const offset = Math.max(collapseDistance, dragOffset);
+        } else if (!collapsedRef.current && dy < 0) {
+          const offset = Math.max(collapseDistance, dy);
           translateY.setValue(offset);
         }
       },
-      onPanResponderRelease: (_, gestureState) => {
-        const shouldCollapse = gestureState.dy < -50;
-        const shouldExpand = gestureState.dy > 100;
   
-        if (!collapsed && shouldCollapse) {
+      onPanResponderRelease: (_, gestureState) => {
+        const dy = gestureState.dy;
+  
+        if (!collapsedRef.current && dy < -50) {
+          dragLocked.current = true;
           Animated.timing(translateY, {
             toValue: collapseDistance,
             duration: 280,
             useNativeDriver: true,
-          }).start(() => setCollapsed(true));
-        } else if (collapsed && shouldExpand) {
+          }).start(() => {
+            setCollapsed(true);
+            collapsedRef.current = true;
+            dragLocked.current = false;
+          });
+  
+        } else if (collapsedRef.current && dy > 100) {
+          dragLocked.current = true;
           Animated.timing(translateY, {
             toValue: 0,
             duration: 220,
             useNativeDriver: true,
-          }).start(() => setCollapsed(false));
+          }).start(() => {
+            setCollapsed(false);
+            collapsedRef.current = false;
+            dragLocked.current = false;
+          });
+  
         } else {
           Animated.timing(translateY, {
-            toValue: collapsed ? collapseDistance : 0,
+            toValue: collapsedRef.current ? collapseDistance : 0,
             duration: 200,
             useNativeDriver: true,
           }).start();
         }
-      }
+      },
     })
   ).current;
+  
+  
+  
+  
+  
   
   
 
