@@ -23,6 +23,8 @@ export default function CampaignCategory() {
   const [scrollLocked, setScrollLocked] = useState(false);
 
   const collapsedRef = useRef(false);
+  const scrollOffsetY = useRef(0);
+
 
   const translateY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
@@ -40,16 +42,19 @@ export default function CampaignCategory() {
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gestureState) => {
-        const { dy } = gestureState;
-        if (dragLocked.current) return false;
-  
-        // Check current value using the ref
-        if (!collapsedRef.current && dy < -10) return true;
-        if (collapsedRef.current && dy > 10) return true;
-  
-        return false;
-      },
+        onMoveShouldSetPanResponder: (_, gestureState) => {
+            const { dy } = gestureState;
+            if (dragLocked.current) return false;
+          
+            // ✅ Only collapse if scroll is at top
+            const isAtTop = scrollOffsetY.current <= 0;
+          
+            if (!collapsedRef.current && dy < -10) return true;       // Always allow collapse
+            if (collapsedRef.current && dy > 10 && isAtTop) return true; // Allow expand only if grid is at top
+          
+            return false;
+          },
+          
   
       onPanResponderMove: (_, gestureState) => {
         const dy = gestureState.dy;
@@ -170,10 +175,18 @@ export default function CampaignCategory() {
 
     {/* Only the grid scrolls */}
     <ScrollView
-        ref={scrollViewRef}
-        scrollEnabled={collapsed && !scrollLocked}
-        contentContainerStyle={styles.campaignCategory__grid}
-    >
+  ref={scrollViewRef}
+  scrollEnabled={collapsed && !scrollLocked}
+  onScroll={(e) => {
+    scrollOffsetY.current = e.nativeEvent.contentOffset.y;
+  }}
+  scrollEventThrottle={16}
+  contentContainerStyle={styles.campaignCategory__grid}
+  bounces={false}                 
+  overScrollMode="never"          
+  showsVerticalScrollIndicator={false}
+>
+
       {sampleCampaigns.map((campaign, index) => (
         <TouchableOpacity
           key={index}
