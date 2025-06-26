@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
   bodyWrapper: {
     // flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'lightgrey',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     overflow: 'hidden',

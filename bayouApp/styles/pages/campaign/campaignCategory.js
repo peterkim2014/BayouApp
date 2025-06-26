@@ -18,6 +18,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
   },
 
+  backButtonCategory: {
+    position: 'absolute',
+    top: 50,
+    left: 16,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    zIndex: 10,
+    elevation: 3,
+  },
+
+  backArrow: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+
   heroOverlay: {
     backgroundColor: 'rgba(255,255,255,0.9)',
     margin: 15,
@@ -80,22 +97,19 @@ const styles = StyleSheet.create({
   campaignCategory__grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: gridGap,
     justifyContent: 'center',
-    // backgroundColor: 'grey',
     paddingBottom: 100,
     marginTop: 5,
-    gap: 10,
   },
   
   campaignCategory__gridItem: {
-    width: (width - gridGap * 4.5) / 2,
-    height: 10,
+    width: width / 2.08 - 20,
     aspectRatio: 1,
     borderRadius: 10,
-    marginBottom: gridGap / 15,
+    margin: 5, // use margin instead of gap
     backgroundColor: 'grey',
   },
+  
   
 });
 
