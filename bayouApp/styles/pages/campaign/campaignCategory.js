@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   },
 
   campaignCategory__scrollContainer: {
-    paddingBottom: 100,
     backgroundColor: '#fff',
   },
 
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     paddingBottom: 80,
-    marginTop: 5,
     paddingHorizontal: 10,
+    backgroundColor: 'white'
   },
 
   campaignCategory__gridItem: {

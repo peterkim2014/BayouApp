@@ -20,6 +20,8 @@ export default function CampaignCategory() {
   const navigate = useNavigate();
   const [activeStage, setActiveStage] = useState('Planning');
   const [collapsed, setCollapsed] = useState(false);
+  const [scrollLocked, setScrollLocked] = useState(false);
+
   const collapsedRef = useRef(false);
 
   const translateY = useRef(new Animated.Value(0)).current;
@@ -28,7 +30,7 @@ export default function CampaignCategory() {
   const collapseDistance = -260;
 
   const stages = ['Planning', 'Building', 'Testing', 'Launch'];
-  const sampleCampaigns = [...Array(6).keys()].map(i => ({
+  const sampleCampaigns = [...Array(12).keys()].map(i => ({
     uri: `https://via.placeholder.com/300x300?text=Campaign${i + 1}`,
     title: `Campaign ${i + 1}`,
     viewers: `${(Math.random() * 2 + 1).toFixed(1)}M Watching`,
@@ -63,7 +65,7 @@ export default function CampaignCategory() {
   
       onPanResponderRelease: (_, gestureState) => {
         const dy = gestureState.dy;
-  
+      
         if (!collapsedRef.current && dy < -50) {
           dragLocked.current = true;
           Animated.timing(translateY, {
@@ -74,8 +76,9 @@ export default function CampaignCategory() {
             setCollapsed(true);
             collapsedRef.current = true;
             dragLocked.current = false;
+            setScrollLocked(false); // ✅ unlock after collapse
           });
-  
+      
         } else if (collapsedRef.current && dy > 100) {
           dragLocked.current = true;
           Animated.timing(translateY, {
@@ -86,16 +89,20 @@ export default function CampaignCategory() {
             setCollapsed(false);
             collapsedRef.current = false;
             dragLocked.current = false;
+            setScrollLocked(false); // ✅ unlock after expand
           });
-  
+      
         } else {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
             duration: 200,
             useNativeDriver: true,
-          }).start();
+          }).start(() => {
+            setScrollLocked(false); // ✅ unlock even after cancel
+          });
         }
-      },
+      }
+      
     })
   ).current;
   
@@ -132,51 +139,56 @@ export default function CampaignCategory() {
 
       {/* Collapsible Section */}
       <Animated.View
-        style={{ transform: [{ translateY }] }}
-        {...panResponder.panHandlers}
-      >
-        <ScrollView
-          ref={scrollViewRef}
-          scrollEnabled={collapsed}
-          contentContainerStyle={styles.campaignCategory__scrollContainer}
+  style={{ transform: [{ translateY }] }}
+  {...panResponder.panHandlers}
+>
+  <View style={{ backgroundColor: '#fff' }}>
+    {/* Fixed section title + tabs */}
+    <View style={styles.campaignCategory__scrollContainer}>
+      <View style={styles.campaignCategory__stageRow}>
+        <Text style={styles.campaignCategory__sectionTitle}>Featured Campaigns</Text>
+        <TouchableOpacity>
+          <Ionicons name="search" size={20} color="#000" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.campaignCategory__tabRow}>
+        {stages.map((stage) => (
+          <TouchableOpacity key={stage} onPress={() => setActiveStage(stage)}>
+            <Text
+              style={[
+                styles.campaignCategory__tabText,
+                activeStage === stage && styles.campaignCategory__activeTabText,
+              ]}
+            >
+              {stage}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+
+    {/* Only the grid scrolls */}
+    <ScrollView
+        ref={scrollViewRef}
+        scrollEnabled={collapsed && !scrollLocked}
+        contentContainerStyle={styles.campaignCategory__grid}
+    >
+      {sampleCampaigns.map((campaign, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => navigate(`/campaign/${index}`, { state: campaign })}
         >
-          <View style={styles.campaignCategory__stageRow}>
-            <Text style={styles.campaignCategory__sectionTitle}>Featured Campaigns</Text>
-            <TouchableOpacity>
-              <Ionicons name="search" size={20} color="#000" />
-            </TouchableOpacity>
-          </View>
+          <Image
+            source={{ uri: campaign.uri }}
+            style={styles.campaignCategory__gridItem}
+          />
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  </View>
+</Animated.View>
 
-          <View style={styles.campaignCategory__tabRow}>
-            {stages.map((stage) => (
-              <TouchableOpacity key={stage} onPress={() => setActiveStage(stage)}>
-                <Text
-                  style={[
-                    styles.campaignCategory__tabText,
-                    activeStage === stage && styles.campaignCategory__activeTabText,
-                  ]}
-                >
-                  {stage}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <View style={styles.campaignCategory__grid}>
-            {sampleCampaigns.map((campaign, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => navigate(`/campaign/${index}`, { state: campaign })}
-              >
-                <Image
-                  source={{ uri: campaign.uri }}
-                  style={styles.campaignCategory__gridItem}
-                />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-      </Animated.View>
     </View>
   );
 }
