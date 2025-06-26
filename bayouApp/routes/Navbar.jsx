@@ -24,7 +24,12 @@ export default function NavBar() {
   return (
     <View style={styles.container}>
       {tabs.map((tab, index) => {
-        const isActive = currentPath === tab.path;
+      const isActive =
+        tab.path === '/'
+          ? currentPath === '/'
+          : currentPath.startsWith(tab.path);
+
+
 
         return (
           <Link
