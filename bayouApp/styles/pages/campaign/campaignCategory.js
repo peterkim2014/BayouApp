@@ -4,21 +4,20 @@ const { width, height } = Dimensions.get('window');
 const gridGap = 10;
 
 const styles = StyleSheet.create({
-  campaignCategoryContainer: {
+  campaignCategory__container: {
     flex: 1,
     backgroundColor: '#fff',
     width: width,
-    alignItems: 'center',
   },
 
-  heroImage: {
+  campaignCategory__heroImage: {
     width: '100%',
     height: 320,
     justifyContent: 'flex-end',
     backgroundColor: '#ddd',
   },
 
-  backButtonCategory: {
+  campaignCategory__backButton: {
     position: 'absolute',
     top: 50,
     left: 16,
@@ -30,12 +29,12 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 
-  backArrow: {
+  campaignCategory__backArrow: {
     fontSize: 20,
     fontWeight: '600',
   },
 
-  heroOverlay: {
+  campaignCategory__heroOverlay: {
     backgroundColor: 'rgba(255,255,255,0.9)',
     margin: 15,
     borderRadius: 12,
@@ -43,53 +42,61 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
 
-  heroTitle: {
+  campaignCategory__heroTitle: {
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 4,
   },
 
-  heroSubtitle: {
+  campaignCategory__heroSubtitle: {
     fontSize: 13,
     color: '#444',
   },
 
-  heroArrow: {
+  campaignCategory__heroArrow: {
     position: 'absolute',
     right: 12,
     top: 12,
     padding: 4,
   },
 
-  sectionTitle: {
+  campaignCategory__scrollContainer: {
+    paddingBottom: 100,
+    backgroundColor: '#fff',
+  },
+
+  campaignCategory__sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
   },
 
-  stageRow: {
+  campaignCategory__stageRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
     marginTop: 20,
-    width: width * 0.96,
+    width: width,
   },
 
-  tabRow: {
+  campaignCategory__tabRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     marginVertical: 10,
-    width: width * 0.88,
+    paddingHorizontal: 16,
+    width: width,
   },
 
-  tabText: {
+  campaignCategory__tabText: {
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 8,
     color: '#444',
+    marginRight: 8,
+    marginBottom: 6,
   },
 
-  activeTabText: {
+  campaignCategory__activeTabText: {
     backgroundColor: '#2f7c8f',
     color: '#fff',
   },
@@ -98,19 +105,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingBottom: 100,
+    paddingBottom: 80,
     marginTop: 5,
+    paddingHorizontal: 10,
   },
-  
+
   campaignCategory__gridItem: {
     width: width / 2.08 - 20,
     aspectRatio: 1,
     borderRadius: 10,
-    margin: 5, // use margin instead of gap
+    margin: 5,
     backgroundColor: 'grey',
   },
-  
-  
 });
 
 export default styles;
