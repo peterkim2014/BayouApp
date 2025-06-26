@@ -15,7 +15,6 @@ import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
 import BackSwipeWrapper from '../../components/BackSwipeWrapper';
 
-
 export default function CampaignDetail() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,50 +25,78 @@ export default function CampaignDetail() {
 
   return (
     <BackSwipeWrapper>
-    <View style={styles.container}>
-      <ImageBackground
-        source={{ uri: 'https://via.placeholder.com/600x400' }}
-        style={styles.headerImage}
-        imageStyle={styles.imageRounded}
-      >
-        <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
-          <Text style={styles.backArrow}>←</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <ImageBackground
+          source={{ uri: 'https://via.placeholder.com/600x400' }}
+          style={styles.headerImage}
+          imageStyle={styles.imageRounded}
+        >
+          <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
+            <Text style={styles.backArrow}>←</Text>
+          </TouchableOpacity>
 
-        <View style={styles.viewerRibbon}>
-          <View style={styles.ribbonTriangle} />
-          <View style={styles.ribbonBody}>
-            <Text style={styles.viewerIcon}>👥</Text>
-            <Text style={styles.viewerText}>{campaign.viewers}</Text>
-          </View>
-        </View>
-
-        {/* Buttons for Like comment and join waitlist */}
-      </ImageBackground>
-
-      <View style={styles.bodyWrapper}>
-        {/* Floating Buttons */}
-        <View style={styles.actionRow}>
-            <TouchableOpacity style={styles.actionPill}>
-                <Image source={likeIcon} style={styles.actionIconImage} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionPill}>
-                <Image source={thoughtsIcon} style={styles.actionIconImage} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionPill}>
-                <Image source={waitlistIcon} style={styles.actionIconImage} />
-            </TouchableOpacity>
+          <View style={styles.viewerRibbon}>
+            <View style={styles.ribbonBody}>
+              <Text style={styles.viewerIcon}>👥</Text>
+              <Text style={styles.viewerText}>{campaign.viewers}</Text>
             </View>
+          </View>
+          {/* Action Pills */}
+          <View style={styles.actionRow}>
+            <TouchableOpacity style={styles.actionPill}>
+              <Image source={likeIcon} style={styles.actionIconImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionPill}>
+              <Image source={thoughtsIcon} style={styles.actionIconImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionPill}>
+              <Image source={waitlistIcon} style={styles.actionIconImage} />
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
 
-            <Text style={styles.cardTitle}>{campaign.title}</Text>
-        <ScrollView contentContainerStyle={styles.bodyScroll}>
+        <View style={styles.bodyWrapper}>
+
+          {/* Title, Subtitle, Stars */}
+          <Text style={styles.cardTitle}>{campaign.title}</Text>
+          <Text style={styles.subtitleText}>{campaign.brand} / {campaign.creator}</Text>
+          <View style={styles.ratingRow}>
+            <Text style={styles.ratingStars}>★★★★☆</Text>
+          </View>
+
+          {/* Follow + Status */}
+          <View style={styles.followRow}>
+            <TouchableOpacity style={styles.followButton}>
+              <Text style={styles.followText}>+ Follow</Text>
+            </TouchableOpacity>
+            <View style={styles.statusPill}>
+              <Text style={styles.statusText}>{campaign.status}</Text>
+            </View>
+          </View>
+
+          {/* Stats */}
+          <View style={styles.statsRow}>
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{campaign.likes}</Text>
+              <Text style={styles.statLabel}>Likes</Text>
+            </View>
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{campaign.thoughts}</Text>
+              <Text style={styles.statLabel}>Thoughts</Text>
+            </View>
+            <View style={styles.statBox}>
+              <Text style={styles.statNumber}>{campaign.waitlist}</Text>
+              <Text style={styles.statLabel}>Waitlist</Text>
+            </View>
+          </View>
+
+          <ScrollView contentContainerStyle={styles.bodyScroll}>
             <Text style={styles.description}>
-            This campaign showcases a dynamic collaboration...
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit...
             </Text>
-        </ScrollView>
-    </View>
-
-    </View>
+          </ScrollView>
+        </View>
+      </View>
     </BackSwipeWrapper>
   );
 }

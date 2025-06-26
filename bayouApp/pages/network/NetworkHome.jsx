@@ -236,7 +236,7 @@ export default function NetworkHome() {
           ]}
         >
 
-          <Text style={styles.sectionTitle}>What's happening</Text>
+          <Text style={styles.sectionTitle}>Popular Posts</Text>
           <Animated.ScrollView
             ref={innerScrollRef}
             scrollEnabled={phase === 'inner'}

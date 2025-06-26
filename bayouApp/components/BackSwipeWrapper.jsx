@@ -12,7 +12,7 @@ export default function BackSwipeWrapper({ children }) {
         return gestureState.moveX < 30 && gestureState.dx > 10;
       },
       onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dx > 60) {
+        if (gestureState.dx > 30) {
           navigate(-1);
         }
       },
