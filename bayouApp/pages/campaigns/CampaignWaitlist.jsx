@@ -11,6 +11,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/campaign/campaignWaitlist';
 import BackSwipeWrapper from '../../components/BackSwipeWrapper';
+import { useNavigate } from 'react-router-native';
+
 
 const { width } = Dimensions.get('window');
 
@@ -19,6 +21,7 @@ export default function CampaignWaitlist({ navigation }) {
   const [lastName, setLastName] = useState('');
   const [creatorType, setCreatorType] = useState('');
   const [wantsBeta, setWantsBeta] = useState('');
+  const navigate = useNavigate();
 
   return (
     <BackSwipeWrapper>
@@ -26,9 +29,9 @@ export default function CampaignWaitlist({ navigation }) {
         {/* Header */}
         <View style={styles.headerWrapper}>
             <View style={styles.backRow}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color="black" />
-                </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
             </View>
 
             <View style={styles.headerContent}>
