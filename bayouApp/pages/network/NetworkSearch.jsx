@@ -48,30 +48,43 @@ export default function NetworkSearch() {
 
         {/* Categories */}
         <Text style={styles.sectionLabel}>Categories</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryRow}>
-          {categories.map((cat, index) => (
-            <View key={index} style={styles.categoryItem}>
-                <View style={styles.categoryIconPlaceholder} />
+        <View style={styles.categoryWrapper}>
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.categoryRow}
+            >
+                {categories.map((cat, index) => (
+                <View key={index} style={styles.categoryItem}>
+                    <View style={styles.categoryIconPlaceholder} />
+                    <Text style={styles.categoryLabel}>{cat.label}</Text>
+                </View>
+                ))}
+            </ScrollView>
+        </View>
 
-              <Text style={styles.categoryLabel}>{cat.label}</Text>
-            </View>
-          ))}
-        </ScrollView>
 
         {/* History */}
+        {/* History in vertical scroll */}
         <Text style={styles.sectionLabel}>History</Text>
-        {history.map((item, index) => (
-          <View key={index} style={styles.historyItem}>
-            <View>
-              <Text style={styles.historyTitle}>{item.name}</Text>
-              <Text style={styles.historySubtitle}>{item.subtitle}</Text>
-            </View>
-            <View style={styles.actionButtons}>
-              <View style={styles.circleButton} />
-              <View style={styles.circleButton} />
-            </View>
-          </View>
-        ))}
+        <ScrollView
+            style={styles.historyScroll}
+            contentContainerStyle={styles.historyScrollContent}
+            showsVerticalScrollIndicator={false}
+            >
+            {history.map((item, index) => (
+                <View key={index} style={styles.historyItem}>
+                <View>
+                    <Text style={styles.historyTitle}>{item.name}</Text>
+                    <Text style={styles.historySubtitle}>{item.subtitle}</Text>
+                </View>
+                <View style={styles.actionButtons}>
+                    <View style={styles.circleButton} />
+                    <View style={styles.circleButton} />
+                </View>
+                </View>
+            ))}
+            </ScrollView>
       </View>
     </BackSwipeWrapper>
   );

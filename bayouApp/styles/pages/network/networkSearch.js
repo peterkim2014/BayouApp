@@ -46,6 +46,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     width: width * 0.92
   },
+  
+    categoryWrapper: {
+    height: 90,
+    width: width,
+  },
   categoryRow: {
     flexDirection: 'row',
     marginLeft: 16,
@@ -100,6 +105,14 @@ const styles = StyleSheet.create({
     height: 28,
     backgroundColor: '#e5e5e5',
     borderRadius: 14,
+  },
+
+  historyScroll: {
+    flex: 1,
+  },
+  
+  historyScrollContent: {
+    marginTop: -10, // so it scrolls above keyboard
   },
 });
 
