@@ -139,6 +139,15 @@ export default function ProfileHome() {
     load();
   }, []);
 
+  useEffect(() => {
+    if (selectedPost) {
+      // Freeze collapse while viewing post, but do not animate
+      setCollapsed(false);
+      collapsedRef.current = false;
+    }
+  }, [selectedPost]);
+  
+
   const toggleComments = (id) => {
     setExpandedThreadId((prev) => (prev === id ? null : id));
   };
@@ -182,7 +191,7 @@ export default function ProfileHome() {
           styles.profileCard,
           { transform: [{ translateY }], flex: 1 },
         ]}
-        {...panResponder.panHandlers}
+        {...(selectedPost ? {} : panResponder.panHandlers)}
       >
         <Animated.View style={{ opacity: fadeOutOpacity }}>
           <Text style={styles.bio}>
@@ -208,23 +217,41 @@ export default function ProfileHome() {
         </Animated.View>
 
         {/* Tabs */}
-        <View style={styles.tabRow}>
-          {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
-            <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
-              <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
-                {tab}
-              </Text>
-              {activeTab === tab && <View style={styles.tabIndicator} />}
-            </TouchableOpacity>
-          ))}
-        </View>
+        {!selectedPost && (
+          <View style={styles.tabRow}>
+            {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
+              <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
+                <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+                  {tab}
+                </Text>
+                {activeTab === tab && <View style={styles.tabIndicator} />}
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
 
         {/* Conditional Detail View */}
         {selectedPost ? (
-          <View style={{ paddingTop: 20 }}>
-            <TouchableOpacity onPress={() => setSelectedPost(null)} style={{ padding: 10, marginLeft: 15 }}>
-              <Text style={{ fontSize: 16 }}>← Back to grid</Text>
-            </TouchableOpacity>
+          <View style={{ marginTop: -60 }}>
+          <TouchableOpacity
+            onPress={() => {
+              setSelectedPost(null);
+
+              Animated.timing(translateY, {
+                toValue: collapseDistance,
+                duration: 280,
+                useNativeDriver: false,
+              }).start(() => {
+                setCollapsed(true);
+                collapsedRef.current = true;
+              });
+            }}
+            style={{ padding: 10, marginLeft: 15 }}
+          >
+            <Text style={{ fontSize: 24 }}>←</Text>
+          </TouchableOpacity>
+
             <ThreadCard
               item={selectedPost}
               expandedId={expandedThreadId}
@@ -250,7 +277,15 @@ export default function ProfileHome() {
                 style={styles.gridBox}
                 onPress={() => {
                   setSelectedPost(item);
-                  setExpandedThreadId(item.id);
+    
+                  Animated.timing(translateY, {
+                    toValue: collapseDistance,
+                    duration: 280,
+                    useNativeDriver: false,
+                  }).start(() => {
+                    setCollapsed(true);
+                    collapsedRef.current = true;
+                  });
                 }}
               />
             ))}
