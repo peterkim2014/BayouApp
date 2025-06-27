@@ -28,7 +28,6 @@ export default function ProfileHome() {
   const collapsedRef = useRef(false);
 
   const translateY = useRef(new Animated.Value(0)).current;
-
   const collapseDistance = -115;
 
   const panResponder = useRef(
@@ -56,7 +55,7 @@ export default function ProfileHome() {
           Animated.timing(translateY, {
             toValue: collapseDistance,
             duration: 280,
-            useNativeDriver: true,
+            useNativeDriver: false, // must be false for marginTop
           }).start(() => {
             setCollapsed(true);
             collapsedRef.current = true;
@@ -65,7 +64,7 @@ export default function ProfileHome() {
           Animated.timing(translateY, {
             toValue: 0,
             duration: 220,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }).start(() => {
             setCollapsed(false);
             collapsedRef.current = false;
@@ -74,7 +73,7 @@ export default function ProfileHome() {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
             duration: 200,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }).start();
         }
       },
@@ -99,6 +98,18 @@ export default function ProfileHome() {
     extrapolate: 'clamp',
   });
 
+  const headerMarginTop = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [-90, 0], // move image up by 70px when collapsed
+    extrapolate: 'clamp',
+  });
+
+  const profileImageTranslate = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [-95, 0], // adjust how far you want it to rise
+    extrapolate: 'clamp',
+  });
+  
 
   useEffect(() => {
     const load = async () => {
@@ -112,24 +123,32 @@ export default function ProfileHome() {
     <View style={styles.container}>
       {imageLoaded && (
         <View style={styles.headerContainer}>
-          <ImageBackground
-            source={profileImage}
-            style={styles.headerImage}
-            resizeMode="cover"
-          >
-            <TouchableOpacity style={styles.settingsIcon}>
-              <Image source={settingsIcon} style={styles.settingsImage} />
-            </TouchableOpacity>
-          </ImageBackground>
+          <TouchableOpacity style={styles.settingsIcon}>
+            <Image source={settingsIcon} style={styles.settingsImage} />
+          </TouchableOpacity>
+          <Animated.View style={{ marginTop: headerMarginTop }}>
+            <ImageBackground
+              source={profileImage}
+              style={styles.headerImage}
+              resizeMode="cover"
+            >
+            </ImageBackground>
+          </Animated.View>
+
           <View style={styles.curveWrapper}>
             <HeaderCurve height={20} color="#fff" />
           </View>
         </View>
       )}
 
-      <View style={styles.profileImageWrapper}>
+      <Animated.View
+        style={[
+          styles.profileImageWrapper,
+          { transform: [{ translateY: profileImageTranslate }] },
+        ]}
+      >
         <View style={styles.blankProfileCircle} />
-      </View>
+      </Animated.View>
 
       <View style={styles.profileUserHeader}>
         <Text style={styles.name}>Freddy Mac</Text>
@@ -148,6 +167,7 @@ export default function ProfileHome() {
             This is my tagline and I’m going to write something that helps market myself to be more exposed
           </Text>
         </Animated.View>
+
         <Animated.View style={{ opacity: fadeOutOpacityStats }}>
           <View style={styles.statsCard}>
             <View style={styles.statBlock}>
@@ -164,7 +184,6 @@ export default function ProfileHome() {
             </View>
           </View>
         </Animated.View>
-
 
         {/* Tabs */}
         <View style={styles.tabRow}>

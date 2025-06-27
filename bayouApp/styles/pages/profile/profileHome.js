@@ -38,6 +38,7 @@ export default StyleSheet.create({
     padding: 8,
     borderRadius: 999,
     elevation: 3,
+    zIndex: 5
   },
 
   settingsImage: {
