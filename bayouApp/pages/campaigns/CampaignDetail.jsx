@@ -112,7 +112,10 @@ export default function CampaignDetail() {
             <TouchableOpacity style={styles.actionPill}>
               <Image source={thoughtsIcon} style={styles.actionIconImage} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionPill}>
+            <TouchableOpacity
+              style={styles.actionPill}
+              onPress={() => navigate(`/campaign/${id}/waitlist`, { state: campaign })}
+            >
               <Image source={waitlistIcon} style={styles.actionIconImage} />
             </TouchableOpacity>
           </Animated.View>
