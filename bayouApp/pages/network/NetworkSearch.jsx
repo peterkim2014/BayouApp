@@ -1,0 +1,78 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import styles from '../../styles/pages/network/networkSearch';
+import BackSwipeWrapper from '../../components/BackSwipeWrapper';
+
+export default function NetworkSearch() {
+  const [searchText, setSearchText] = useState('');
+
+  const categories = [
+    { label: 'Vlogging' },
+    { label: 'Automotive' },
+    { label: 'Fishing' },
+    { label: 'Boats' },
+    { label: 'Cooking' },
+  ];
+  
+
+  const history = [
+    { name: 'Grant Horvat', subtitle: 'Golf Influencer' },
+    { name: 'Titleist Series / Ali Willards', subtitle: 'Golf / Product' },
+    { name: 'RangeFinder / Good Good', subtitle: 'Golf /Service' },
+    { name: 'Louis Vuitton / Nike', subtitle: 'Shoe / Product' },
+  ];
+
+  return (
+    <BackSwipeWrapper>
+      <View style={styles.networkSearchContainer}>
+        {/* Search Bar */}
+        <View style={styles.searchBar}>
+          <TextInput
+            placeholder="Search..."
+            style={styles.searchInput}
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+          <TouchableOpacity style={styles.clearButton}>
+            <Ionicons name="close" size={20} color="#000" />
+          </TouchableOpacity>
+        </View>
+
+        {/* Categories */}
+        <Text style={styles.sectionLabel}>Categories</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryRow}>
+          {categories.map((cat, index) => (
+            <View key={index} style={styles.categoryItem}>
+                <View style={styles.categoryIconPlaceholder} />
+
+              <Text style={styles.categoryLabel}>{cat.label}</Text>
+            </View>
+          ))}
+        </ScrollView>
+
+        {/* History */}
+        <Text style={styles.sectionLabel}>History</Text>
+        {history.map((item, index) => (
+          <View key={index} style={styles.historyItem}>
+            <View>
+              <Text style={styles.historyTitle}>{item.name}</Text>
+              <Text style={styles.historySubtitle}>{item.subtitle}</Text>
+            </View>
+            <View style={styles.actionButtons}>
+              <View style={styles.circleButton} />
+              <View style={styles.circleButton} />
+            </View>
+          </View>
+        ))}
+      </View>
+    </BackSwipeWrapper>
+  );
+}

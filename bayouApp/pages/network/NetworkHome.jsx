@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../../styles/pages/network/networkHome';
 import useScrollBehavior from '../../components/useScrollBehavior';
+import { useNavigate } from 'react-router-native';
 
 const { width, height } = Dimensions.get('window');
 const TABS = ['Creators', 'Brands', 'Viewers'];
@@ -28,6 +29,7 @@ export default function NetworkHome() {
     handleInnerScroll,
     outerScrollEnabled,
   } = useScrollBehavior(snapHeight);
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('Creators');
 
@@ -112,7 +114,8 @@ export default function NetworkHome() {
         <Text style={styles.networkHeaderTitle}>
           Where the connection{'\n'}meets collaboration
         </Text>
-        <TouchableOpacity style={styles.searchIcon}>
+
+        <TouchableOpacity style={styles.searchIcon} onPress={() => navigate('/network/search')}>
           <Ionicons name="search" size={20} color="#000" />
         </TouchableOpacity>
 
