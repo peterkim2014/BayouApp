@@ -41,9 +41,13 @@ export default function NetworkSearch() {
             value={searchText}
             onChangeText={setSearchText}
           />
-          <TouchableOpacity style={styles.clearButton}>
+        <TouchableOpacity
+        style={styles.clearButton}
+        onPress={() => setSearchText('')}
+        >
             <Ionicons name="close" size={20} color="#000" />
-          </TouchableOpacity>
+        </TouchableOpacity>
+
         </View>
 
         {/* Categories */}
