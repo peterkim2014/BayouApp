@@ -9,7 +9,6 @@ import {
   ScrollView,
   Dimensions,
   PanResponder,
-  StyleSheet,
 } from 'react-native';
 import { Asset } from 'expo-asset';
 import styles from '../../styles/pages/profile/profileHome';
@@ -17,28 +16,83 @@ import profileImage from '../../assets/profileBackground.png';
 import settingsIcon from '../../assets/settingsIcon.png';
 import HeaderCurve from '../../components/HeaderCurve';
 
-const { width } = Dimensions.get('window');
 const screenHeight = Dimensions.get('window').height;
 
 export default function ProfileHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  const scrollRef = useRef(null);
+  const scrollOffsetY = useRef(0);
+  const collapsedRef = useRef(false);
 
   const translateY = useRef(new Animated.Value(0)).current;
-  const scrollAtTopRef = useRef(true);
 
-  const fadeOutOpacity = translateY.interpolate({
-    inputRange: [-165, -40, 0],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
+  const collapseDistance = -115;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) => {
+        const isAtTop = scrollOffsetY.current <= 0;
+        if (!collapsedRef.current && gesture.dy < -10) return true;
+        if (collapsedRef.current && gesture.dy > 10 && isAtTop) return true;
+        return false;
+      },
+      onPanResponderMove: (_, gesture) => {
+        const dy = gesture.dy;
+        if (collapsedRef.current && dy > 0) {
+          const offset = collapseDistance + dy * 0.25;
+          translateY.setValue(Math.min(offset, 0));
+        } else if (!collapsedRef.current && dy < 0) {
+          const offset = Math.max(collapseDistance, dy);
+          translateY.setValue(offset);
+        }
+      },
+      onPanResponderRelease: (_, gesture) => {
+        const dy = gesture.dy;
+
+        if (!collapsedRef.current && dy < -50) {
+          Animated.timing(translateY, {
+            toValue: collapseDistance,
+            duration: 280,
+            useNativeDriver: true,
+          }).start(() => {
+            setCollapsed(true);
+            collapsedRef.current = true;
+          });
+        } else if (collapsedRef.current && dy > 100) {
+          Animated.timing(translateY, {
+            toValue: 0,
+            duration: 220,
+            useNativeDriver: true,
+          }).start(() => {
+            setCollapsed(false);
+            collapsedRef.current = false;
+          });
+        } else {
+          Animated.timing(translateY, {
+            toValue: collapsedRef.current ? collapseDistance : 0,
+            duration: 200,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    })
+  ).current;
 
   const sampleData = {
     Lifestyle: Array.from({ length: 18 }, (_, i) => ({ id: `${i}` })),
     Campaigns: [],
     Comments: [],
   };
+
+  const fadeOutOpacity = translateY.interpolate({
+    inputRange: [-115, -80, 0],
+    outputRange: [0, 0, 1],
+    extrapolate: 'clamp',
+  });
+
 
   useEffect(() => {
     const load = async () => {
@@ -47,7 +101,6 @@ export default function ProfileHome() {
     };
     load();
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -68,7 +121,6 @@ export default function ProfileHome() {
         </View>
       )}
 
-      {/* Profile Picture */}
       <View style={styles.profileImageWrapper}>
         <View style={styles.blankProfileCircle} />
       </View>
@@ -81,14 +133,10 @@ export default function ProfileHome() {
       <Animated.View
         style={[
           styles.profileCard,
-          {
-            transform: [{ translateY }],
-            flex: 1,
-            minHeight: isCollapsed ? screenHeight - 230 : undefined, // ensures enough space when collapsed
-          },
+          { transform: [{ translateY }], flex: 1 },
         ]}
+        {...panResponder.panHandlers}
       >
-        {/* Content that fades in/out */}
         <Animated.View style={{ opacity: fadeOutOpacity }}>
           <Text style={styles.bio}>
             This is my tagline and I’m going to write something that helps market myself to be more exposed
@@ -110,6 +158,7 @@ export default function ProfileHome() {
           </View>
         </Animated.View>
 
+
         {/* Tabs */}
         <View style={styles.tabRow}>
           {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
@@ -120,50 +169,24 @@ export default function ProfileHome() {
           ))}
         </View>
 
-        {/* ScrollView Interaction */}
-        <View style={{ flex: 1 }}>
+        {/* Scrollable Content */}
         <ScrollView
-          contentContainerStyle={styles.grid}
-          scrollEnabled={true}
-          scrollEventThrottle={6}
+          ref={scrollRef}
+          scrollEnabled={collapsed}
           onScroll={(e) => {
-            const offsetY = e.nativeEvent.contentOffset.y;
-            scrollAtTopRef.current = offsetY <= 0;
+            scrollOffsetY.current = e.nativeEvent.contentOffset.y;
           }}
-          onScrollEndDrag={(e) => {
-            const offsetY = e.nativeEvent.contentOffset.y;
-            const velocityY = e.nativeEvent.velocity?.y || 0;
-
-            // 🧠 Flick up = velocityY > 0 (toward negative offset)
-            if (!isCollapsed && velocityY > 0.000001 * 0.0000001) {
-              Animated.spring(translateY, {
-                toValue: -115,
-                useNativeDriver: true,
-              }).start(() => {
-                setIsCollapsed(true);
-              });
-            }
-
-            // 🧠 Flick down at scroll top = expand
-            if (isCollapsed && scrollAtTopRef.current && velocityY < -1.5) {
-              Animated.spring(translateY, {
-                toValue: 0,
-                useNativeDriver: true,
-              }).start(() => {
-                setIsCollapsed(false);
-              });
-            }
-          }}
+          scrollEventThrottle={16}
+          contentContainerStyle={styles.grid}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          overScrollMode="never"
         >
           {sampleData[activeTab].map((item) => (
             <View key={item.id} style={styles.gridBox} />
           ))}
         </ScrollView>
-        </View>
       </Animated.View>
-
     </View>
   );
 }
-
-
