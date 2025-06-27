@@ -15,6 +15,7 @@ import styles from '../../styles/pages/profile/profileHome';
 import profileImage from '../../assets/profileBackground.png';
 import settingsIcon from '../../assets/settingsIcon.png';
 import HeaderCurve from '../../components/HeaderCurve';
+import ThreadCard from '../../components/cards/ThreadCard';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -22,6 +23,8 @@ export default function ProfileHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
   const [imageLoaded, setImageLoaded] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [expandedThreadId, setExpandedThreadId] = useState(null);
 
   const scrollRef = useRef(null);
   const scrollOffsetY = useRef(0);
@@ -55,7 +58,7 @@ export default function ProfileHome() {
           Animated.timing(translateY, {
             toValue: collapseDistance,
             duration: 280,
-            useNativeDriver: false, // must be false for marginTop
+            useNativeDriver: false,
           }).start(() => {
             setCollapsed(true);
             collapsedRef.current = true;
@@ -81,7 +84,25 @@ export default function ProfileHome() {
   ).current;
 
   const sampleData = {
-    Lifestyle: Array.from({ length: 18 }, (_, i) => ({ id: `${i}` })),
+    Lifestyle: Array.from({ length: 18 }, (_, i) => ({
+      id: `${i}`,
+      title: 'Wild Stone Clone',
+      description:
+        'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear',
+      image: 'https://via.placeholder.com/600x400?text=Post+Image',
+      comments: [
+        {
+          name: 'Timothy Smith',
+          text: 'This is my comment that I’m posting as a thought, but what do you guys think?',
+          likes: '67k',
+        },
+        {
+          name: 'Anthony Garner',
+          text: 'Excited to see this collaboration happen',
+          likes: '23k',
+        },
+      ],
+    })),
     Campaigns: [],
     Comments: [],
   };
@@ -100,16 +121,15 @@ export default function ProfileHome() {
 
   const headerMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [-90, 0], // move image up by 70px when collapsed
+    outputRange: [-90, 0],
     extrapolate: 'clamp',
   });
 
   const profileImageTranslate = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [-95, 0], // adjust how far you want it to rise
+    outputRange: [-95, 0],
     extrapolate: 'clamp',
   });
-  
 
   useEffect(() => {
     const load = async () => {
@@ -118,6 +138,10 @@ export default function ProfileHome() {
     };
     load();
   }, []);
+
+  const toggleComments = (id) => {
+    setExpandedThreadId((prev) => (prev === id ? null : id));
+  };
 
   return (
     <View style={styles.container}>
@@ -131,10 +155,8 @@ export default function ProfileHome() {
               source={profileImage}
               style={styles.headerImage}
               resizeMode="cover"
-            >
-            </ImageBackground>
+            />
           </Animated.View>
-
           <View style={styles.curveWrapper}>
             <HeaderCurve height={20} color="#fff" />
           </View>
@@ -189,29 +211,51 @@ export default function ProfileHome() {
         <View style={styles.tabRow}>
           {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
             <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
-              <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>{tab}</Text>
+              <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+                {tab}
+              </Text>
               {activeTab === tab && <View style={styles.tabIndicator} />}
             </TouchableOpacity>
           ))}
         </View>
 
-        {/* Scrollable Content */}
-        <ScrollView
-          ref={scrollRef}
-          scrollEnabled={collapsed}
-          onScroll={(e) => {
-            scrollOffsetY.current = e.nativeEvent.contentOffset.y;
-          }}
-          scrollEventThrottle={16}
-          contentContainerStyle={styles.grid}
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-          overScrollMode="never"
-        >
-          {sampleData[activeTab].map((item) => (
-            <View key={item.id} style={styles.gridBox} />
-          ))}
-        </ScrollView>
+        {/* Conditional Detail View */}
+        {selectedPost ? (
+          <View style={{ paddingTop: 20 }}>
+            <TouchableOpacity onPress={() => setSelectedPost(null)} style={{ padding: 10, marginLeft: 15 }}>
+              <Text style={{ fontSize: 16 }}>← Back to grid</Text>
+            </TouchableOpacity>
+            <ThreadCard
+              item={selectedPost}
+              expandedId={expandedThreadId}
+              toggleComments={toggleComments}
+            />
+          </View>
+        ) : (
+          <ScrollView
+            ref={scrollRef}
+            scrollEnabled={collapsed}
+            onScroll={(e) => {
+              scrollOffsetY.current = e.nativeEvent.contentOffset.y;
+            }}
+            scrollEventThrottle={16}
+            contentContainerStyle={styles.grid}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+            overScrollMode="never"
+          >
+            {sampleData[activeTab].map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.gridBox}
+                onPress={() => {
+                  setSelectedPost(item);
+                  setExpandedThreadId(item.id);
+                }}
+              />
+            ))}
+          </ScrollView>
+        )}
       </Animated.View>
     </View>
   );
