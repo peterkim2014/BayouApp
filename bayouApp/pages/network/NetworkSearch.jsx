@@ -73,9 +73,6 @@ export default function NetworkSearch() {
             </ScrollView>
         </View>
 
-
-        {/* History */}
-        {/* History in vertical scroll */}
         <Text style={styles.sectionLabel}>History</Text>
         <ScrollView
             contentContainerStyle={styles.historyScrollContent}

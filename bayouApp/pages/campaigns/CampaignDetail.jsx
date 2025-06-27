@@ -74,7 +74,7 @@ export default function CampaignDetail() {
           }).start(() => {
             collapsedRef.current = true;
             setCollapsed(true);
-            setScrollLocked(false); // ✅ unlock scroll after animation
+            setScrollLocked(false);
             dragLocked.current = false;
           });
         } else if (collapsedRef.current && dy > 100) {
@@ -87,7 +87,7 @@ export default function CampaignDetail() {
           }).start(() => {
             collapsedRef.current = false;
             setCollapsed(false);
-            setScrollLocked(false); // ✅ re-lock scroll on reset
+            setScrollLocked(false);
             dragLocked.current = false;
           });
         } else {
@@ -138,7 +138,7 @@ export default function CampaignDetail() {
 
         {/* Animated Body */}
         <Animated.View
-          style={{ transform: [{ translateY }], height: SCREEN_HEIGHT, }}
+          style={{ transform: [{ translateY }], height: SCREEN_HEIGHT / 1.8, }}
           {...panResponder.panHandlers}
         >
           <View style={styles.bodyWrapper}>
@@ -193,6 +193,12 @@ export default function CampaignDetail() {
               bounces={!isDraggingDown}
               overScrollMode="never"
             >
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
               <Text style={styles.description}>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
               </Text>
