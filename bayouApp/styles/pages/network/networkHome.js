@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 22,
     fontWeight: '700',
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
   },
 
   searchIcon: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   tabRow: {
     flexDirection: 'row',
     marginTop: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
   },
 
   tab: {
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
 
   profileScroll: { 
     paddingVertical: 70,
-    paddingHorizontal: 30,
-    // marginTop: -10,
+    paddingHorizontal: 25,
+    marginTop: 40,
   },
 
   profileCard: {
@@ -115,11 +115,15 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: '500',
     fontSize: 14,
+    textAlign: 'left',
+    eight: 15,
   },
 
   title: {
     fontSize: 12,
     color: '#555',
+    height: 15,
+    textAlign: 'left',
   },
 
   sectionTitle: {

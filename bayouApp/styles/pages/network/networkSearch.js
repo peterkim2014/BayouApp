@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
     width: width,
     alignItems: 'center',
   },
+  headerSearchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: 8
+  },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -21,7 +27,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 6,
-    width: width * 0.92
+    width: width * 0.84
   },
   searchInput: {
     flex: 1,
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderBottomColor: '#ccc',
     borderBottomWidth: 0.5,
-    width: width * 0.93
+    width: width * 0.93,
   },
   historyTitle: {
     fontWeight: '600',
@@ -106,13 +112,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#e5e5e5',
     borderRadius: 14,
   },
-
-  historyScroll: {
-    flex: 1,
-  },
   
   historyScrollContent: {
-    marginTop: -10, // so it scrolls above keyboard
+    marginTop: -8.5,
   },
 });
 

@@ -47,7 +47,7 @@ export default function NetworkHome() {
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [205, 55],
+    outputRange: [190, 55],
     extrapolate: 'clamp',
   });
 
@@ -152,7 +152,7 @@ export default function NetworkHome() {
                     width: profileCardWidth,
                     marginTop: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [10, -55],
+                      outputRange: [10, -125],
                       extrapolate: 'clamp',
                     }),
                   },

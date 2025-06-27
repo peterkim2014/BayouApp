@@ -10,9 +10,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/network/networkSearch';
 import BackSwipeWrapper from '../../components/BackSwipeWrapper';
+import { useNavigate } from 'react-router-native';
 
 export default function NetworkSearch() {
   const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
 
   const categories = [
     { label: 'Vlogging' },
@@ -33,21 +35,25 @@ export default function NetworkSearch() {
   return (
     <BackSwipeWrapper>
       <View style={styles.networkSearchContainer}>
-        {/* Search Bar */}
-        <View style={styles.searchBar}>
-          <TextInput
-            placeholder="Search..."
-            style={styles.searchInput}
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-        <TouchableOpacity
-        style={styles.clearButton}
-        onPress={() => setSearchText('')}
-        >
-            <Ionicons name="close" size={20} color="#000" />
-        </TouchableOpacity>
-
+        <View style={styles.headerSearchContainer}>
+            <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
+            {/* Search Bar */}
+            <View style={styles.searchBar}>
+            <TextInput
+                placeholder="Search..."
+                style={styles.searchInput}
+                value={searchText}
+                onChangeText={setSearchText}
+            />
+                <TouchableOpacity
+                style={styles.clearButton}
+                onPress={() => setSearchText('')}
+                >
+                    <Ionicons name="close" size={20} color="#000" />
+                </TouchableOpacity>
+            </View>
         </View>
 
         {/* Categories */}
@@ -72,7 +78,6 @@ export default function NetworkSearch() {
         {/* History in vertical scroll */}
         <Text style={styles.sectionLabel}>History</Text>
         <ScrollView
-            style={styles.historyScroll}
             contentContainerStyle={styles.historyScrollContent}
             showsVerticalScrollIndicator={false}
             >
