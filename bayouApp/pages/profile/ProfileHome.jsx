@@ -52,7 +52,7 @@ export default function ProfileHome() {
       onPanResponderRelease: (_, gesture) => {
         const dy = gesture.dy;
 
-        if (!collapsedRef.current && dy < -50) {
+        if (!collapsedRef.current && dy < -15) {
           Animated.timing(translateY, {
             toValue: collapseDistance,
             duration: 280,
@@ -88,7 +88,13 @@ export default function ProfileHome() {
   };
 
   const fadeOutOpacity = translateY.interpolate({
-    inputRange: [-115, -80, 0],
+    inputRange: [-115, -45, 0],
+    outputRange: [0, 0, 1],
+    extrapolate: 'clamp',
+  });
+
+  const fadeOutOpacityStats = translateY.interpolate({
+    inputRange: [-115, -60, 0],
     outputRange: [0, 0, 1],
     extrapolate: 'clamp',
   });
@@ -141,7 +147,8 @@ export default function ProfileHome() {
           <Text style={styles.bio}>
             This is my tagline and I’m going to write something that helps market myself to be more exposed
           </Text>
-
+        </Animated.View>
+        <Animated.View style={{ opacity: fadeOutOpacityStats }}>
           <View style={styles.statsCard}>
             <View style={styles.statBlock}>
               <Text style={styles.statNumber}>354</Text>
