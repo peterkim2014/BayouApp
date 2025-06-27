@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   campaignDetailcontainer: {
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
 
   bodyScroll: {
     paddingBottom: 40,
+    height: height,
   },
 
   description: {

@@ -25,6 +25,10 @@ export default function CampaignDetail() {
   const location = useLocation();
   const { id } = useParams();
   const campaign = location.state;
+  const [scrollLocked, setScrollLocked] = useState(false);
+  const dragLocked = useRef(false);
+  const [isDraggingDown, setIsDraggingDown] = useState(false);
+
 
   if (!campaign) return <Text>Loading campaign...</Text>;
 
@@ -47,17 +51,22 @@ export default function CampaignDetail() {
       onPanResponderMove: (_, gesture) => {
         const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
+          setIsDraggingDown(true);
           const offset = collapseDistance + dy * 0.25;
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
+          setIsDraggingDown(false);
           const offset = Math.max(collapseDistance, dy);
           translateY.setValue(offset);
         }
       },
       onPanResponderRelease: (_, gesture) => {
         const dy = gesture.dy;
+        setIsDraggingDown(false);
 
         if (!collapsedRef.current && dy < -50) {
+          dragLocked.current = true;
+          setScrollLocked(true);
           Animated.timing(translateY, {
             toValue: collapseDistance,
             duration: 280,
@@ -65,8 +74,12 @@ export default function CampaignDetail() {
           }).start(() => {
             collapsedRef.current = true;
             setCollapsed(true);
+            setScrollLocked(false); // ✅ unlock scroll after animation
+            dragLocked.current = false;
           });
         } else if (collapsedRef.current && dy > 100) {
+          dragLocked.current = true;
+          setScrollLocked(true);
           Animated.timing(translateY, {
             toValue: 0,
             duration: 220,
@@ -74,6 +87,8 @@ export default function CampaignDetail() {
           }).start(() => {
             collapsedRef.current = false;
             setCollapsed(false);
+            setScrollLocked(false); // ✅ re-lock scroll on reset
+            dragLocked.current = false;
           });
         } else {
           Animated.timing(translateY, {
@@ -123,7 +138,7 @@ export default function CampaignDetail() {
 
         {/* Animated Body */}
         <Animated.View
-          style={{ transform: [{ translateY }] }}
+          style={{ transform: [{ translateY }], height: SCREEN_HEIGHT, }}
           {...panResponder.panHandlers}
         >
           <View style={styles.bodyWrapper}>
@@ -168,16 +183,52 @@ export default function CampaignDetail() {
             {/* Scrollable content */}
             <ScrollView
               ref={scrollViewRef}
-              scrollEnabled={collapsed}
+              scrollEnabled={collapsed && !scrollLocked}
               onScroll={(e) => {
                 scrollOffsetY.current = e.nativeEvent.contentOffset.y;
               }}
               scrollEventThrottle={16}
               contentContainerStyle={styles.bodyScroll}
               showsVerticalScrollIndicator={false}
-              bounces={false}
+              bounces={!isDraggingDown}
               overScrollMode="never"
             >
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
+              <Text style={styles.description}>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
+              </Text>
               <Text style={styles.description}>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa...
               </Text>
