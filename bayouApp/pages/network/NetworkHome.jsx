@@ -109,7 +109,7 @@ export default function NetworkHome() {
 
   const scrollPaddingTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [80, 180], // collapsed → expanded
+    outputRange: [30, 10], // collapsed → expanded
     extrapolate: 'clamp',
   });
 
@@ -259,7 +259,7 @@ export default function NetworkHome() {
                       borderRadius: profileBorderRadius,
                       justifyContent: 'flex-start',
                       alignItems: 'center',
-                      marginTop: 30,
+                      marginTop: scrollPaddingTop,
                     },
                   ]}
                 >
