@@ -47,7 +47,7 @@ export default function NetworkHome() {
 
   const profileCardHeight = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [190, 55],
+    outputRange: [170, 55],
     extrapolate: 'clamp',
   });
 
@@ -59,7 +59,7 @@ export default function NetworkHome() {
 
   const profileTranslateY = scrollY.interpolate({
     inputRange: [0, snapHeight],
-    outputRange: [0, 1],
+    outputRange: [-15, -35],
     extrapolate: 'clamp',
   });
 
@@ -133,12 +133,21 @@ export default function NetworkHome() {
           ))}
         </View>
 
-        <Animated.View style={{ transform: [{ translateY: profileTranslateY }] }}>
-          <Animated.ScrollView
-            horizontal
-            contentContainerStyle={styles.profileScroll}
-            showsHorizontalScrollIndicator={false}
-          >
+        <Animated.View 
+          style={{ transform: [{ translateY: profileTranslateY }] }}
+          // contentContainerStyle={}
+        >
+        <Animated.ScrollView
+          horizontal
+          // bounces={false}
+          // overScrollMode="never"
+          scrollEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          directionalLockEnabled={false} 
+          contentContainerStyle={styles.profileScroll}
+          style={styles.profileScroll}
+        >
+
             {mockPeople.map((person, i) => (
               <Animated.View
                 key={i}
@@ -152,7 +161,7 @@ export default function NetworkHome() {
                     width: profileCardWidth,
                     marginTop: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [10, -125],
+                      outputRange: [10, -10],
                       extrapolate: 'clamp',
                     }),
                   },
@@ -172,17 +181,16 @@ export default function NetworkHome() {
                   style={[
                     styles.name,
                     {
+                      fontSize: scrollY.interpolate({
+                        inputRange: [0, snapHeight / 2],
+                        outputRange: [12, 0.01], // ✅ Don't go negative
+                        extrapolate: 'clamp',
+                      }),
                       opacity: scrollY.interpolate({
                         inputRange: [0, snapHeight / 2],
                         outputRange: [1, 0],
                         extrapolate: 'clamp',
-                      }),
-                      fontSize: scrollY.interpolate({
-                        inputRange: [0, snapHeight / 2],
-                        outputRange: [12, -10],
-                        extrapolate: 'clamp',
-                      }),
-                      height: width * 0,
+                      }),                      
                     },
                   ]}
                 >
