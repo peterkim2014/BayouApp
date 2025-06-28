@@ -147,7 +147,6 @@ export default function NetworkHome() {
           contentContainerStyle={styles.profileScroll}
           style={styles.profileScroll}
         >
-
             {mockPeople.map((person, i) => (
               <Animated.View
                 key={i}
@@ -161,7 +160,7 @@ export default function NetworkHome() {
                     width: profileCardWidth,
                     marginTop: scrollY.interpolate({
                       inputRange: [0, snapHeight],
-                      outputRange: [10, -10],
+                      outputRange: [10, 10],
                       extrapolate: 'clamp',
                     }),
                   },

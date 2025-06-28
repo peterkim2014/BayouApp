@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   profileScroll: { 
     paddingVertical: 20,
     paddingHorizontal: 12,
-    marginTop: 40,
+    marginTop: 30,
   },
 
   profileCard: {
