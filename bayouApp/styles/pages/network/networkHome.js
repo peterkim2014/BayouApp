@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   networkHeaderContainer: {
     backgroundColor: '#fff',
     marginleft: 32,
-    paddingTop: 70,
+    // marginTop: 20,
     // paddingBottom: 20,
     zIndex: 5,
     width: width,
@@ -85,14 +85,41 @@ const styles = StyleSheet.create({
   },
 
   scrollBodyContent: {
-    marginTop: 105,
+    marginTop: 35,
   },
   
 
   profileScroll: { 
-    paddingVertical: 20,
+    marginTop: 8,
     paddingHorizontal: 12,
-    marginTop: 30,
+    flexDirection: 'column'
+  },
+
+  profileContainer: {
+    flexDirection: 'row'
+  }, 
+
+  featuredHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginLeft: 5,
+    width: width * 0.96,
+    marginTop: 50,
+    // marginBottom: 10,
+  },
+  
+  featuredHeaderText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+  },
+  
+  seeAllText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#5A4BFF', // Match the purple from screenshot
   },
 
   profileCard: {
