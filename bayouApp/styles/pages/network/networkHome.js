@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   
   scrollBody: {
     // paddingBottom: 100,
-    paddingLeft: 5
+    paddingLeft: 5,
+    // paddingTop: 105,
   },
 
   // scrollBodyContent: {

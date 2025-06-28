@@ -113,6 +113,13 @@ export default function NetworkHome() {
     extrapolate: 'clamp',
   });
 
+  const scrollBodyMarginTop = translateY.interpolate({
+  inputRange: [collapseDistance, 0],
+  outputRange: [0, 75], // collapsed → expanded
+  extrapolate: 'clamp',
+});
+
+
 
   const fadeOutOnCollapse = {
     opacity: translateY.interpolate({
@@ -303,28 +310,35 @@ export default function NetworkHome() {
       </Animated.View>
 
       {/* Scroll Body */}
-      <View style={styles.scrollBody} {...panResponder.panHandlers}>
-
-      <AnimatedScrollView
-        ref={scrollRef}
-        scrollEnabled={collapsed}
-        onScroll={(e) => {
-          scrollOffsetY.current = e.nativeEvent.contentOffset.y;
-        }}
-        scrollEventThrottle={16}
-        bounces={false}
-        overScrollMode="never"
+      <Animated.View
         style={[
-          styles.scrollBodyContent,
-          { paddingTop: translateY.interpolate({
-            inputRange: [collapseDistance, 0],
-            outputRange: [-15, 75],
-            extrapolate: 'clamp',
-           })},
+          styles.scrollBody,
+          { marginTop: scrollBodyMarginTop },
         ]}
+        {...panResponder.panHandlers}
       >
 
-          <Text style={styles.sectionTitle}>Popular Posts</Text>
+        <Text style={styles.sectionTitle}>Popular Posts</Text>
+        <AnimatedScrollView
+          ref={scrollRef}
+          scrollEnabled={collapsed}
+          onScroll={(e) => {
+            scrollOffsetY.current = e.nativeEvent.contentOffset.y;
+          }}
+          scrollEventThrottle={16}
+          bounces={false}
+          overScrollMode="never"
+          style={[
+            styles.scrollBodyContent,
+            { paddingTop: translateY.interpolate({
+              inputRange: [collapseDistance, 0],
+              outputRange: [-105, -5],
+              extrapolate: 'clamp',
+            })},
+          ]}
+        >
+
+          
           <View style={styles.gridContainer}>
             {Array(24)
               .fill(null)
@@ -333,7 +347,7 @@ export default function NetworkHome() {
               ))}
           </View>
         </AnimatedScrollView>
-      </View>
+      </Animated.View>
     </View>
   );
 }
