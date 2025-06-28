@@ -205,8 +205,24 @@ export default function NetworkHome() {
   <View style={styles.featuredHeaderRow}>
     <Text style={styles.featuredHeaderText}>Featured Curators</Text>
     <TouchableOpacity>
-      <Text style={styles.seeAllText}>See All</Text>
+      <Animated.Text
+        style={{
+          fontSize: translateY.interpolate({
+            inputRange: [collapseDistance, collapseDistance * 0.001],
+            outputRange: [0.01, 12], // Shrinks quickly
+            extrapolate: 'clamp',
+          }),
+          opacity: translateY.interpolate({
+            inputRange: [collapseDistance, collapseDistance * 0.001],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        }}
+      >
+        See All
+      </Animated.Text>
     </TouchableOpacity>
+
   </View>
 
   <ScrollView
