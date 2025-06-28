@@ -23,6 +23,8 @@ export default function NetworkHome() {
   const [collapsed, setCollapsed] = useState(false);
 
   const translateY = useRef(new Animated.Value(0)).current;
+  const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+
   const scrollOffsetY = useRef(0);
   const collapsedRef = useRef(false);
   const scrollRef = useRef(null);
@@ -104,6 +106,13 @@ export default function NetworkHome() {
     outputRange: [-35, -15],
     extrapolate: 'clamp',
   });
+
+  const scrollPaddingTop = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [80, 180], // collapsed → expanded
+    extrapolate: 'clamp',
+  });
+
 
   const fadeOutOnCollapse = {
     opacity: translateY.interpolate({
@@ -190,129 +199,131 @@ export default function NetworkHome() {
 
         {/* Featured Curators */}
         <Animated.View
-  style={{
-    transform: [
-      {
-        translateY: translateY.interpolate({
-          inputRange: [collapseDistance, 0],
-          outputRange: [-75, 35], // pull up by 40px during collapse
-          extrapolate: 'clamp',
-        }),
-      },
-    ],
-  }}
->
-  <View style={styles.featuredHeaderRow}>
-    <Text style={styles.featuredHeaderText}>Featured Curators</Text>
-    <TouchableOpacity>
-      <Animated.Text
-        style={{
-          fontSize: translateY.interpolate({
-            inputRange: [collapseDistance, collapseDistance * 0.001],
-            outputRange: [0.01, 12], // Shrinks quickly
-            extrapolate: 'clamp',
-          }),
-          opacity: translateY.interpolate({
-            inputRange: [collapseDistance, collapseDistance * 0.001],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
-          }),
-        }}
-      >
-        See All
-      </Animated.Text>
-    </TouchableOpacity>
-
-  </View>
-
-  <ScrollView
-    horizontal
-    showsHorizontalScrollIndicator={false}
-    contentContainerStyle={styles.profileScroll}
-    style={styles.profileScroll}
-  >
-    <View style={styles.profileContainer}>
-      {mockPeople.map((person, i) => (
-        <Animated.View
-          key={i}
-          style={[
-            styles.profileCard,
-            {
-              width: profileCardWidth,
-              transform: [{ translateY: profileTranslateY }],
-              borderRadius: profileBorderRadius,
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              marginTop: 30,
-            },
-          ]}
-        >
-          <Animated.View
-            style={[
-              styles.profilePlaceholder,
+          style={{
+            transform: [
               {
-                height: profileCardHeight,
-                width: profileCardWidth,
-                borderRadius: profileBorderRadius,
+                translateY: translateY.interpolate({
+                  inputRange: [collapseDistance, 0],
+                  outputRange: [-75, 35], // pull up by 40px during collapse
+                  extrapolate: 'clamp',
+                }),
               },
-            ]}
-          />
-          <Animated.Text
-            style={{
-              fontSize: translateY.interpolate({
-                inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [10, 12],
-                extrapolate: 'clamp',
-              }),
-            }}
+            ],
+          }}
+        >
+          <View style={styles.featuredHeaderRow}>
+            <Text style={styles.featuredHeaderText}>Featured Curators</Text>
+            <TouchableOpacity>
+              <Animated.Text
+                style={{
+                  fontSize: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.001],
+                    outputRange: [0.01, 12], // Shrinks quickly
+                    extrapolate: 'clamp',
+                  }),
+                  opacity: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.001],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                  }),
+                }}
+              >
+                See All
+              </Animated.Text>
+            </TouchableOpacity>
+
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.profileScroll}
+            style={styles.profileScroll}
           >
-            {person.name}
-          </Animated.Text>
-          <Animated.Text
-            style={{
-              fontSize: translateY.interpolate({
-                inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [0.01, 14],
-                extrapolate: 'clamp',
-              }),
-              opacity: translateY.interpolate({
-                inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
-              }),
-            }}
-          >
-            {person.title}
-          </Animated.Text>
+            <View style={styles.profileContainer}>
+              {mockPeople.map((person, i) => (
+                <Animated.View
+                  key={i}
+                  style={[
+                    styles.profileCard,
+                    {
+                      width: profileCardWidth,
+                      transform: [{ translateY: profileTranslateY }],
+                      borderRadius: profileBorderRadius,
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                      marginTop: 30,
+                    },
+                  ]}
+                >
+                  <Animated.View
+                    style={[
+                      styles.profilePlaceholder,
+                      {
+                        height: profileCardHeight,
+                        width: profileCardWidth,
+                        borderRadius: profileBorderRadius,
+                      },
+                    ]}
+                  />
+                  <Animated.Text
+                    style={{
+                      fontSize: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [10, 12],
+                        extrapolate: 'clamp',
+                      }),
+                    }}
+                  >
+                    {person.name}
+                  </Animated.Text>
+                  <Animated.Text
+                    style={{
+                      fontSize: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [0.01, 14],
+                        extrapolate: 'clamp',
+                      }),
+                      opacity: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [0, 1],
+                        extrapolate: 'clamp',
+                      }),
+                    }}
+                  >
+                    {person.title}
+                  </Animated.Text>
+                </Animated.View>
+              ))}
+            </View>
+          </ScrollView>
         </Animated.View>
-      ))}
-    </View>
-  </ScrollView>
-</Animated.View>
 
 
       </Animated.View>
 
       {/* Scroll Body */}
-      <Animated.View
+      <View style={styles.scrollBody} {...panResponder.panHandlers}>
+
+      <AnimatedScrollView
+        ref={scrollRef}
+        scrollEnabled={collapsed}
+        onScroll={(e) => {
+          scrollOffsetY.current = e.nativeEvent.contentOffset.y;
+        }}
+        scrollEventThrottle={16}
+        bounces={false}
+        overScrollMode="never"
         style={[
-          styles.scrollBody,
-          { transform: [{ translateY }], zIndex: collapsed ? 0 : 0 },
+          styles.scrollBodyContent,
+          { paddingTop: translateY.interpolate({
+            inputRange: [collapseDistance, 0],
+            outputRange: [-15, 75],
+            extrapolate: 'clamp',
+           })},
         ]}
-        {...panResponder.panHandlers}
       >
-        <ScrollView
-          ref={scrollRef}
-          scrollEnabled={collapsed}
-          onScroll={(e) => {
-            scrollOffsetY.current = e.nativeEvent.contentOffset.y;
-          }}
-          scrollEventThrottle={16}
-          bounces={false}
-          overScrollMode="never"
-          contentContainerStyle={styles.scrollBodyContent}
-          style={styles.scrollBodyContent}
-        >
+
           <Text style={styles.sectionTitle}>Popular Posts</Text>
           <View style={styles.gridContainer}>
             {Array(24)
@@ -321,8 +332,8 @@ export default function NetworkHome() {
                 <View key={i} style={styles.gridItem} />
               ))}
           </View>
-        </ScrollView>
-      </Animated.View>
+        </AnimatedScrollView>
+      </View>
     </View>
   );
 }

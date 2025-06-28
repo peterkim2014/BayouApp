@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   },
 
-  scrollBodyContent: {
-    marginTop: 35,
-  },
+  // scrollBodyContent: {
+  //   marginTop: 35,
+  // },
   
 
   profileScroll: { 
