@@ -77,7 +77,7 @@ export default function NetworkHome() {
 
   const animatedHeaderHeight = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [190, 360],
+    outputRange: [220, 360],
     extrapolate: 'clamp',
   });
 
@@ -107,7 +107,7 @@ export default function NetworkHome() {
 
   const fadeOutOnCollapse = {
     opacity: translateY.interpolate({
-      inputRange: [collapseDistance, collapseDistance / 10],
+      inputRange: [collapseDistance, collapseDistance / 2],
       outputRange: [0, 1],
       extrapolate: 'clamp',
     }),
@@ -115,7 +115,7 @@ export default function NetworkHome() {
       {
         translateY: translateY.interpolate({
           inputRange: [collapseDistance, 0],
-          outputRange: [-20, 60],
+          outputRange: [-20, 0],
           extrapolate: 'clamp',
         }),
       },
@@ -147,7 +147,7 @@ export default function NetworkHome() {
               bottom: 55,
               top: translateY.interpolate({
                 inputRange: [collapseDistance, 0],
-                outputRange: [145, 280],
+                outputRange: [190, 280],
                 extrapolate: 'clamp',
               }),
               height: 30,
@@ -195,7 +195,7 @@ export default function NetworkHome() {
       {
         translateY: translateY.interpolate({
           inputRange: [collapseDistance, 0],
-          outputRange: [-75, 35], // pull up by 40px during collapse
+          outputRange: [-75, 0], // pull up by 40px during collapse
           extrapolate: 'clamp',
         }),
       },
@@ -286,7 +286,7 @@ export default function NetworkHome() {
       <Animated.View
         style={[
           styles.scrollBody,
-          { transform: [{ translateY }], zIndex: collapsed ? 0 : 0 },
+          { transform: [{ translateY }], zIndex: collapsed ? 10 : 0 },
         ]}
         {...panResponder.panHandlers}
       >
