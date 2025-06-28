@@ -42,47 +42,70 @@ export default function CampaignCategory() {
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gesture) => {
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        const { dy } = gestureState;
+        if (dragLocked.current) return false;
         const isAtTop = scrollOffsetY.current <= 0;
-        if (!collapsedRef.current && gesture.dy < -0.2) return true;
-        if (collapsedRef.current && gesture.dy > 0.2 && isAtTop) return true;
+      
+        if (!collapsedRef.current && dy < -5) return true;      // drag up threshold
+        if (collapsedRef.current && dy > 5 && isAtTop) return true; // drag down threshold
+      
         return false;
       },
-      onPanResponderMove: (_, gesture) => {
-        const dy = gesture.dy;
+      
+
+      onPanResponderMove: (_, gestureState) => {
+        const dy = gestureState.dy;
+
         if (collapsedRef.current && dy > 0) {
-          const offset = collapseDistance + dy * 0.0001; // slower pull-down
+          setIsDraggingDown(true);
+          const offset = collapseDistance + dy * 0.0001;
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          translateY.setValue(Math.max(collapseDistance, dy * 0.0001)); // slower push-up
-        }        
+          setIsDraggingDown(false);
+          const offset = Math.max(collapseDistance, dy);
+          translateY.setValue(Math.max(collapseDistance, dy * 0.0001));
+        }
       },
-      onPanResponderRelease: (_, gesture) => {
-        const dy = gesture.dy;
+
+      onPanResponderRelease: (_, gestureState) => {
+        const dy = gestureState.dy;
+        setIsDraggingDown(false);
+
         if (!collapsedRef.current && dy < -15) {
+          dragLocked.current = true;
           Animated.timing(translateY, {
             toValue: collapseDistance,
-            duration: 240,
-            useNativeDriver: false,
+            duration: 280,
+            useNativeDriver: true,
           }).start(() => {
             setCollapsed(true);
             collapsedRef.current = true;
+            dragLocked.current = false;
+            setScrollLocked(false);
           });
+
         } else if (collapsedRef.current && dy > 100) {
+          dragLocked.current = true;
           Animated.timing(translateY, {
             toValue: 0,
-            duration: 200,
-            useNativeDriver: false,
+            duration: 220,
+            useNativeDriver: true,
           }).start(() => {
             setCollapsed(false);
             collapsedRef.current = false;
+            dragLocked.current = false;
+            setScrollLocked(false);
           });
+
         } else {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
-            duration: 190,
-            useNativeDriver: false,
-          }).start();
+            duration: 200,
+            useNativeDriver: true,
+          }).start(() => {
+            setScrollLocked(false);
+          });
         }
       },
     })
@@ -148,7 +171,7 @@ export default function CampaignCategory() {
             }}
             scrollEventThrottle={16}
             contentContainerStyle={styles.campaignCategory__grid}
-            bounces={!isDraggingDown}
+            bounces={false}
             overScrollMode="never"
             showsVerticalScrollIndicator={false}
           >
