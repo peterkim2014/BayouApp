@@ -85,7 +85,7 @@ export default function NetworkHome() {
 
   const profileCardWidth = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [width * 0.16, width * 0.32],
+    outputRange: [width * 0.145, width * 0.32],
     extrapolate: 'clamp',
   });
 
@@ -302,6 +302,49 @@ export default function NetworkHome() {
                   </Animated.Text>
                 </Animated.View>
               ))}
+              <Animated.View
+                style={{
+                  opacity: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.8],
+                    outputRange: [1, 0],
+                    extrapolate: 'clamp',
+                  }),
+                  transform: [
+                    {
+                      scale: translateY.interpolate({
+                        inputRange: [collapseDistance, collapseDistance * 0.8],
+                        outputRange: [1, 0.9],
+                        extrapolate: 'clamp',
+                      }),
+                    },
+                  ],
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => navigate('/network/featured')}
+                  style={[
+                    styles.profileCard,
+                    {
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: '#f0f0f0',
+                      marginLeft: 10,
+                      marginRight: 10,
+                      padding: 12,
+                      marginTop: -5,
+                      paddingHorizontal: 0,
+                      borderRadius: 40,
+                      borderWidth: 7,
+                      borderColor: "#f0f0f0",
+                      opacity: 0.6,
+                    },
+                  ]}
+                >
+                  <Text style={{ fontWeight: 'bold', fontSize: 12 }}>See All</Text>
+                </TouchableOpacity>
+              </Animated.View>
+
+
             </View>
           </ScrollView>
         </Animated.View>
