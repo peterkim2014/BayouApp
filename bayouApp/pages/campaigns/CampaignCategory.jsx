@@ -42,67 +42,47 @@ export default function CampaignCategory() {
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gestureState) => {
-        const { dy } = gestureState;
-        if (dragLocked.current) return false;
+      onMoveShouldSetPanResponder: (_, gesture) => {
         const isAtTop = scrollOffsetY.current <= 0;
-        if (!collapsedRef.current && dy < -10) return true;
-        if (collapsedRef.current && dy > 10 && isAtTop) return true;
+        if (!collapsedRef.current && gesture.dy < -0.2) return true;
+        if (collapsedRef.current && gesture.dy > 0.2 && isAtTop) return true;
         return false;
       },
-
-      onPanResponderMove: (_, gestureState) => {
-        const dy = gestureState.dy;
-
+      onPanResponderMove: (_, gesture) => {
+        const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
-          setIsDraggingDown(true);
-          const offset = collapseDistance + dy * 0.25;
+          const offset = collapseDistance + dy * 0.0001; // slower pull-down
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          setIsDraggingDown(false);
-          const offset = Math.max(collapseDistance, dy);
-          translateY.setValue(offset);
-        }
+          translateY.setValue(Math.max(collapseDistance, dy * 0.0001)); // slower push-up
+        }        
       },
-
-      onPanResponderRelease: (_, gestureState) => {
-        const dy = gestureState.dy;
-        setIsDraggingDown(false);
-
-        if (!collapsedRef.current && dy < -50) {
-          dragLocked.current = true;
+      onPanResponderRelease: (_, gesture) => {
+        const dy = gesture.dy;
+        if (!collapsedRef.current && dy < -15) {
           Animated.timing(translateY, {
             toValue: collapseDistance,
-            duration: 280,
-            useNativeDriver: true,
+            duration: 240,
+            useNativeDriver: false,
           }).start(() => {
             setCollapsed(true);
             collapsedRef.current = true;
-            dragLocked.current = false;
-            setScrollLocked(false);
           });
-
         } else if (collapsedRef.current && dy > 100) {
-          dragLocked.current = true;
           Animated.timing(translateY, {
             toValue: 0,
-            duration: 220,
-            useNativeDriver: true,
+            duration: 200,
+            useNativeDriver: false,
           }).start(() => {
             setCollapsed(false);
             collapsedRef.current = false;
-            dragLocked.current = false;
-            setScrollLocked(false);
           });
-
         } else {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
-            duration: 200,
-            useNativeDriver: true,
-          }).start(() => {
-            setScrollLocked(false);
-          });
+            duration: 190,
+            useNativeDriver: false,
+          }).start();
         }
       },
     })

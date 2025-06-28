@@ -33,25 +33,25 @@ export default function NetworkHome() {
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => {
         const isAtTop = scrollOffsetY.current <= 0;
-        if (!collapsedRef.current && gesture.dy < -10) return true;
-        if (collapsedRef.current && gesture.dy > 10 && isAtTop) return true;
+        if (!collapsedRef.current && gesture.dy < -0.2) return true;
+        if (collapsedRef.current && gesture.dy > 0.2 && isAtTop) return true;
         return false;
       },
       onPanResponderMove: (_, gesture) => {
         const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
-          const offset = collapseDistance + dy * 0.25;
+          const offset = collapseDistance + dy * 0.0001; // slower pull-down
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          translateY.setValue(Math.max(collapseDistance, dy));
-        }
+          translateY.setValue(Math.max(collapseDistance, dy * 0.0001)); // slower push-up
+        }        
       },
       onPanResponderRelease: (_, gesture) => {
         const dy = gesture.dy;
         if (!collapsedRef.current && dy < -15) {
           Animated.timing(translateY, {
             toValue: collapseDistance,
-            duration: 280,
+            duration: 240,
             useNativeDriver: false,
           }).start(() => {
             setCollapsed(true);
@@ -60,7 +60,7 @@ export default function NetworkHome() {
         } else if (collapsedRef.current && dy > 100) {
           Animated.timing(translateY, {
             toValue: 0,
-            duration: 220,
+            duration: 200,
             useNativeDriver: false,
           }).start(() => {
             setCollapsed(false);
@@ -69,7 +69,7 @@ export default function NetworkHome() {
         } else {
           Animated.timing(translateY, {
             toValue: collapsedRef.current ? collapseDistance : 0,
-            duration: 200,
+            duration: 190,
             useNativeDriver: false,
           }).start();
         }
