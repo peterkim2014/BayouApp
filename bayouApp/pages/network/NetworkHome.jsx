@@ -107,7 +107,7 @@ export default function NetworkHome() {
 
   const fadeOutOnCollapse = {
     opacity: translateY.interpolate({
-      inputRange: [collapseDistance, collapseDistance / 10],
+      inputRange: [collapseDistance, collapseDistance * 0.001],
       outputRange: [0, 1],
       extrapolate: 'clamp',
     }),
@@ -115,7 +115,7 @@ export default function NetworkHome() {
       {
         translateY: translateY.interpolate({
           inputRange: [collapseDistance, 0],
-          outputRange: [-20, 60],
+          outputRange: [-40, 60],
           extrapolate: 'clamp',
         }),
       },
@@ -245,12 +245,7 @@ export default function NetworkHome() {
             style={{
               fontSize: translateY.interpolate({
                 inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [0.01, 12],
-                extrapolate: 'clamp',
-              }),
-              opacity: translateY.interpolate({
-                inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [0, 1],
+                outputRange: [10, 12],
                 extrapolate: 'clamp',
               }),
             }}
@@ -261,7 +256,7 @@ export default function NetworkHome() {
             style={{
               fontSize: translateY.interpolate({
                 inputRange: [collapseDistance, -collapseDistance / 2],
-                outputRange: [0, 12],
+                outputRange: [0.01, 14],
                 extrapolate: 'clamp',
               }),
               opacity: translateY.interpolate({
