@@ -6,7 +6,7 @@ export default StyleSheet.create({
   messagingHomeContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 150,
+    paddingTop: 75,
     width: width
   },
 
@@ -85,8 +85,9 @@ export default StyleSheet.create({
   tabsRow: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingHorizontal: 20,
-    marginTop: 5,
+    marginTop: 75,
     marginBottom: 15,
   },
 
