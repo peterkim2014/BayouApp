@@ -225,7 +225,7 @@ function Header({ translateY, navigate }) {
 
         <Animated.View style={[styles.featuredHeaderRow, {
             opacity: translateY.interpolate({
-                inputRange: [collapseDistance, -collapseDistance / 2],
+                inputRange: [collapseDistance, 0],
                 outputRange: [0, 1],
                 extrapolate: 'clamp',
                 }),
@@ -271,7 +271,7 @@ function Header({ translateY, navigate }) {
                         alignItems: 'center',
                         marginTop: paddingTop,
                         opacity: translateY.interpolate({
-                            inputRange: [collapseDistance, -collapseDistance / 2],
+                            inputRange: [collapseDistance, -30],
                             outputRange: [0, 1],
                             extrapolate: 'clamp',
                             }),
@@ -320,11 +320,11 @@ function Header({ translateY, navigate }) {
                         outputRange: [0.01, 14],
                         extrapolate: 'clamp',
                         }),
-                        opacity: translateY.interpolate({
-                        inputRange: [collapseDistance, -collapseDistance / 2],
-                        outputRange: [0, 1],
-                        extrapolate: 'clamp',
-                        }),
+                        // opacity: translateY.interpolate({
+                        // inputRange: [collapseDistance, -collapseDistance / 2],
+                        // outputRange: [0, 1],
+                        // extrapolate: 'clamp',
+                        // }),
                     }}
                     >
                     {product.category}
