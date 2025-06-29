@@ -98,20 +98,19 @@ function Header({ translateY, navigate }) {
         >
         <View style={styles.brand__container}>
             {brands.map((brand, i) => (
-            <Animated.View
+              <TouchableOpacity
                 key={i}
-                style={[
-                styles.brand__card,
-                {
-                    width: cardWidth,
-                    transform: [{ translateY: translateCards }],
-                    borderRadius: cardRadius,
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    marginTop: paddingTop,
-                },
-                ]}
-            >
+                activeOpacity={0.85}
+                onPress={() => navigate('/network/selected-profile', { state: brand })}
+              >
+                <Animated.View style={[styles.brand__card, { 
+                  width: cardWidth,
+                  transform: [{ translateY: translateCards }],
+                  borderRadius: cardRadius,
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  marginTop: paddingTop,
+                }]}>
                 <Animated.View
                 style={[
                     styles.brand__placeholder,
@@ -175,7 +174,8 @@ function Header({ translateY, navigate }) {
                 >
                 {brand.category}
                 </Animated.Text>
-            </Animated.View>
+              </Animated.View>
+            </TouchableOpacity>
             ))}
 
             {/* See All Button */}

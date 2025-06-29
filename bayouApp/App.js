@@ -19,6 +19,7 @@ import BurstHome from './pages/burst/BurstHome'
 import CampaignCategory from './pages/campaigns/CampaignCategory';
 import CampaignWaitlist from './pages/campaigns/CampaignWaitlist';
 import NetworkSearch from './pages/network/NetworkSearch';
+import SelectedProfile from './pages/profile/SelectedProfile';
 
 
 export default function App() {
@@ -67,6 +68,7 @@ export default function App() {
         <Routes>
          <Route path="/" element={<ThreadHome />} />
          <Route path="/profile" element={<ProfileHome />} />
+         <Route path="/network/selected-profile" element={<SelectedProfile />} />
          <Route path="/network" element={<NetworkHome />} />
          <Route path="/network/search" element={<NetworkSearch />} />
          <Route path="/campaign" element={<CampaignHome />} />
