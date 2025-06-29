@@ -18,25 +18,43 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
     alignItems: 'center',
   },
-  backButton: {
-    backgroundColor: '#fff',
-    padding: 8,
-    borderRadius: 999,
-  },
-  settingsIcon: {
+  topHeaderIcons: {
     position: 'absolute',
-    top: 40,
-    right: 20,
+    top: 55,
+    left: 0,
+    right: 0,
+    zIndex: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  
+  backIconWrapper: {
     backgroundColor: '#fff',
     padding: 8,
-    borderRadius: 999,
+    borderRadius: 50,
     elevation: 3,
-    zIndex: 5,
   },
-  settingsImage: {
-    width: 20,
-    height: 20,
+  
+  backIcon: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
+  
+  messageIconWrapper: {
+    backgroundColor: '#fff',
+    padding: 8,
+    borderRadius: 50,
+    elevation: 3,
+  },
+  
+  messageIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+  
   headerContainer: {
     overflow: 'hidden',
     width,

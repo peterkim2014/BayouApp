@@ -137,14 +137,19 @@ export default function SelectedProfile() {
     <View style={styles.container}>
       {imageLoaded && (
         <View style={styles.headerContainer}>
-          <View style={styles.navHeader}>
-            <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
-              <Text style={{ fontSize: 24 }}>←</Text>
+          <View style={styles.topHeaderIcons}>
+            <TouchableOpacity onPress={() => navigate(-1)} style={styles.backIconWrapper}>
+              <Text style={styles.backIcon}>←</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.settingsIcon}>
-              <Image source={settingsIcon} style={styles.settingsImage} />
+
+            <TouchableOpacity style={styles.messageIconWrapper}>
+              <Image
+                // source={require('../../assets/messageIcon.png')}
+                style={styles.messageIcon}
+              />
             </TouchableOpacity>
           </View>
+
 
           <Animated.View style={{ marginTop: headerMarginTop }}>
             <ImageBackground source={profileImage} style={styles.headerImage} resizeMode="cover" />
