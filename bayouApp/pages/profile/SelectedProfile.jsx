@@ -142,11 +142,13 @@ export default function SelectedProfile() {
               <Text style={styles.backIcon}>←</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.messageIconWrapper}>
-              <Image
-                // source={require('../../assets/messageIcon.png')}
-                style={styles.messageIcon}
-              />
+            <TouchableOpacity
+              style={styles.messageIconWrapper}
+              onPress={() => navigate('/network/messaging', { state: { brandData } })}
+            >
+              <Image 
+                // source={require('../../assets/messageIcon.png')} 
+                style={styles.messageIcon} />
             </TouchableOpacity>
           </View>
 
