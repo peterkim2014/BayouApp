@@ -26,9 +26,16 @@ export default function MessagingHome() {
         </TouchableOpacity>
 
         <View style={styles.brandProfile}>
-          <Image source={{ uri: brandData?.image }} style={styles.brandLogo} />
-          <Image source={{ uri: 'https://via.placeholder.com/60x60' }} style={styles.userProfile} />
+            <View style={styles.profileColumn}>
+                <Image source={{ uri: brandData?.image }} style={styles.brandLogo} />
+                <Text style={styles.profileName}>Starbucks</Text>
+            </View>
+            <View style={styles.profileColumn}>
+                <Image source={{ uri: 'https://via.placeholder.com/60x60' }} style={styles.userProfile} />
+                <Text style={styles.profileName}>Freddy</Text>
+            </View>
         </View>
+
 
         <TouchableOpacity style={styles.newMessageButton}>
           <Text style={styles.plusIcon}>＋</Text>

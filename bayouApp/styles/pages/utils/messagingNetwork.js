@@ -12,14 +12,17 @@ export default StyleSheet.create({
 
   // Header
   headerRow: {
-    flexDirection: 'row',
+    height: 60,
+    position: 'relative',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 10,
   },
+  
 
   backButton: {
+    position: 'absolute',
+    left: 20,
+    top: -10,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -38,30 +41,51 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
 
+
+  profileColumn: {
+    alignItems: 'center',
+    marginHorizontal: -6, // overlaps slightly
+  },
+  
+  profileName: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#333',
+    marginTop: 4,
+  },
+
   brandProfile: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: -12,
+    justifyContent: 'center',
+    columnGap: 25, 
+    marginTop: 40,
   },
+  
 
   brandLogo: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 58,
+    height: 58,
+    borderRadius: 30,
     resizeMode: 'cover',
     zIndex: 2,
+    backgroundColor: 'lightgrey'
   },
 
   userProfile: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 58,
+    height: 58,
+    borderRadius: 30,
     resizeMode: 'cover',
     marginLeft: -10,
     zIndex: 1,
+    backgroundColor: 'lightgrey'
   },
 
   newMessageButton: {
+    position: 'absolute',
+    right: 20,
+    top: -10,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -87,7 +111,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingHorizontal: 20,
-    marginTop: 75,
+    marginTop: 65,
     marginBottom: 15,
   },
 
