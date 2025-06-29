@@ -35,15 +35,17 @@ export default function NetworkHome() {
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => {
         const isAtTop = scrollOffsetY.current <= 0;
-        return (!collapsedRef.current && gesture.dy < -0.2) ||
-               (collapsedRef.current && gesture.dy > 0.2 && isAtTop);
+        if (!collapsedRef.current && gesture.dy < -0.2) return true;
+        if (collapsedRef.current && gesture.dy > 0.2 && isAtTop) return true;
+        return false;
       },
       onPanResponderMove: (_, gesture) => {
         const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
-          translateY.setValue(Math.min(collapseDistance + dy * 0.0001, 0));
+          const offset = collapseDistance + dy * 0.25;
+          translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          translateY.setValue(Math.max(collapseDistance, dy * 0.0001));
+          translateY.setValue(Math.max(collapseDistance, dy));
         }
       },
       onPanResponderRelease: (_, gesture) => {
@@ -57,7 +59,7 @@ export default function NetworkHome() {
             setCollapsed(true);
             collapsedRef.current = true;
           });
-        } else if (collapsedRef.current && dy > 100) {
+        } else if (collapsedRef.current && dy > 80) {
           Animated.timing(translateY, {
             toValue: 0,
             duration: 200,
@@ -76,7 +78,6 @@ export default function NetworkHome() {
       },
     })
   ).current;
-
   const animatedHeaderHeight = translateY.interpolate({
     inputRange: [collapseDistance, 0],
     outputRange: [190, 360],
