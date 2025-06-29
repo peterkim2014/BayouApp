@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
       },
       
       featuredHeaderText: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 15,
+        fontWeight: '600',
       },
       
 

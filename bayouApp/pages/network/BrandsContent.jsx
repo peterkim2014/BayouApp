@@ -27,7 +27,7 @@ function Header({ translateY, navigate }) {
 
   const cardHeight = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [50, 140],
+    outputRange: [50, 120],
     extrapolate: 'clamp',
   });
 
@@ -54,7 +54,7 @@ function Header({ translateY, navigate }) {
     transform: [{
         translateY: translateY.interpolate({
         inputRange: [collapseDistance, 0],
-        outputRange: [-20, 85],
+        outputRange: [-20, 90],
         extrapolate: 'clamp',
         }),
     }],
