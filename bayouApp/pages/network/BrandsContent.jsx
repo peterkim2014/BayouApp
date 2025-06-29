@@ -320,11 +320,6 @@ function Header({ translateY, navigate }) {
                         outputRange: [0.01, 14],
                         extrapolate: 'clamp',
                         }),
-                        // opacity: translateY.interpolate({
-                        // inputRange: [collapseDistance, -collapseDistance / 2],
-                        // outputRange: [0, 1],
-                        // extrapolate: 'clamp',
-                        // }),
                     }}
                     >
                     {product.category}
@@ -357,30 +352,29 @@ function Body({ translateY, collapsed, scrollRef, onScrollY }) {
     });
   
     return (
-<Animated.View style={[styles.brand__scrollBody, { marginTop: scrollBodyMarginTop }]}>
-  <Text style={styles.brand__sectionTitle}>What's happening</Text>
-  <AnimatedScrollView
-    ref={scrollRef}
-    scrollEnabled={collapsed}
-    onScroll={(e) => {
-      onScrollY.current = e.nativeEvent.contentOffset.y;
-    }}
-    scrollEventThrottle={16}
-    showsVerticalScrollIndicator={false}
-    bounces={false}
-    overScrollMode="never"
-    style={[styles.brand__scrollBodyContent, { paddingTop }]}
-  >
-    <View style={styles.brand__gridContainer}>
-      {Array(24)
-        .fill(null)
-        .map((_, i) => (
-          <View key={i} style={styles.brand__gridItem} />
-        ))}
-    </View>
-  </AnimatedScrollView>
-</Animated.View>
-
+      <Animated.View style={[styles.brand__scrollBody, { marginTop: scrollBodyMarginTop }]}>
+        <Text style={styles.brand__sectionTitle}>What's happening</Text>
+        <AnimatedScrollView
+          ref={scrollRef}
+          scrollEnabled={collapsed}
+          onScroll={(e) => {
+            onScrollY.current = e.nativeEvent.contentOffset.y;
+          }}
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          overScrollMode="never"
+          style={[styles.brand__scrollBodyContent, { paddingTop }]}
+        >
+          <View style={styles.brand__gridContainer}>
+            {Array(24)
+              .fill(null)
+              .map((_, i) => (
+                <View key={i} style={styles.brand__gridItem} />
+              ))}
+          </View>
+        </AnimatedScrollView>
+      </Animated.View>
     );
   }
 

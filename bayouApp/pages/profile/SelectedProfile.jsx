@@ -18,7 +18,6 @@ import HeaderCurve from '../../components/HeaderCurve';
 import ThreadCard from '../../components/cards/ThreadCard';
 import { useNavigate, useLocation } from 'react-router-native';
 
-
 const screenHeight = Dimensions.get('window').height;
 
 export default function SelectedProfile() {
@@ -31,12 +30,12 @@ export default function SelectedProfile() {
   const scrollRef = useRef(null);
   const scrollOffsetY = useRef(0);
   const collapsedRef = useRef(false);
-
   const translateY = useRef(new Animated.Value(0)).current;
+
   const collapseDistance = -115;
   const navigate = useNavigate();
   const location = useLocation();
-const brandData = location.state;
+  const brandData = location.state;
 
   const panResponder = useRef(
     PanResponder.create({
@@ -49,11 +48,11 @@ const brandData = location.state;
       onPanResponderMove: (_, gesture) => {
         const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
-          const offset = collapseDistance + dy * 0.0001; // slower pull-down
+          const offset = collapseDistance + dy * 0.25;
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          translateY.setValue(Math.max(collapseDistance, dy * 0.0001)); // slower push-up
-        }        
+          translateY.setValue(Math.max(collapseDistance, dy));
+        }
       },
       onPanResponderRelease: (_, gesture) => {
         const dy = gesture.dy;
@@ -66,7 +65,7 @@ const brandData = location.state;
             setCollapsed(true);
             collapsedRef.current = true;
           });
-        } else if (collapsedRef.current && dy > 100) {
+        } else if (collapsedRef.current && dy > 80) {
           Animated.timing(translateY, {
             toValue: 0,
             duration: 200,
@@ -90,37 +89,13 @@ const brandData = location.state;
     Lifestyle: Array.from({ length: 18 }, (_, i) => ({
       id: `${i}`,
       title: 'Wild Stone Clone',
-      description:
-        'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear',
+      description: 'This is a collaboration between Toyo tires and TJ Hunt that’ll introduce a new form of tire wear',
       image: 'https://via.placeholder.com/600x400?text=Post+Image',
-      comments: [
-        {
-          name: 'Timothy Smith',
-          text: 'This is my comment that I’m posting as a thought, but what do you guys think?',
-          likes: '67k',
-        },
-        {
-          name: 'Anthony Garner',
-          text: 'Excited to see this collaboration happen',
-          likes: '23k',
-        },
-      ],
+      comments: [],
     })),
     Campaigns: [],
     Comments: [],
   };
-
-  const fadeOutOpacity = translateY.interpolate({
-    inputRange: [-115, -45, 0],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
-
-  const fadeOutOpacityStats = translateY.interpolate({
-    inputRange: [-115, -60, 0],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
 
   const headerMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
@@ -134,6 +109,18 @@ const brandData = location.state;
     extrapolate: 'clamp',
   });
 
+  const fadeOutOpacity = translateY.interpolate({
+    inputRange: [-115, -45, 0],
+    outputRange: [0, 0, 1],
+    extrapolate: 'clamp',
+  });
+
+  const fadeOutOpacityStats = translateY.interpolate({
+    inputRange: [-115, -60, 0],
+    outputRange: [0, 0, 1],
+    extrapolate: 'clamp',
+  });
+
   useEffect(() => {
     const load = async () => {
       await Asset.loadAsync([profileImage]);
@@ -141,15 +128,6 @@ const brandData = location.state;
     };
     load();
   }, []);
-
-  useEffect(() => {
-    if (selectedPost) {
-      // Freeze collapse while viewing post, but do not animate
-      setCollapsed(false);
-      collapsedRef.current = false;
-    }
-  }, [selectedPost]);
-  
 
   const toggleComments = (id) => {
     setExpandedThreadId((prev) => (prev === id ? null : id));
@@ -160,54 +138,37 @@ const brandData = location.state;
       {imageLoaded && (
         <View style={styles.headerContainer}>
           <View style={styles.navHeader}>
-            <TouchableOpacity
-              onPress={() => navigate(-1)}
-              style={styles.backButton}
-            >
+            <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
               <Text style={{ fontSize: 24 }}>←</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.settingsIcon}>
               <Image source={settingsIcon} style={styles.settingsImage} />
             </TouchableOpacity>
           </View>
 
           <Animated.View style={{ marginTop: headerMarginTop }}>
-            <ImageBackground
-              source={profileImage}
-              style={styles.headerImage}
-              resizeMode="cover"
-            />
+            <ImageBackground source={profileImage} style={styles.headerImage} resizeMode="cover" />
           </Animated.View>
+
           <View style={styles.curveWrapper}>
             <HeaderCurve height={20} color="#fff" />
           </View>
         </View>
       )}
 
-      <Animated.View
-        style={[
-          styles.profileImageWrapper,
-          { transform: [{ translateY: profileImageTranslate }] },
-        ]}
-      >
+      <Animated.View style={[styles.profileImageWrapper, { transform: [{ translateY: profileImageTranslate }] }]}>
         <View style={styles.blankProfileCircle}>
-          <ImageBackground
-          source={{ uri: brandData?.image ?? profileImage }}
-          style={styles.headerImage}
-          // resizeMode="100%"
-        />
+          <Image source={{ uri: brandData?.image }} style={{ width: '100%', height: '100%' }} />
         </View>
       </Animated.View>
 
-      <Text style={styles.name}>{brandData?.name ?? 'Freddy Mac'}</Text>
-      <Text style={styles.username}>@{brandData?.name?.toLowerCase().replace(/\s+/g, '')}</Text>
+      <View style={styles.profileBrandHeader}>
+        <Text style={styles.name}>{brandData?.name}</Text>
+        <Text style={styles.username}>@{brandData?.name?.toLowerCase().replace(/\s+/g, '')}</Text>
+      </View>
 
       <Animated.View
-        style={[
-          styles.profileCard,
-          { transform: [{ translateY }], flex: 1 },
-        ]}
+        style={[styles.brandProfileCard, { transform: [{ translateY }], flex: 1 }]}
         {...(selectedPost ? {} : panResponder.panHandlers)}
       >
         <Animated.View style={{ opacity: fadeOutOpacity }}>
@@ -218,18 +179,16 @@ const brandData = location.state;
 
         <Animated.View style={{ opacity: fadeOutOpacityStats }}>
           <View style={styles.statsCard}>
-            <View style={styles.statBlock}>
-              <Text style={styles.statNumber}>354</Text>
-              <Text style={styles.statLabel}>Audience</Text>
-            </View>
-            <View style={styles.statBlock}>
-              <Text style={styles.statNumber}>13</Text>
-              <Text style={styles.statLabel}>Impact</Text>
-            </View>
-            <View style={styles.statBlock}>
-              <Text style={styles.statNumber}>4</Text>
-              <Text style={styles.statLabel}>Connects</Text>
-            </View>
+            {[
+              ['354', 'Audience'],
+              ['13', 'Impact'],
+              ['4', 'Connects'],
+            ].map(([value, label], i) => (
+              <View style={styles.statBlock} key={i}>
+                <Text style={styles.statNumber}>{value}</Text>
+                <Text style={styles.statLabel}>{label}</Text>
+              </View>
+            ))}
           </View>
         </Animated.View>
 
@@ -238,42 +197,34 @@ const brandData = location.state;
           <View style={styles.tabRow}>
             {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
               <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
-                <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
-                  {tab}
-                </Text>
+                <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>{tab}</Text>
                 {activeTab === tab && <View style={styles.tabIndicator} />}
               </TouchableOpacity>
             ))}
           </View>
         )}
 
-
-        {/* Conditional Detail View */}
+        {/* Tab Content */}
         {selectedPost ? (
           <View style={{ marginTop: -60 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setSelectedPost(null);
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedPost(null);
+                Animated.timing(translateY, {
+                  toValue: collapseDistance,
+                  duration: 280,
+                  useNativeDriver: false,
+                }).start(() => {
+                  setCollapsed(true);
+                  collapsedRef.current = true;
+                });
+              }}
+              style={{ padding: 10, marginLeft: 15 }}
+            >
+              <Text style={{ fontSize: 24 }}>←</Text>
+            </TouchableOpacity>
 
-              Animated.timing(translateY, {
-                toValue: collapseDistance,
-                duration: 280,
-                useNativeDriver: false,
-              }).start(() => {
-                setCollapsed(true);
-                collapsedRef.current = true;
-              });
-            }}
-            style={{ padding: 10, marginLeft: 15 }}
-          >
-            <Text style={{ fontSize: 24 }}>←</Text>
-          </TouchableOpacity>
-
-            <ThreadCard
-              item={selectedPost}
-              expandedId={expandedThreadId}
-              toggleComments={toggleComments}
-            />
+            <ThreadCard item={selectedPost} expandedId={expandedThreadId} toggleComments={toggleComments} />
           </View>
         ) : (
           <ScrollView
@@ -294,7 +245,6 @@ const brandData = location.state;
                 style={styles.gridBox}
                 onPress={() => {
                   setSelectedPost(item);
-    
                   Animated.timing(translateY, {
                     toValue: collapseDistance,
                     duration: 280,
