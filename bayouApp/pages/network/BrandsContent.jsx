@@ -15,6 +15,13 @@ const brands = [
   { name: 'Mizuno', category: 'Golf', image: 'https://logo.clearbit.com/mizunousa.com' },
 ];
 
+const products = [
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+  ];
+  
+
 function Header({ translateY, navigate }) {
   const collapseDistance = -115;
   const width = 320;
@@ -216,6 +223,118 @@ function Header({ translateY, navigate }) {
         </View>
         </ScrollView>
 
+        <Animated.View style={[styles.featuredHeaderRow, {
+            opacity: translateY.interpolate({
+                inputRange: [collapseDistance, -collapseDistance / 2],
+                outputRange: [0, 1],
+                extrapolate: 'clamp',
+                }),
+        }]}>
+            <Text style={styles.featuredHeaderText}>New Product Releases</Text>
+            <TouchableOpacity>
+                <Animated.Text
+                style={{
+                    fontSize: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.001],
+                    outputRange: [0.01, 12],
+                    extrapolate: 'clamp',
+                    }),
+                    opacity: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.001],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                    }),
+                }}
+                >
+                See All
+                </Animated.Text>
+            </TouchableOpacity>
+            </Animated.View>
+
+            <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.brand__scroll}
+            style={styles.brand__scroll}
+            >
+            <View style={styles.brand__container}>
+                {products.map((product, i) => (
+                <Animated.View
+                    key={i}
+                    style={[
+                    styles.brand__card,
+                    {
+                        width: cardWidth,
+                        transform: [{ translateY: translateCards }],
+                        borderRadius: cardRadius,
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        marginTop: paddingTop,
+                        opacity: translateY.interpolate({
+                            inputRange: [collapseDistance, -collapseDistance / 2],
+                            outputRange: [0, 1],
+                            extrapolate: 'clamp',
+                            }),
+                    },
+                    ]}
+                >
+                    <Animated.View
+                    style={[
+                        styles.brand__placeholder,
+                        {
+                        height: cardHeight,
+                        width: cardWidth,
+                        borderRadius: cardRadius,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        overflow: 'hidden',
+                        },
+                    ]}
+                    >
+                    <Animated.Image
+                        source={{ uri: product.image }}
+                        resizeMode="cover"
+                        style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: cardRadius,
+                        }}
+                    />
+                    </Animated.View>
+                    <Animated.Text
+                    style={{
+                        fontSize: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [9, 12],
+                        extrapolate: 'clamp',
+                        }),
+                        marginTop: 6,
+                    }}
+                    >
+                    {product.name}
+                    </Animated.Text>
+                    <Animated.Text
+                    style={{
+                        fontSize: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [0.01, 14],
+                        extrapolate: 'clamp',
+                        }),
+                        opacity: translateY.interpolate({
+                        inputRange: [collapseDistance, -collapseDistance / 2],
+                        outputRange: [0, 1],
+                        extrapolate: 'clamp',
+                        }),
+                    }}
+                    >
+                    {product.category}
+                    </Animated.Text>
+                </Animated.View>
+                ))}
+            </View>
+            </ScrollView>
+
+
     </Animated.View>
   );
 }
@@ -227,7 +346,7 @@ function Body({ translateY, collapsed, scrollRef, onScrollY }) {
   
     const scrollBodyMarginTop = translateY.interpolate({
       inputRange: [collapseDistance, 0],
-      outputRange: [0, -75],
+      outputRange: [0, 150],
       extrapolate: 'clamp',
     });
   
