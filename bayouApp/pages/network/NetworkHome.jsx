@@ -170,6 +170,10 @@ export default function NetworkHome() {
           <CreatorsContent.Header translateY={translateY} navigate={navigate} />
         ) : null}
 
+        {activeTab === 'Brands' ? (
+          <BrandsContent.Header translateY={translateY} navigate={navigate} />
+        ) : null}
+
       </Animated.View>
 
       {/* BODY */}
@@ -185,7 +189,16 @@ export default function NetworkHome() {
             onScrollY={scrollOffsetY}
           />
         )}
-        {activeTab === 'Brands' && <BrandsContent />}
+        {activeTab === 'Brands' && (
+          <BrandsContent.Body
+            translateY={translateY}
+            collapsed={collapsed}
+            scrollRef={scrollRef}
+            onScrollY={scrollOffsetY}
+          />
+        )}
+
+
       </Animated.View>
     </View>
   );

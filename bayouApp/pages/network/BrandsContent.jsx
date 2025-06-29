@@ -1,6 +1,13 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import styles from '../../styles/pages/network/brandsContent'
+import {
+  View,
+  Text,
+  Animated,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import styles from '../../styles/pages/network/brandsContent';
 
 const brands = [
   { name: 'Starbucks', category: 'Food & Drinks', image: 'https://logo.clearbit.com/starbucks.com' },
@@ -8,55 +15,252 @@ const brands = [
   { name: 'Mizuno', category: 'Golf', image: 'https://logo.clearbit.com/mizunousa.com' },
 ];
 
-const products = [
-  { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
-  { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
-  { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
-];
+function Header({ translateY, navigate }) {
+  const collapseDistance = -115;
+  const width = 320;
 
-export default function BrandsContent() {
+  const cardWidth = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [width * 0.16, width * 0.32],
+    extrapolate: 'clamp',
+  });
+
+  const cardHeight = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [50, 140],
+    extrapolate: 'clamp',
+  });
+
+  const cardRadius = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [110, 8],
+    extrapolate: 'clamp',
+  });
+
+  const translateCards = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [-35, -15],
+    extrapolate: 'clamp',
+  });
+
+  const paddingTop = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [30, 10],
+    extrapolate: 'clamp',
+  });
+
   return (
-    <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-      <Section title="Top Rated Brands">
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {brands.map((b, i) => <Card key={i} {...b} />)}
-        </ScrollView>
-      </Section>
+    <Animated.View style={[styles.brand__animatedContainer, {
+    transform: [{
+        translateY: translateY.interpolate({
+        inputRange: [collapseDistance, 0],
+        outputRange: [-20, 85],
+        extrapolate: 'clamp',
+        }),
+    }],
+    }]} 
+    >
 
-      <Section title="New Product Releases">
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products.map((p, i) => <Card key={i} {...p} />)}
-        </ScrollView>
-      </Section>
-
-      <Text style={styles.sectionTitle}>What's happening</Text>
-      <View style={styles.gridContainer}>
-        {Array(6).fill(null).map((_, i) => (
-          <View key={i} style={styles.gridItem} />
-        ))}
+      <View style={styles.featuredHeaderRow}>
+        <Text style={styles.featuredHeaderText}>Top Rated Brands</Text>
+        <TouchableOpacity>
+          <Animated.Text
+            style={{
+              fontSize: translateY.interpolate({
+                inputRange: [collapseDistance, collapseDistance * 0.001],
+                outputRange: [0.01, 12],
+                extrapolate: 'clamp',
+              }),
+              opacity: translateY.interpolate({
+                inputRange: [collapseDistance, collapseDistance * 0.001],
+                outputRange: [0, 1],
+                extrapolate: 'clamp',
+              }),
+            }}
+          >
+            See All
+          </Animated.Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.brand__scroll}
+        style={styles.brand__scroll}
+        >
+        <View style={styles.brand__container}>
+            {brands.map((brand, i) => (
+            <Animated.View
+                key={i}
+                style={[
+                styles.brand__card,
+                {
+                    width: cardWidth,
+                    transform: [{ translateY: translateCards }],
+                    borderRadius: cardRadius,
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginTop: paddingTop,
+                },
+                ]}
+            >
+                <Animated.View
+                style={[
+                    styles.brand__placeholder,
+                    {
+                    height: cardHeight,
+                    width: cardWidth,
+                    borderRadius: cardRadius,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    },
+                ]}
+                >
+                <Animated.Image
+                source={{ uri: brand.image }}
+                style={{
+                    width: translateY.interpolate({
+                    inputRange: [collapseDistance, 0],
+                    outputRange: [48, 80], // shrinks from 60 to 32
+                    extrapolate: 'clamp',
+                    }),
+                    height: translateY.interpolate({
+                    inputRange: [collapseDistance, 0],
+                    outputRange: [48, 80],
+                    extrapolate: 'clamp',
+                    }),
+                    borderRadius: translateY.interpolate({
+                    inputRange: [collapseDistance, 0],
+                    outputRange: [40, 40],
+                    extrapolate: 'clamp',
+                    }),
+                }}
+                />
+
+
+                </Animated.View>
+                <Animated.Text
+                style={{
+                    fontSize: translateY.interpolate({
+                    inputRange: [collapseDistance, -collapseDistance / 2],
+                    outputRange: [9, 12],
+                    extrapolate: 'clamp',
+                    }),
+                    marginTop: 6,
+                }}
+                >
+                {brand.name}
+                </Animated.Text>
+                <Animated.Text
+                style={{
+                    fontSize: translateY.interpolate({
+                    inputRange: [collapseDistance, -collapseDistance / 2],
+                    outputRange: [0.01, 14],
+                    extrapolate: 'clamp',
+                    }),
+                    opacity: translateY.interpolate({
+                    inputRange: [collapseDistance, -collapseDistance / 2],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                    }),
+                }}
+                >
+                {brand.category}
+                </Animated.Text>
+            </Animated.View>
+            ))}
+
+            {/* See All Button */}
+            <Animated.View
+            style={{
+                opacity: translateY.interpolate({
+                inputRange: [collapseDistance, collapseDistance * 0.8],
+                outputRange: [1, 0],
+                extrapolate: 'clamp',
+                }),
+                transform: [
+                {
+                    scale: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.8],
+                    outputRange: [1, 0.9],
+                    extrapolate: 'clamp',
+                    }),
+                },
+                ],
+            }}
+            >
+            <TouchableOpacity
+                onPress={() => navigate('/network/brands')}
+                style={[
+                styles.profileCard,
+                {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#f0f0f0',
+                    marginLeft: 10,
+                    marginRight: 10,
+                    padding: 12,
+                    marginTop: -5,
+                    paddingHorizontal: 0,
+                    borderRadius: 40,
+                    borderWidth: 7,
+                    borderColor: "#f0f0f0",
+                    opacity: 0.6,
+                },
+                ]}
+            >
+                <Text style={{ fontWeight: 'bold', fontSize: 12 }}>See All</Text>
+            </TouchableOpacity>
+            </Animated.View>
+        </View>
+        </ScrollView>
+
+    </Animated.View>
   );
 }
 
-function Section({ title, children }) {
-  return (
-    <View style={{ marginBottom: 25 }}>
-      <View style={styles.rowHeader}>
-        <Text style={styles.subheading}>{title}</Text>
-        <TouchableOpacity><Text style={styles.seeAll}>See All</Text></TouchableOpacity>
-      </View>
-      {children}
-    </View>
-  );
-}
 
-function Card({ name, category, image }) {
-  return (
-    <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.cardImage} />
-      <Text style={styles.cardTitle}>{name}</Text>
-      <Text style={styles.cardSubtitle}>{category}</Text>
-    </View>
-  );
-}
+function Body({ translateY, collapsed, scrollRef, onScrollY }) {
+    const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+    const collapseDistance = -115;
+  
+    const scrollBodyMarginTop = translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [0, -75],
+      extrapolate: 'clamp',
+    });
+  
+    const paddingTop = translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [-105, -5],
+      extrapolate: 'clamp',
+    });
+  
+    return (
+      <Animated.View style={[styles.scrollBody, { marginTop: scrollBodyMarginTop }]}>
+        <Text style={styles.sectionTitle}>What's happening</Text>
+        <AnimatedScrollView
+          ref={scrollRef}
+          scrollEnabled={collapsed}
+          onScroll={(e) => {
+            onScrollY.current = e.nativeEvent.contentOffset.y;
+          }}
+          scrollEventThrottle={16}
+          bounces={false}
+          overScrollMode="never"
+          style={[styles.scrollBodyContent, { paddingTop }]}
+        >
+          <View style={styles.gridContainer}>
+            {Array(24)
+              .fill(null)
+              .map((_, i) => (
+                <View key={i} style={styles.gridItem} />
+              ))}
+          </View>
+        </AnimatedScrollView>
+      </Animated.View>
+    );
+  }
+
+  export default { Header, Body };

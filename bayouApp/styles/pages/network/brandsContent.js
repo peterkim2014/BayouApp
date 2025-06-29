@@ -10,6 +10,79 @@ const styles = StyleSheet.create({
         fontSize: 16, 
         fontWeight: '600' 
     },
+    featuredHeaderRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+      
+      featuredHeaderText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+      
+
+    brand__animatedContainer: {
+        paddingHorizontal: 25,
+      },
+    brand__headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 50,
+        marginBottom: 10,
+      },
+    
+      brand__headerText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+    
+      brand__scroll: {
+        paddingBottom: 10,
+        marginTop: 10,
+      },
+    
+      brand__container: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+      },
+    
+      brand__card: {
+        marginRight: 12,
+      },
+    
+      brand__placeholder: {
+        backgroundColor: '#f5f5f5',
+      },
+    
+      seeAll: {
+        fontSize: 13,
+        color: 'blue',
+      },
+    
+      sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        marginTop: 24,
+        marginBottom: 10,
+      },
+    
+      gridContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        paddingBottom: 40,
+      },
+    
+      gridItem: {
+        width: '47%',
+        height: 120,
+        backgroundColor: '#eaeaea',
+        borderRadius: 10,
+        marginBottom: 15,
+      },
+      
     seeAll: { 
         fontSize: 13, 
         color: 'blue' 
@@ -56,3 +129,5 @@ const styles = StyleSheet.create({
         marginBottom: 15 
     },
   });
+
+  export default styles;
