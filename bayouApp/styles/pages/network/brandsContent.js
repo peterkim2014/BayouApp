@@ -128,6 +128,31 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         marginBottom: 15 
     },
+    brand__scrollBody: {
+        paddingHorizontal: 15,
+      },
+      brand__scrollBodyContent: {
+        paddingBottom: 30,
+      },
+      brand__sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        marginTop: 24,
+        marginBottom: 10,
+      },
+      brand__gridContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        paddingBottom: 40,
+      },
+      brand__gridItem: {
+        width: '33%',
+        height: 110,
+        backgroundColor: '#eaeaea',
+        borderRadius: 10,
+        marginBottom: 5,
+      },
   });
 
   export default styles;
