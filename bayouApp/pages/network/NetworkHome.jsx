@@ -85,7 +85,7 @@ export default function NetworkHome() {
 
   const fadeOutOnCollapse = {
     opacity: translateY.interpolate({
-      inputRange: [collapseDistance, collapseDistance * 0.001],
+      inputRange: [collapseDistance, collapseDistance],
       outputRange: [0, 1],
       extrapolate: 'clamp',
     }),
@@ -145,27 +145,30 @@ export default function NetworkHome() {
           <Ionicons name="search" size={20} color="#000" />
         </TouchableOpacity>
 
-{/* Tabs */}
-<Animated.View style={fadeOutOnCollapse} pointerEvents="box-none">
-  <View style={styles.tabRow}>
-    {TABS.map((tab) => (
-      <TouchableOpacity
-        key={tab}
-        style={[styles.tab, activeTab === tab && styles.activeTab]}
-        onPress={() => setActiveTab(tab)}
-      >
-        <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
-          {tab}
-        </Text>
-      </TouchableOpacity>
-    ))}
-  </View>
-</Animated.View>
+        {/* Tabs */}
+        <Animated.View
+          style={[fadeOutOnCollapse, { zIndex: 10 }]}
+          pointerEvents="box-none"
+        >
+          <View style={styles.tabRow}>
+            {TABS.map((tab) => (
+              <TouchableOpacity
+                key={tab}
+                style={[styles.tab, activeTab === tab && styles.activeTab]}
+                onPress={() => setActiveTab(tab)}
+              >
+                <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </Animated.View>
 
-{/* Collapsible Featured Section */}
-{activeTab === 'Creators' ? (
-  <CreatorsContent.Header translateY={translateY} navigate={navigate} />
-) : null}
+        {/* Collapsible Featured Section */}
+        {activeTab === 'Creators' ? (
+          <CreatorsContent.Header translateY={translateY} navigate={navigate} />
+        ) : null}
 
       </Animated.View>
 

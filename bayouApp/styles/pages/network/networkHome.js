@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 12,
     paddingHorizontal: 25,
+    zIndex: 10,
   },
 
   tab: {

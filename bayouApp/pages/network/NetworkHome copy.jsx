@@ -188,13 +188,17 @@ export default function NetworkHome() {
         </TouchableOpacity>
 
         {/* Tabs */}
-        <Animated.View style={fadeOutOnCollapse}>
-          <View style={styles.tabRow}>
+        <Animated.View
+          style={[fadeOutOnCollapse]}
+          pointerEvents="box-none"
+        >
+          <View style={styles.tabRow} pointerEvents="auto">
             {TABS.map((tab) => (
               <TouchableOpacity
                 key={tab}
-                style={[styles.tab, activeTab === tab && styles.activeTab]}
+                activeOpacity={0.8}
                 onPress={() => setActiveTab(tab)}
+                style={[styles.tab, activeTab === tab && styles.activeTab]}
               >
                 <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
                   {tab}
@@ -203,6 +207,7 @@ export default function NetworkHome() {
             ))}
           </View>
         </Animated.View>
+
 
         {/* Featured Curators */}
         <Animated.View
