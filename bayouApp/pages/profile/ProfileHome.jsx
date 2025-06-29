@@ -26,6 +26,7 @@ export default function ProfileHome() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [expandedThreadId, setExpandedThreadId] = useState(null);
 
+
   const scrollRef = useRef(null);
   const scrollOffsetY = useRef(0);
   const collapsedRef = useRef(false);
@@ -44,11 +45,11 @@ export default function ProfileHome() {
       onPanResponderMove: (_, gesture) => {
         const dy = gesture.dy;
         if (collapsedRef.current && dy > 0) {
-          const offset = collapseDistance + dy * 0.0001; // slower pull-down
+          const offset = collapseDistance + dy * 0.25;
           translateY.setValue(Math.min(offset, 0));
         } else if (!collapsedRef.current && dy < 0) {
-          translateY.setValue(Math.max(collapseDistance, dy * 0.0001)); // slower push-up
-        }        
+          translateY.setValue(Math.max(collapseDistance, dy));
+        }
       },
       onPanResponderRelease: (_, gesture) => {
         const dy = gesture.dy;
@@ -61,7 +62,7 @@ export default function ProfileHome() {
             setCollapsed(true);
             collapsedRef.current = true;
           });
-        } else if (collapsedRef.current && dy > 100) {
+        } else if (collapsedRef.current && dy > 80) {
           Animated.timing(translateY, {
             toValue: 0,
             duration: 200,
@@ -80,6 +81,7 @@ export default function ProfileHome() {
       },
     })
   ).current;
+  
 
   const sampleData = {
     Lifestyle: Array.from({ length: 18 }, (_, i) => ({
