@@ -76,6 +76,62 @@ const styles = StyleSheet.create({
     backgroundColor: '#e6e6e6',
   },
 
+  headerTopRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  
+  logoTitleGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  
+  headerActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  
+  headerIconCircle: {
+    width: 34,
+    height: 34,
+    backgroundColor: '#fff',
+    borderRadius: 17,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    position: 'relative',
+  },
+  
+  iconText: {
+    fontSize: 18,
+  },
+  
+  redDot: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 8,
+    height: 8,
+    backgroundColor: 'red',
+    borderRadius: 4,
+  },
+  
+  activeTab: {
+    backgroundColor: '#e6e6e6',
+    borderRadius: 8,
+  },
+  
+  tab: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    marginRight: 10,
+  },
+  
+
   tabText: {
     fontWeight: '500',
     fontSize: 12,
@@ -195,7 +251,9 @@ const styles = StyleSheet.create({
     color: '#007bff',
     marginTop: 2,
     fontSize: 12,
-  }
+  },
+
+  
   
 });
 

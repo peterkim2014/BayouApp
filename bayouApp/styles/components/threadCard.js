@@ -1,16 +1,16 @@
+// styles/components/threadCard.js
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-
   card: {
-    width: width * 0.95, // Use more width
+    width: width,
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 35,
+    marginTop: 15,
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 14,
     elevation: 1,
   },
 
@@ -19,6 +19,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    paddingHorizontal: 14,
+  },
+
+  profileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  profileCircle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#ccc',
+    marginRight: 8,
   },
 
   username: {
@@ -26,28 +40,96 @@ const styles = StyleSheet.create({
     fontSize: 15.5,
   },
 
-  actions: {
-    flexDirection: 'row',
-    gap: 12,
+  watchingText: {
+    fontSize: 12.5,
+    fontWeight: '600',
   },
 
-  placeholderBox: {
-    height: 210,
-    backgroundColor: '#ddd',
-    borderRadius: 8,
+  cardImage: {
+    width: width,
+    height: 200,
     marginBottom: 10,
+    backgroundColor: 'lightgrey'
+  },
+
+  actionRow: {
+    flexDirection: 'row',
+    gap: 12,
+    paddingVertical: 10,
+    marginTop: -35,
+    marginLeft: 20,
+  },
+
+  iconImage: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },  
+
+  iconCircle: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#fff',
+    borderRadius: 17,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+  },
+
+  metaRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 6,
+    gap: 12,
+    paddingHorizontal: 14,
+  },
+
+  leftMeta: {
+    flex: 1.25,
+  },
+
+  ratingStars: {
+    fontSize: 16,
+    marginBottom: 2,
+  },
+
+  rightStats: {
+    flexDirection: 'row',
+    gap: 15,
+    alignItems: 'flex-end',
+    height: '85%'
+  },
+
+  statColumn: {
+    alignItems: 'center',
+  },
+
+  statValue: {
+    fontWeight: '700',
+    fontSize: 15,
+  },
+
+  statLabel: {
+    fontSize: 11.25,
+    color: '#333',
   },
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: 15,
+    fontSize: 15.25,
+    marginBottom: 2,
   },
 
   cardDescription: {
-    marginTop: 4,
+    marginTop: 6,
     marginBottom: 10,
     color: '#444',
     fontSize: 12.25,
+    paddingHorizontal: 14,
   },
 
   commentButton: {
@@ -56,6 +138,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 6,
     alignSelf: 'flex-start',
+    marginLeft: 14,
   },
 
   commentButtonText: {
@@ -68,23 +151,24 @@ const styles = StyleSheet.create({
     marginTop: 12,
     paddingTop: 10,
     marginLeft: 20,
+    paddingHorizontal: 14,
   },
-  
+
   commentBlock: {
     marginBottom: 10,
     width: '94%',
   },
-  
+
   commentHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 4,
   },
-  
+
   commentAuthor: {
     fontWeight: '600',
   },
-  
+
   commentActions: {
     flexDirection: 'row',
     gap: 12,
@@ -94,95 +178,20 @@ const styles = StyleSheet.create({
   commentActionText: {
     fontSize: 12.25,
   },
-  
+
   commentText: {
     color: '#333',
     fontSize: 12.25,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#d6d6d6'
+    borderBottomColor: '#d6d6d6',
   },
-  
+
   seeMore: {
     color: '#007bff',
     marginTop: 2,
     fontSize: 12,
   },
-
-
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  
-  profileImage: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    marginRight: 6,
-  },
-  
-  profileCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#ccc',
-    marginRight: 8,
-  },
-  
-
-  watchingText: {
-    fontSize: 12.5,
-    fontWeight: '600',
-  },
-  
-  upArrowToggle: {
-    position: 'absolute',
-    bottom: -30,
-    right: 10,
-    backgroundColor: '#fff',
-    zIndex: 3,
-  },
-  
-  upArrowIcon: {
-    width: 25,
-    height: 25,
-  },
-  
-  iconActionsRow: {
-    position: 'absolute',
-    bottom: 10,
-    right: 5,
-    flexDirection: 'column',
-    gap: 8,
-  },
-  
-  iconPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  
-  pillIcon: {
-    width: 16,
-    height: 16,
-    marginRight: 4,
-  },
-  
-  pillText: {
-    fontSize: 11,
-    fontWeight: '500',
-  }
-  
-  
 });
 
 export default styles;
