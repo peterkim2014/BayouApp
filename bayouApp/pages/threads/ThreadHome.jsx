@@ -1,6 +1,7 @@
 // components/ThreadHome.js
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
+import { useNavigate } from 'react-router-native';
 import styles from '../../styles/pages/threads/threadHome';
 
 import logo from '../../assets/bayouLogo.png'
@@ -9,6 +10,7 @@ import ThreadCard from '../../components/cards/ThreadCard';
 export default function ThreadHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
   const [expandedThreadId, setExpandedThreadId] = useState(null);
+  const navigate = useNavigate();
 
   const data = {
     Lifestyle: [
@@ -56,7 +58,10 @@ export default function ThreadHome() {
           <Text style={styles.headerTitle}>In the Thread</Text>
         </View>
         <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.headerIconCircle}>
+          <TouchableOpacity
+            style={styles.headerIconCircle}
+            onPress={() => navigate('/new-post')}
+          >
             <Text style={styles.iconText}>＋</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerIconCircle}>

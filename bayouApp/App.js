@@ -20,6 +20,7 @@ import CampaignCategory from './pages/campaigns/CampaignCategory';
 import CampaignWaitlist from './pages/campaigns/CampaignWaitlist';
 import NetworkSearch from './pages/network/NetworkSearch';
 import SelectedProfile from './pages/profile/SelectedProfile';
+import NewPost from './pages/utils/NewPost';
 
 import MessagingHome from './pages/utils/MessagingHome';
 
@@ -69,6 +70,7 @@ export default function App() {
         <Navbar />
         <Routes>
          <Route path="/" element={<ThreadHome />} />
+         <Route path="/new-post" element={<NewPost />} />
          <Route path="/profile" element={<ProfileHome />} />
          <Route path="/network/selected-profile" element={<SelectedProfile />} />
          <Route path="/network/messaging" element={<MessagingHome />} />
