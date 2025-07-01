@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
   heroImage: {
     width: width,
-    height: 475,
+    height: 560,
     justifyContent: 'flex-end',
     paddingHorizontal: 25,
     paddingBottom: 40,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
   searchButton: {
     position: 'absolute',
-    top: 50,
+    top: 60,
     right: 25,
     backgroundColor: '#fff',
     padding: 8,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   dotStack: {
     position: 'absolute',
-    top: 110,
+    top: 130,
     right: 24,
     justifyContent: 'space-between',
     height: 90,
@@ -61,12 +61,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.6,
+    // shadowRadius: 6,
     overflow: 'hidden', // to match borderRadius
+    backgroundColor: '#ffffff40',
   },  
+
+  heroCardWrapper: {
+    // margin: 20,
+    // borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 6, // For Android
+    backgroundColor: 'transparent', // prevent background layering
+  },
 
   heroTitle: {
     fontSize: 21,
@@ -87,22 +99,23 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingLeft: 25,
-    paddingBottom: 20,
+    paddingBottom: 55,
   },
 
   categoryRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingRight: 16,
-    marginTop: 50,
+    // gap: -11,
+    // paddingRight: 10,
+    // marginTop: 50,
   },
 
   categoryCard: {
-    width: width * 0.46,
-    height: 230,
+    width: width * 0.42,
+    height: 200,
     borderRadius: 8,
     backgroundColor: '#fff',
-    marginRight: 16,
+    marginRight: 11,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.35,
