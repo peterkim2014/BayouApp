@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  FlatList
 } from 'react-native';
 import styles from '../../styles/pages/network/brandsContent';
 import ThreadCard from '../../components/cards/ThreadCard';
@@ -14,6 +15,7 @@ const brands = [
   { name: 'Starbucks', category: 'Food & Drinks', image: 'https://logo.clearbit.com/starbucks.com' },
   { name: 'Lululemon', category: 'Clothing', image: 'https://logo.clearbit.com/lululemon.com' },
   { name: 'Mizuno', category: 'Golf', image: 'https://logo.clearbit.com/mizunousa.com' },
+  { type: 'seeAll' }
 ];
 
 const products = [
@@ -41,319 +43,243 @@ const products = [
   ];
   
 
-function Header({ translateY, navigate, selectedPost }) {
-  const collapseDistance = -115;
-  const width = 320;
+  function Header({ translateY, navigate, selectedPost }) {
+    const collapseDistance = -115;
+    const width = 320;
 
-  const cardWidth = translateY.interpolate({
-    inputRange: [collapseDistance, 0],
-    outputRange: [width * 0.16, width * 0.32],
-    extrapolate: 'clamp',
-  });
-
-  const cardHeight = translateY.interpolate({
-    inputRange: [collapseDistance, 0],
-    outputRange: [50, 120],
-    extrapolate: 'clamp',
-  });
-
-  const cardRadius = translateY.interpolate({
-    inputRange: [collapseDistance, 0],
-    outputRange: [110, 8],
-    extrapolate: 'clamp',
-  });
-
-  const translateCards = translateY.interpolate({
-    inputRange: [collapseDistance, 0],
-    outputRange: [-35, -15],
-    extrapolate: 'clamp',
-  });
-
-  const paddingTop = translateY.interpolate({
-    inputRange: [collapseDistance, 0],
-    outputRange: [30, 10],
-    extrapolate: 'clamp',
-  });
-
-  return (
-    <Animated.View 
-      pointerEvents={selectedPost ? 'none' : 'auto'}
-      style={[styles.brand__animatedContainer, {
-      transform: [{
-        translateY: translateY.interpolate({
-        inputRange: [collapseDistance, 0],
-        outputRange: [-20, 90],
-        extrapolate: 'clamp',
-        }),
-    }],
-    }]} 
-    >
-
-      <View style={styles.featuredHeaderRow}>
-        <Text style={styles.featuredHeaderText}>Top Rated Brands</Text>
-        <TouchableOpacity>
-          <Animated.Text
+    // All interpolations precomputed
+    const cardWidth = useMemo(() => translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [width * 0.16, width * 0.32],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const cardHeight = useMemo(() => translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [50, 120],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const cardRadius = useMemo(() => translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [110, 8],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const translateCards = useMemo(() => translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [-35, -15],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const paddingTop = useMemo(() => translateY.interpolate({
+      inputRange: [collapseDistance, 0],
+      outputRange: [30, 10],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const opacityNewSection = useMemo(() => translateY.interpolate({
+      inputRange: [-75 , 0],
+      outputRange: [0,1],
+      extrapolate: 'clamp',
+    }), [translateY]);
+  
+    const renderBrandCard = ({ item }) => {
+      if (item.type === 'seeAll') {
+        return (
+          <Animated.View
             style={{
-              fontSize: translateY.interpolate({
-                inputRange: [collapseDistance, collapseDistance * 0.001],
-                outputRange: [0.01, 12],
-                extrapolate: 'clamp',
-              }),
+              justifyContent: 'center',
+              alignItems: 'center',
               opacity: translateY.interpolate({
-                inputRange: [collapseDistance, collapseDistance * 0.001],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
-              }),
-            }}
-          >
-            See All
-          </Animated.Text>
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.brand__scroll}
-        style={styles.brand__scroll}
-        >
-        <View style={styles.brand__container}>
-            {brands.map((brand, i) => (
-              <TouchableOpacity
-                key={i}
-                activeOpacity={0.85}
-                onPress={() => navigate('/network/selected-profile', { state: brand })}
-              >
-                <Animated.View style={[styles.brand__card, { 
-                  width: cardWidth,
-                  transform: [{ translateY: translateCards }],
-                  borderRadius: cardRadius,
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  marginTop: paddingTop,
-                }]}>
-                <Animated.View
-                style={[
-                    styles.brand__placeholder,
-                    {
-                    height: cardHeight,
-                    width: cardWidth,
-                    borderRadius: cardRadius,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    },
-                ]}
-                >
-                <Animated.Image
-                source={{ uri: brand.image }}
-                style={{
-                    width: translateY.interpolate({
-                    inputRange: [collapseDistance, 0],
-                    outputRange: [48, 80], // shrinks from 60 to 32
-                    extrapolate: 'clamp',
-                    }),
-                    height: translateY.interpolate({
-                    inputRange: [collapseDistance, 0],
-                    outputRange: [48, 80],
-                    extrapolate: 'clamp',
-                    }),
-                    borderRadius: translateY.interpolate({
-                    inputRange: [collapseDistance, 0],
-                    outputRange: [40, 40],
-                    extrapolate: 'clamp',
-                    }),
-                }}
-                />
-
-
-                </Animated.View>
-                <Animated.Text
-                style={{
-                    fontSize: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [9, 12],
-                    extrapolate: 'clamp',
-                    }),
-                    marginTop: 6,
-                }}
-                >
-                {brand.name}
-                </Animated.Text>
-                <Animated.Text
-                style={{
-                    fontSize: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [0.01, 14],
-                    extrapolate: 'clamp',
-                    }),
-                    opacity: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [0, 1],
-                    extrapolate: 'clamp',
-                    }),
-                }}
-                >
-                {brand.category}
-                </Animated.Text>
-              </Animated.View>
-            </TouchableOpacity>
-            ))}
-
-            {/* See All Button */}
-            <Animated.View
-            style={{
-                opacity: translateY.interpolate({
-                inputRange: [collapseDistance, collapseDistance * 0.8],
+                inputRange: [collapseDistance, collapseDistance * 0.6],
                 outputRange: [1, 0],
                 extrapolate: 'clamp',
-                }),
-                transform: [
+              }),
+              transform: [
                 {
-                    scale: translateY.interpolate({
-                    inputRange: [collapseDistance, collapseDistance * 0.8],
+                  scale: translateY.interpolate({
+                    inputRange: [collapseDistance, collapseDistance * 0.6],
                     outputRange: [1, 0.9],
                     extrapolate: 'clamp',
-                    }),
+                  }),
                 },
-                ],
+              ],
             }}
-            >
+          >
             <TouchableOpacity
-                onPress={() => navigate('/network/brands')}
-                style={[
-                styles.profileCard,
-                {
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#f0f0f0',
-                    marginLeft: 10,
-                    marginRight: 10,
-                    padding: 12,
-                    marginTop: -5,
-                    paddingHorizontal: 0,
-                    borderRadius: 40,
-                    borderWidth: 7,
-                    borderColor: "#f0f0f0",
-                    opacity: 0.6,
-                },
-                ]}
+              onPress={() => navigate('/network/featured')}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#f0f0f0',
+                marginLeft: 6,
+                marginRight: 10,
+                padding: 12,
+                marginTop: -50,
+                paddingHorizontal: 0,
+                borderRadius: 40,
+                borderWidth: 7,
+                borderColor: '#f0f0f0',
+                opacity: 0.6,
+              }}
             >
-                <Text style={{ fontWeight: 'bold', fontSize: 12 }}>See All</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 12 }}>See All</Text>
             </TouchableOpacity>
-            </Animated.View>
-        </View>
-        </ScrollView>
-
-        <Animated.View style={[styles.featuredHeaderRow, {
-            opacity: translateY.interpolate({
-                inputRange: [collapseDistance, 0],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
+          </Animated.View>
+        );
+      }
+    
+      // regular brand card
+      return (
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => navigate('/network/selected-profile', { state: item })}
+          style={{ marginRight: 0 }}
+        >
+          <Animated.View style={[
+            styles.brand__card,
+            {
+              width: cardWidth,
+              transform: [{ translateY: translateCards }],
+              borderRadius: cardRadius,
+              marginTop: paddingTop,
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+          ]}>
+            <Animated.Image
+              source={{ uri: item.image }}
+              style={{
+                width: cardWidth,
+                height: cardHeight,
+                borderRadius: cardRadius,
+              }}
+              resizeMode="cover"
+            />
+            <Animated.Text
+              style={{
+                fontSize: translateY.interpolate({
+                  inputRange: [collapseDistance, collapseDistance * 0.3],
+                  outputRange: [10, 10],
+                  extrapolate: 'clamp',
                 }),
-        }]}>
-            <Text style={styles.featuredHeaderText}>New Product Releases</Text>
-            <TouchableOpacity>
-                <Animated.Text
-                style={{
-                    fontSize: translateY.interpolate({
-                    inputRange: [collapseDistance, collapseDistance * 0.001],
-                    outputRange: [0.01, 12],
-                    extrapolate: 'clamp',
-                    }),
-                    opacity: translateY.interpolate({
-                    inputRange: [collapseDistance, collapseDistance * 0.001],
-                    outputRange: [0, 1],
-                    extrapolate: 'clamp',
-                    }),
-                }}
-                >
-                See All
-                </Animated.Text>
-            </TouchableOpacity>
-            </Animated.View>
-
-            <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.brand__scroll}
-            style={styles.brand__scroll}
+              }}
             >
-            <View style={styles.brand__container}>
-                {products.map((product, i) => (
-                <Animated.View
-                    key={i}
-                    style={[
-                    styles.brand__card,
-                    {
-                        width: cardWidth,
-                        transform: [{ translateY: translateCards }],
-                        borderRadius: cardRadius,
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                        marginTop: paddingTop,
-                        opacity: translateY.interpolate({
-                            inputRange: [collapseDistance, -30],
-                            outputRange: [0, 1],
-                            extrapolate: 'clamp',
-                            }),
-                    },
-                    ]}
-                >
-                    <Animated.View
-                    style={[
-                        styles.brand__placeholder,
-                        {
-                        height: cardHeight,
-                        width: cardWidth,
-                        borderRadius: cardRadius,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        overflow: 'hidden',
-                        },
-                    ]}
-                    >
-                    <Animated.Image
-                        source={{ uri: product.image }}
-                        resizeMode="cover"
-                        style={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: cardRadius,
-                        }}
-                    />
-                    </Animated.View>
-                    <Animated.Text
-                    style={{
-                        fontSize: translateY.interpolate({
-                        inputRange: [collapseDistance, -collapseDistance / 2],
-                        outputRange: [9, 12],
-                        extrapolate: 'clamp',
-                        }),
-                        marginTop: 6,
-                    }}
-                    >
-                    {product.name}
-                    </Animated.Text>
-                    <Animated.Text
-                    style={{
-                        fontSize: translateY.interpolate({
-                        inputRange: [collapseDistance, -collapseDistance / 2],
-                        outputRange: [0.01, 14],
-                        extrapolate: 'clamp',
-                        }),
-                    }}
-                    >
-                    {product.category}
-                    </Animated.Text>
-                </Animated.View>
-                ))}
-            </View>
-            </ScrollView>
+              {item.name}
+            </Animated.Text>
+            <Animated.Text
+              style={{
+                fontSize: translateY.interpolate({
+                  inputRange: [collapseDistance, 0],
+                  outputRange: [0.0001, 10],
+                  extrapolate: 'clamp',
+                }),
+                opacity: translateY.interpolate({
+                  inputRange: [collapseDistance, 0],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              }}
+            >
+              {item.category}
+            </Animated.Text>
+          </Animated.View>
+        </TouchableOpacity>
+      );
+    };
+    
+  
+    const renderProductCard = ({ item }) => (
+      <Animated.View style={[
+        styles.brand__card,
+        {
+          opacity: opacityNewSection,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      ]}>
+        <Animated.Image
+          source={{ uri: item.image }}
+          style={{
+            width: 100,
+            height: 120,
+            borderRadius: 8,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={{ marginTop: 6, fontSize: 12 }}>{item.name}</Text>
+        <Text style={{ fontSize: 10, opacity: 0.6 }}>{item.category}</Text>
+      </Animated.View>
+    );
+  
+    return (
+      <Animated.View
+        pointerEvents={selectedPost ? 'none' : 'auto'}
+        style={[styles.brand__animatedContainer, {
+          transform: [{
+            translateY: translateY.interpolate({
+              inputRange: [collapseDistance, 0],
+              outputRange: [-20, 90],
+              extrapolate: 'clamp',
+            }),
+          }],
+        }]}
+      >
+        <View style={styles.featuredHeaderRow}>
+          <Text style={styles.featuredHeaderText}>Top Rated Brands</Text>
 
+          <Animated.View
+            style={{
+              opacity: translateY.interpolate({
+                inputRange: [collapseDistance, 0],
+                outputRange: [0, 1], // fade out as user scrolls up
+                extrapolate: 'clamp',
+              }),
+              transform: [
+                {
+                  scale: translateY.interpolate({
+                    inputRange: [collapseDistance, 0],
+                    outputRange: [0.0001, 1], // optional slight shrink
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ],
+            }}
+          >
+            <TouchableOpacity onPress={() => navigate('/network/featured')}>
+              <Text style={{ fontSize: 12, fontWeight: '500' }}>See All</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
 
-    </Animated.View>
-  );
-}
+  
+        <FlatList
+          data={brands}
+          renderItem={renderBrandCard}
+          keyExtractor={(_, i) => i.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.brand__scroll}
+        />
+  
+        {/* New Product Releases */}
+        <Animated.View style={[styles.featuredHeaderRow, { opacity: opacityNewSection }]}>
+          <Text style={styles.featuredHeaderText}>New Product Releases</Text>
+          <TouchableOpacity><Text style={{ fontSize: 12 }}>See All</Text></TouchableOpacity>
+        </Animated.View>
+  
+        <FlatList
+          data={products}
+          renderItem={renderProductCard}
+          keyExtractor={(_, i) => i.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.brand__scroll}
+        />
+      </Animated.View>
+    );
+  }
 
 
 function Body({
