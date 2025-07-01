@@ -84,13 +84,13 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
 
 
       {/* Toggle Comments */}
-      {toggleComments && (
+      {/* {toggleComments && (
         <TouchableOpacity style={styles.commentButton} onPress={() => toggleComments(item.id)}>
           <Text style={styles.commentButtonText}>
             {expandedId === item.id ? '▾ Close Comments' : '▾ Open Comments'}
           </Text>
         </TouchableOpacity>
-      )}
+      )} */}
 
       {/* Comments */}
       {expandedId === item.id && item.comments && (

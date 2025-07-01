@@ -9,9 +9,11 @@ import {
   ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from '../../styles/pages/campaign/campaignHome'
 import { useNavigate } from 'react-router-native';
+import { BlurView } from 'expo-blur';
 
+import styles from '../../styles/pages/campaign/campaignHome';
+import campaignImage from '../../assets/campaignImage.jpeg';
 
 export default function CampaignHome() {
   const navigate = useNavigate();
@@ -20,8 +22,9 @@ export default function CampaignHome() {
     <View style={styles.campaignContainer}>
       {/* Hero Header */}
       <ImageBackground
-        source={{ uri: 'https://via.placeholder.com/600x400?text=Louis+Vuitton+Nike' }}
+        source={campaignImage}
         style={styles.heroImage}
+        resizeMode="cover"
       >
         {/* Search Icon */}
         <TouchableOpacity style={styles.searchButton}>
@@ -35,52 +38,65 @@ export default function CampaignHome() {
           <View style={styles.dot} />
         </View>
 
-        <View style={styles.heroCard}>
-          {/* Background overlay */}
-          <View style={styles.heroCardOverlay} />
-
-          {/* Foreground content */}
-          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <View>
+        {/* Hero Card with Blur Overlay */}
+        <View style={styles.heroCardWrapper}>
+        <BlurView intensity={40} tint="light" style={styles.heroCard}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderRadius: 8,
+            }}
+          >
+            <View style={{ flex: 1, paddingRight: 10 }}>
               <Text style={styles.heroTitle}>Louis Vuitton / Nike</Text>
               <Text style={styles.heroDesc}>
                 Collaboration for shoe enthusiasts to feel the comfort and luxury feel
               </Text>
             </View>
             <TouchableOpacity
-              style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-              onPress={() => navigate('/campaign/louis-vuitton-nike', {
-                state: { campaign: { title: 'Louis Vuitton / Nike', description: '...', id: 'louis-vuitton-nike' } }
-              })}  
+              style={styles.arrowButton}
+              onPress={() =>
+                navigate('/campaign/louis-vuitton-nike', {
+                  state: {
+                    campaign: {
+                      title: 'Louis Vuitton / Nike',
+                      description: '...',
+                      id: 'louis-vuitton-nike',
+                    },
+                  },
+                })
+              }
             >
               <Ionicons name="arrow-forward" size={20} color="#000" />
             </TouchableOpacity>
           </View>
+        </BlurView>
         </View>
 
-
+        {/* Horizontal Scroll Categories */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.categoryRow}
           style={styles.scrollOverlay}
         >
-            <TouchableOpacity
-              style={styles.categoryCard}
-              onPress={() => navigate('/campaign/category/Shoes')}
-            >
-              <Image
-                // source={{ uri: 'https://via.placeholder.com/300x300?text=Shoes' }}
-                style={styles.categoryImage}
-              />
-              <View style={styles.campaignBadge}>
-                <Text style={styles.campaignBadgeText}>11K Campaigns</Text>
-              </View>
-              <View style={styles.categoryLabel}>
-                <Text style={styles.labelText}>Shoes</Text>
-              </View>
-            </TouchableOpacity>
-
+          <TouchableOpacity
+            style={styles.categoryCard}
+            onPress={() => navigate('/campaign/category/Shoes')}
+          >
+            <Image
+              source={{ uri: 'https://via.placeholder.com/300x300?text=Shoes' }}
+              style={styles.categoryImage}
+            />
+            <View style={styles.campaignBadge}>
+              <Text style={styles.campaignBadgeText}>11K Campaigns</Text>
+            </View>
+            <View style={styles.categoryLabel}>
+              <Text style={styles.labelText}>Shoes</Text>
+            </View>
+          </TouchableOpacity>
 
           <View style={styles.categoryCard}>
             <Image
@@ -96,7 +112,6 @@ export default function CampaignHome() {
           </View>
         </ScrollView>
       </ImageBackground>
-
     </View>
   );
 }
