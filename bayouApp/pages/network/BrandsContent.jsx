@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import styles from '../../styles/pages/network/brandsContent';
+import ThreadCard from '../../components/cards/ThreadCard';
 
 const brands = [
   { name: 'Starbucks', category: 'Food & Drinks', image: 'https://logo.clearbit.com/starbucks.com' },
@@ -335,25 +336,53 @@ function Header({ translateY, navigate }) {
 }
 
 
-function Body({ translateY, collapsed, scrollRef, onScrollY }) {
-    const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
-    const collapseDistance = -115;
-  
-    const scrollBodyMarginTop = translateY.interpolate({
-      inputRange: [collapseDistance, 0],
-      outputRange: [0, 150],
-      extrapolate: 'clamp',
-    });
-  
-    const paddingTop = translateY.interpolate({
-      inputRange: [collapseDistance, 0],
-      outputRange: [-105, -5],
-      extrapolate: 'clamp',
-    });
-  
-    return (
-      <Animated.View style={[styles.brand__scrollBody, { marginTop: scrollBodyMarginTop }]}>
-        <Text style={styles.brand__sectionTitle}>What's happening</Text>
+function Body({
+  translateY,
+  collapsed,
+  scrollRef,
+  onScrollY,
+  selectedPost,
+  expandedThreadId,
+  onSelectPost,
+  onBack,
+}) {
+  const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+  const collapseDistance = -115;
+  const [scrollYBeforeExpand, setScrollYBeforeExpand] = useState(0);
+
+  const scrollBodyMarginTop = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [0, 150],
+    extrapolate: 'clamp',
+  });
+
+  const paddingTop = translateY.interpolate({
+    inputRange: [collapseDistance, 0],
+    outputRange: [-105, -5],
+    extrapolate: 'clamp',
+  });
+
+
+  return (
+    <Animated.View style={[styles.brand__scrollBody, { marginTop: scrollBodyMarginTop }]}>
+      <Text style={styles.brand__sectionTitle}>Popular Posts</Text>
+
+      {selectedPost ? (
+        <ScrollView
+          contentContainerStyle={{ padding: 20 }}
+          style={{ flexGrow: 1, zIndex: 6 }}
+        >
+          <TouchableOpacity onPress={onBack} style={{ marginBottom: 20 }}>
+            <Text style={{ fontSize: 16, fontWeight: '600' }}>← Back to Explore</Text>
+          </TouchableOpacity>
+
+          <ThreadCard
+            item={selectedPost}
+            expandedId={expandedThreadId}
+            toggleComments={() => {}}
+          />
+        </ScrollView>
+      ) : (
         <AnimatedScrollView
           ref={scrollRef}
           scrollEnabled={collapsed}
@@ -361,21 +390,27 @@ function Body({ translateY, collapsed, scrollRef, onScrollY }) {
             onScrollY.current = e.nativeEvent.contentOffset.y;
           }}
           scrollEventThrottle={16}
-          showsVerticalScrollIndicator={false}
           bounces={false}
           overScrollMode="never"
           style={[styles.brand__scrollBodyContent, { paddingTop }]}
         >
           <View style={styles.brand__gridContainer}>
-            {Array(24)
-              .fill(null)
-              .map((_, i) => (
-                <View key={i} style={styles.brand__gridItem} />
-              ))}
+            {products.map((product, i) => (
+              <TouchableOpacity
+                key={i}
+                onPress={() => onSelectPost(product)}
+                activeOpacity={0.85}
+                style={styles.brand__gridItem}
+              >
+                <View style={styles.brand__gridPreview} />
+              </TouchableOpacity>
+            ))}
           </View>
         </AnimatedScrollView>
-      </Animated.View>
-    );
-  }
+      )}
+    </Animated.View>
+  );
+}
+
 
   export default { Header, Body };

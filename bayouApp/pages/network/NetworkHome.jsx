@@ -144,7 +144,7 @@ export default function NetworkHome() {
   });
 
   return (
-    <View style={styles.networkContainer}>
+    <View style={styles.networkContainer} {...panResponder.panHandlers}>
       {/* HEADER */}
       <Animated.View style={[styles.networkHeaderContainer, { height: animatedHeaderHeight }]}>
         {/* Shadow */}
@@ -235,8 +235,14 @@ export default function NetworkHome() {
             translateY={translateY}
             collapsed={collapsed}
             scrollRef={scrollRef}
-            onScrollY={scrollOffsetY}
+            onScrollY={scrollOffsetY}  // ✅ correct reference
+            selectedPost={selectedPost}
+            expandedThreadId={expandedThreadId}
+            onSelectPost={handlePostSelect}
+            onBack={handleBackFromDetail}
           />
+
+
         )}
 
 

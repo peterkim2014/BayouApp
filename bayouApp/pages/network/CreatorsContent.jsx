@@ -241,23 +241,6 @@ function Body({
     extrapolate: 'clamp',
   });
 
-  const handleExpand = (id) => {
-    setScrollYBeforeExpand(onScrollY.current || 0);
-    if (scrollRef?.current) {
-      scrollRef.current.scrollTo({ y: 0, animated: false });
-    }
-    setExpandedThreadId(id);
-  };
-
-  const handleCollapse = () => {
-    setExpandedThreadId(null);
-    requestAnimationFrame(() => {
-      if (scrollRef?.current) {
-        scrollRef.current.scrollTo({ y: scrollYBeforeExpand, animated: false });
-      }
-    });
-  };
-
   return (
     <Animated.View
       style={[
