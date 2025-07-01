@@ -1,15 +1,23 @@
-// components/cards/ThreadCard.js
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../../styles/components/threadCard';
+import { useNavigate } from 'react-router-native';
 
 import likeIcon from '../../assets/likeIcon.png';
 import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
-import UpArrow from '../UpArrow';
 
 export default function ThreadCard({ item, expandedId, toggleComments }) {
   const [showActions, setShowActions] = useState(false);
+  const navigate = useNavigate();
+
+  const handleProfilePress = () => {
+    navigate('/network/selected-profile', { state: { user: item.user || 'Jane Doe' } });
+  };
+
+  const handlePostPress = () => {
+    navigate(`/campaign/${item.id}`, { state: { post: item } });
+  };
 
   return (
     <View style={styles.card}>
@@ -17,16 +25,20 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
       <View style={styles.cardHeader}>
         <View style={styles.profileRow}>
           <Image source={{ uri: 'https://via.placeholder.com/28x28' }} style={styles.profileCircle} />
-          <Text style={styles.username}>Jane Doe</Text>
+          <TouchableOpacity onPress={handleProfilePress}>
+            <Text style={styles.username}>Jane Doe</Text>
+          </TouchableOpacity>
         </View>
         <Text style={styles.watchingText}>👥 2.1M Watching</Text>
       </View>
 
-      {/* Image */}
-      <Image
-        source={{ uri: 'https://via.placeholder.com/600x400.png?text=Thread+Image' }}
-        style={styles.cardImage}
-      />
+      {/* Image (clickable to go to campaign detail) */}
+      <TouchableOpacity onPress={handlePostPress}>
+        <Image
+          source={{ uri: 'https://via.placeholder.com/600x400.png?text=Thread+Image' }}
+          style={styles.cardImage}
+        />
+      </TouchableOpacity>
 
       {/* Action Icons */}
       <View style={styles.actionRow}>
@@ -41,30 +53,30 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
         </TouchableOpacity>
       </View>
 
-
-      {/* Title, Stars, Stats, Description */}
-      <View style={styles.metaRow}>
-        <View style={styles.leftMeta}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.ratingStars}>★★★★☆</Text>
+      {/* Title/Stats - also clickable */}
+      <TouchableOpacity onPress={handlePostPress}>
+        <View style={styles.metaRow}>
+          <View style={styles.leftMeta}>
+            <Text style={styles.cardTitle}>{item.title}</Text>
+            <Text style={styles.ratingStars}>★★★★☆</Text>
+          </View>
+          <View style={styles.rightStats}>
+            <View style={styles.statColumn}>
+              <Text style={styles.statValue}>87%</Text>
+              <Text style={styles.statLabel}>Looks</Text>
+            </View>
+            <View style={styles.statColumn}>
+              <Text style={styles.statValue}>91%</Text>
+              <Text style={styles.statLabel}>Feel</Text>
+            </View>
+            <View style={styles.statColumn}>
+              <Text style={styles.statValue}>$$</Text>
+              <Text style={styles.statLabel}>Cost</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.rightStats}>
-          <View style={styles.statColumn}>
-            <Text style={styles.statValue}>87%</Text>
-            <Text style={styles.statLabel}>Looks</Text>
-          </View>
-          <View style={styles.statColumn}>
-            <Text style={styles.statValue}>91%</Text>
-            <Text style={styles.statLabel}>Feel</Text>
-          </View>
-          <View style={styles.statColumn}>
-            <Text style={styles.statValue}>$$</Text>
-            <Text style={styles.statLabel}>Cost</Text>
-          </View>
-        </View>
-      </View>
-
-      <Text style={styles.cardDescription}>{item.description}</Text>
+        <Text style={styles.cardDescription}>{item.description}</Text>
+      </TouchableOpacity>
 
       {/* Toggle Comments */}
       {toggleComments && (
