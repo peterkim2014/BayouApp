@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   
   headerBackground: {
     height: 200,
-    width: width
+    width: width,
   },
   
 
   headerContainer: {
-    paddingTop: 60,
+    paddingTop: 73,
     paddingBottom: 16,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
   headerIcon: {
     height: '100%',
     alignItems: 'center',
-    width: 27,
-    height: 27,
-    marginRight: 2,
+    width: 50,
+    height: 50,
+    marginRight: -40,
+    marginLeft: -10,
   },
 
   
@@ -62,6 +63,10 @@ const styles = StyleSheet.create({
   
   tabRow: {
     flexDirection: 'row',
+    // width: '80%',
+    // gap: -5,
+    // justifyContent: 'space-around',
+    alignItems: 'start',
   },
 
   tab: {
@@ -80,11 +85,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    // gap: 10,
   },
   
   logoTitleGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'start',
+    gap: 5,
   },
   
   headerActions: {
@@ -107,6 +114,15 @@ const styles = StyleSheet.create({
   },
   
   iconText: {
+    fontSize: 30,
+  },
+
+  notificationIcon: {
+    width: 20,
+    height: 20,
+  },
+
+  iconTextAlert: {
     fontSize: 18,
   },
   
@@ -127,8 +143,8 @@ const styles = StyleSheet.create({
   
   tab: {
     paddingHorizontal: 16,
-    paddingVertical: 6,
-    marginRight: 10,
+    paddingVertical: 4,
+    // marginRight: 1,
   },
   
 

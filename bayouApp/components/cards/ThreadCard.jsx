@@ -52,7 +52,6 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
           <Image source={waitlistIcon} style={styles.iconImage} />
         </TouchableOpacity>
       </View>
-
       {/* Title/Stats - also clickable */}
       <TouchableOpacity onPress={handlePostPress}>
         <View style={styles.metaRow}>

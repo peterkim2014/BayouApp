@@ -6,6 +6,7 @@ import styles from '../../styles/pages/threads/threadHome';
 
 import logo from '../../assets/bayouLogo.png'
 import ThreadCard from '../../components/cards/ThreadCard';
+import alert from '../../assets/alertIcon.png'
 
 export default function ThreadHome() {
   const [activeTab, setActiveTab] = useState('Lifestyle');
@@ -53,9 +54,28 @@ export default function ThreadHome() {
     {/* Header: Threads + Tabs */}
     <View style={styles.headerContainer}>
       <View style={styles.headerTopRow}>
-        <View style={styles.logoTitleGroup}>
           <Image source={logo} style={styles.headerIcon} />
+        <View style={styles.logoTitleGroup}>
           <Text style={styles.headerTitle}>In the Thread</Text>
+          <View style={styles.tabRow}>
+            {['Lifestyle', 'Campaigns'].map((tab) => (
+              <TouchableOpacity
+                key={tab}
+                onPress={() => setActiveTab(tab)}
+                style={[
+                  styles.tab,
+                  activeTab === tab && styles.activeTab,
+                ]}
+              >
+                <Text style={[
+                  styles.tabText,
+                  activeTab === tab && styles.activeTabText,
+                ]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
         <View style={styles.headerActions}>
           <TouchableOpacity
@@ -65,31 +85,14 @@ export default function ThreadHome() {
             <Text style={styles.iconText}>＋</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerIconCircle}>
-            <Text style={styles.iconText}>🔔</Text>
+            <Image source={alert} style={styles.notificationIcon} />
+            {/* <Text style={styles.iconTextAlert}>🔔</Text> */}
             <View style={styles.redDot} />
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={styles.tabRow}>
-        {['Lifestyle', 'Campaigns'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            onPress={() => setActiveTab(tab)}
-            style={[
-              styles.tab,
-              activeTab === tab && styles.activeTab,
-            ]}
-          >
-            <Text style={[
-              styles.tabText,
-              activeTab === tab && styles.activeTabText,
-            ]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      
     </View>
 
 
