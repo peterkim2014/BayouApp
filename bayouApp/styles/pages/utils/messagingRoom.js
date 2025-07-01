@@ -8,22 +8,24 @@ export default StyleSheet.create({
     paddingTop: 75,
     paddingHorizontal: 20,
     width: width,
+    alignItems: 'center'
     // backgroundColor: 'lightgrey'
   },
 
   // Header
   headerRow: {
-    height: 60,
+    height: 100,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    width: width * 0.9
   },
 
   backButton: {
     position: 'absolute',
     left: 0,
-    top: -10,
+    top: 0,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -115,6 +117,7 @@ export default StyleSheet.create({
     shadowRadius: 6,
     elevation: 2,
     marginBottom: 20,
+    width: width * 0.9
   },
 
   messageTitle: {
@@ -162,12 +165,15 @@ export default StyleSheet.create({
 
   messageInput: {
     backgroundColor: '#F3F4F4',
-    borderRadius: 20,
-    paddingHorizontal: 16,
+    borderRadius: 8,
+    paddingHorizontal: 20,
     paddingVertical: 12,
     fontSize: 15,
-    minHeight: 50,
+    minHeight: 75,
+    width: width * 0.9,
     textAlignVertical: 'top',
     marginBottom: 20,
+    position: 'absolute',
+    bottom: 75,
   },
 });
