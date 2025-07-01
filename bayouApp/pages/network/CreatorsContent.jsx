@@ -106,60 +106,66 @@ function Header({ translateY, navigate }) {
       >
         <View style={styles.profileContainer}>
           {mockPeople.map((person, i) => (
-            <Animated.View
+            <TouchableOpacity
               key={i}
-              style={[
-                styles.profileCard,
-                {
-                  width: profileCardWidth,
-                  transform: [{ translateY: profileTranslateY }],
-                  borderRadius: profileBorderRadius,
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                  marginTop: scrollPaddingTop,
-                },
-              ]}
+              activeOpacity={0.9}
+              onPress={() => navigate('/network/selected-profile', { state: person })}
             >
               <Animated.View
                 style={[
-                  styles.profilePlaceholder,
+                  styles.profileCard,
                   {
-                    height: profileCardHeight,
                     width: profileCardWidth,
+                    transform: [{ translateY: profileTranslateY }],
                     borderRadius: profileBorderRadius,
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginTop: scrollPaddingTop,
                   },
                 ]}
-              />
-              <Animated.Text
-                style={{
-                  fontSize: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [9, 12],
-                    extrapolate: 'clamp',
-                  }),
-                }}
               >
-                {person.name}
-              </Animated.Text>
-              <Animated.Text
-                style={{
-                  fontSize: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [0.01, 14],
-                    extrapolate: 'clamp',
-                  }),
-                  opacity: translateY.interpolate({
-                    inputRange: [collapseDistance, -collapseDistance / 2],
-                    outputRange: [0, 1],
-                    extrapolate: 'clamp',
-                  }),
-                }}
-              >
-                {person.title}
-              </Animated.Text>
-            </Animated.View>
+                <Animated.View
+                  style={[
+                    styles.profilePlaceholder,
+                    {
+                      height: profileCardHeight,
+                      width: profileCardWidth,
+                      borderRadius: profileBorderRadius,
+                    },
+                  ]}
+                />
+                <Animated.Text
+                  style={{
+                    fontSize: translateY.interpolate({
+                      inputRange: [collapseDistance, -collapseDistance / 2],
+                      outputRange: [9, 12],
+                      extrapolate: 'clamp',
+                    }),
+                  }}
+                >
+                  {person.name}
+                </Animated.Text>
+                <Animated.Text
+                  style={{
+                    fontSize: translateY.interpolate({
+                      inputRange: [collapseDistance, -collapseDistance / 2],
+                      outputRange: [0.01, 14],
+                      extrapolate: 'clamp',
+                    }),
+                    opacity: translateY.interpolate({
+                      inputRange: [collapseDistance, -collapseDistance / 2],
+                      outputRange: [0, 1],
+                      extrapolate: 'clamp',
+                    }),
+                  }}
+                >
+                  {person.title}
+                </Animated.Text>
+              </Animated.View>
+            </TouchableOpacity>
           ))}
 
+          {/* See All Button */}
           <Animated.View
             style={{
               opacity: translateY.interpolate({
@@ -193,7 +199,7 @@ function Header({ translateY, navigate }) {
                   paddingHorizontal: 0,
                   borderRadius: 40,
                   borderWidth: 7,
-                  borderColor: "#f0f0f0",
+                  borderColor: '#f0f0f0',
                   opacity: 0.6,
                 },
               ]}
@@ -206,6 +212,7 @@ function Header({ translateY, navigate }) {
     </Animated.View>
   );
 }
+
 
 function Body({ translateY, collapsed, scrollRef, onScrollY }) {
   const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
