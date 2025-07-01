@@ -169,11 +169,12 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
     fontSize: 15,
-    minHeight: 75,
+    minHeight: 65,
     width: width * 0.9,
     textAlignVertical: 'top',
     marginBottom: 20,
     position: 'absolute',
     bottom: 75,
+    maxHeight: 100,
   },
 });
