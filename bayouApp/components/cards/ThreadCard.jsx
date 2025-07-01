@@ -37,13 +37,11 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
         </View>
       </View>
 
-      {/* Image (clickable to go to campaign detail) */}
-      <TouchableOpacity onPress={handlePostPress}>
-        <Image
-          source={firstPostImage}
-          style={styles.cardImage}
-        />
-      </TouchableOpacity>
+      <Image
+        source={firstPostImage}
+        style={styles.cardImage}
+      />
+
 
       {/* Action Icons */}
       <View style={styles.actionRow}>
@@ -58,31 +56,32 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
         </TouchableOpacity>
       </View>
       {/* Title/Stats - also clickable */}
-      <TouchableOpacity onPress={handlePostPress}>
-        <View style={styles.metaRow}>
-          <View style={styles.leftMeta}>
+      <View style={styles.metaRow}>
+        <View style={styles.leftMeta}>
+          <TouchableOpacity onPress={handlePostPress}>
             <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.ratingStars}>★★★★☆</Text>
+          </TouchableOpacity>
+          <Text style={styles.ratingStars}>★★★★☆</Text>
+        </View>
+        <View style={styles.rightStats}>
+          <View style={styles.statColumn}>
+            <Text style={styles.statValue}>87%</Text>
+            <Text style={styles.statLabel}>Looks</Text>
           </View>
-          <View style={styles.rightStats}>
-            <View style={styles.statColumn}>
-              <Text style={styles.statValue}>87%</Text>
-              <Text style={styles.statLabel}>Looks</Text>
-            </View>
-            <View style={styles.divider} />
-            <View style={styles.statColumn}>
-              <Text style={styles.statValue}>91%</Text>
-              <Text style={styles.statLabel}>Feel</Text>
-            </View>
-            <View style={styles.divider} />
-            <View style={styles.statColumn}>
-              <Text style={styles.statValue}>$$</Text>
-              <Text style={styles.statLabel}>Cost</Text>
-            </View>
+          <View style={styles.divider} />
+          <View style={styles.statColumn}>
+            <Text style={styles.statValue}>91%</Text>
+            <Text style={styles.statLabel}>Feel</Text>
+          </View>
+          <View style={styles.divider} />
+          <View style={styles.statColumn}>
+            <Text style={styles.statValue}>$$</Text>
+            <Text style={styles.statLabel}>Cost</Text>
           </View>
         </View>
-        <Text style={styles.cardDescription}>{item.description}</Text>
-      </TouchableOpacity>
+      </View>
+      <Text style={styles.cardDescription}>{item.description}</Text>
+
 
       {/* Toggle Comments */}
       {toggleComments && (

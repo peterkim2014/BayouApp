@@ -205,6 +205,7 @@ const products = [
             width: 100,
             height: 120,
             borderRadius: 8,
+            backgroundColor: 'lightgrey'
           }}
           resizeMode="cover"
         />
@@ -298,7 +299,7 @@ function Body({
 
   const scrollBodyMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [0, 150],
+    outputRange: [0, 125],
     extrapolate: 'clamp',
   });
 
