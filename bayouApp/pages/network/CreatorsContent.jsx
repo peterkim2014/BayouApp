@@ -292,7 +292,7 @@ function Body({ translateY, collapsed, scrollRef, onScrollY }) {
                 key={item.id}
                 onPress={() => handleExpand(item.id)}
                 activeOpacity={0.85}
-                style={[styles.gridItem, { width: (width - 60) / 3 }]}
+                style={[styles.gridItem]}
               >
                 <View style={styles.gridItemPreview} />
               </TouchableOpacity>

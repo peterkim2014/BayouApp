@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   gridItem: {
-    width: (width - 60) / 3,
+    width: (width - 50) / 3,
     height: 110,
     // aspectRatio: 1,
     backgroundColor: '#ddd', // ⬅️ match profileCard
@@ -178,16 +178,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     elevation: 5,
   },
-
-  // gridItem: {
-  //   width: '100%',
-  //   height: 180,
-  //   backgroundColor: '#ddd',
-  //   borderRadius: 12,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   marginBottom: 16,
-  // },
   
   gridItemPreview: {
     padding: 10,
