@@ -47,7 +47,14 @@ export default function CampaignHome() {
                 Collaboration for shoe enthusiasts to feel the comfort and luxury feel
               </Text>
             </View>
-            <Ionicons name="arrow-forward" size={20} color="#000" />
+            <TouchableOpacity
+              style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+              onPress={() => navigate('/campaign/louis-vuitton-nike', {
+                state: { campaign: { title: 'Louis Vuitton / Nike', description: '...', id: 'louis-vuitton-nike' } }
+              })}  
+            >
+              <Ionicons name="arrow-forward" size={20} color="#000" />
+            </TouchableOpacity>
           </View>
         </View>
 
