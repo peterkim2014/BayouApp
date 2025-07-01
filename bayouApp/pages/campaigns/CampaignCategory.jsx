@@ -173,8 +173,8 @@ export default function CampaignCategory() {
             }}
             scrollEventThrottle={16}
             contentContainerStyle={styles.campaignCategory__grid}
-            bounces={false}
-            overScrollMode="never"
+            bounces={!isDraggingDown}
+            // overScrollMode="never"
             showsVerticalScrollIndicator={false}
           >
             {sampleCampaigns.map((campaign, index) => (

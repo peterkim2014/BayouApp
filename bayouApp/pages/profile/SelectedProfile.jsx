@@ -243,8 +243,8 @@ export default function SelectedProfile() {
             scrollEventThrottle={16}
             contentContainerStyle={styles.grid}
             showsVerticalScrollIndicator={false}
-            bounces={false}
-            overScrollMode="never"
+            // bounces={false}
+            // overScrollMode="never"
           >
             {sampleData[activeTab].map((item) => (
               <TouchableOpacity

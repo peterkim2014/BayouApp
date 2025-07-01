@@ -273,8 +273,8 @@ function Body({
             onScrollY.current = e.nativeEvent.contentOffset.y;
           }}
           scrollEventThrottle={16}
-          bounces={false}
-          overScrollMode="never"
+          // bounces={false}
+          // overScrollMode="never"
           showsVerticalScrollIndicator={false}
           style={[styles.scrollBodyContent, { paddingTop }]}
         >
