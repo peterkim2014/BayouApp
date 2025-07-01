@@ -208,7 +208,7 @@ export default function NetworkHome() {
         ) : null}
 
         {activeTab === 'Brands' ? (
-          <BrandsContent.Header translateY={translateY} navigate={navigate} />
+          <BrandsContent.Header translateY={translateY} navigate={navigate} selectedPost={selectedPost}/>
         ) : null}
 
       </Animated.View>

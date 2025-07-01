@@ -20,10 +20,28 @@ const products = [
     { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
     { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
     { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
+    { name: 'Vessel', category: 'Golf', image: 'https://via.placeholder.com/300x400?text=Vessel' },
+    { name: 'Adidas', category: 'Shoes', image: 'https://via.placeholder.com/300x400?text=Adidas' },
+    { name: 'Elf', category: 'Beauty', image: 'https://via.placeholder.com/300x400?text=Elf' },
   ];
   
 
-function Header({ translateY, navigate }) {
+function Header({ translateY, navigate, selectedPost }) {
   const collapseDistance = -115;
   const width = 320;
 
@@ -58,8 +76,10 @@ function Header({ translateY, navigate }) {
   });
 
   return (
-    <Animated.View style={[styles.brand__animatedContainer, {
-    transform: [{
+    <Animated.View 
+      pointerEvents={selectedPost ? 'none' : 'auto'}
+      style={[styles.brand__animatedContainer, {
+      transform: [{
         translateY: translateY.interpolate({
         inputRange: [collapseDistance, 0],
         outputRange: [-20, 90],
@@ -370,7 +390,7 @@ function Body({
       {selectedPost ? (
         <ScrollView
           contentContainerStyle={{ padding: 20 }}
-          style={{ flexGrow: 1, zIndex: 6 }}
+          style={{ flexGrow: 1 }}
         >
           <TouchableOpacity onPress={onBack} style={{ marginBottom: 20 }}>
             <Text style={{ fontSize: 16, fontWeight: '600' }}>← Back to Explore</Text>
