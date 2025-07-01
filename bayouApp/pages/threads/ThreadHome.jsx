@@ -109,6 +109,7 @@ export default function ThreadHome() {
         data={data[activeTab]}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.feed}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <ThreadCard item={item} expandedId={expandedThreadId} toggleComments={toggleComments} />
         )}

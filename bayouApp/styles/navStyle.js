@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     backgroundColor: '#ffffff',
-    // borderWidth: 1,
   },
 
   activeIconWrapper: {

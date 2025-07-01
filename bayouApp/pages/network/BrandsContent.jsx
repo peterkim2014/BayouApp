@@ -309,9 +309,9 @@ function Body({
     extrapolate: 'clamp',
   });
 
-  const paddingTop = translateY.interpolate({
+  const marginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [-105, -5],
+    outputRange: [5, -5],
     extrapolate: 'clamp',
   });
 
@@ -343,9 +343,10 @@ function Body({
             onScrollY.current = e.nativeEvent.contentOffset.y;
           }}
           scrollEventThrottle={16}
-          bounces={false}
-          overScrollMode="never"
-          style={[styles.brand__scrollBodyContent, { paddingTop }]}
+          // bounces={false}
+          // overScrollMode="never"
+          showsVerticalScrollIndicator={false}
+          style={[styles.brand__scrollBodyContent, { marginTop }]}
         >
           <View style={styles.brand__gridContainer}>
             {products.map((product, i) => (

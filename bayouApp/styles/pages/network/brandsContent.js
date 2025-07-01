@@ -1,4 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
     rowHeader: { 
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        paddingBottom: 40,
+        height: height
       },
     
       gridItem: {
