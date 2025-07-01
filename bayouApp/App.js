@@ -23,6 +23,7 @@ import SelectedProfile from './pages/profile/SelectedProfile';
 import NewPost from './pages/utils/NewPost';
 
 import MessagingHome from './pages/utils/MessagingHome';
+import MessagingRoom from './pages/utils/MessagingRoom';
 
 
 export default function App() {
@@ -71,6 +72,7 @@ export default function App() {
         <Routes>
          <Route path="/" element={<ThreadHome />} />
          <Route path="/new-post" element={<NewPost />} />
+         <Route path="/messaging-room" element={<MessagingRoom />} />
          <Route path="/profile" element={<ProfileHome />} />
          <Route path="/network/selected-profile" element={<SelectedProfile />} />
          <Route path="/network/messaging" element={<MessagingHome />} />
