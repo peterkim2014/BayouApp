@@ -8,6 +8,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import styles from '../../styles/pages/burst/burstHome';
+import { useNavigate } from 'react-router-native';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,6 +23,7 @@ const burstData = [
 ];
 
 export default function BurstHome() {
+  const navigate = useNavigate();
   const scrollRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dotWindowSize = 3;
@@ -82,7 +85,10 @@ export default function BurstHome() {
             imageStyle={styles.backgroundImage}
           >
             <View style={styles.card}>
-              <TouchableOpacity style={styles.cardTopRightArrow}>
+              <TouchableOpacity
+                style={styles.cardTopRightArrow}
+                onPress={() => navigate(`/campaign/${burst.id}`, { state: { campaign: burst } })}
+              >
                 <Text style={styles.cardButtonArrow}>→</Text>
               </TouchableOpacity>
               <Text style={styles.cardTitle}>{burst.title}</Text>

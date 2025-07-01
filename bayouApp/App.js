@@ -1,29 +1,29 @@
 // App.js
-import { NativeRouter, Routes, Route } from 'react-router-native';
+import { NativeRouter, Routes, Route, Navigate } from 'react-router-native';
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, StatusBar, TouchableOpacity, Text, Image, ActivityIndicator } from 'react-native';
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { createMemoryHistory } from 'history';
-const history = createMemoryHistory({ initialEntries: ['/'] });
+import * as Font from 'expo-font';
+
 import Navbar from './routes/Navbar';
 import styles from './styles/appStyle';
-import * as Font from 'expo-font';
-import AppLoading from 'expo-app-loading';
 
 import ThreadHome from './pages/threads/ThreadHome';
 import ProfileHome from './pages/profile/ProfileHome';
 import NetworkHome from './pages/network/NetworkHome';
 import CampaignHome from './pages/campaigns/CampaignHome';
 import CampaignDetail from './pages/campaigns/CampaignDetail';
-import BurstHome from './pages/burst/BurstHome'
+import BurstHome from './pages/burst/BurstHome';
 import CampaignCategory from './pages/campaigns/CampaignCategory';
 import CampaignWaitlist from './pages/campaigns/CampaignWaitlist';
 import NetworkSearch from './pages/network/NetworkSearch';
 import SelectedProfile from './pages/profile/SelectedProfile';
 import NewPost from './pages/utils/NewPost';
-
 import MessagingHome from './pages/utils/MessagingHome';
+import MessagingRoom from './pages/utils/MessagingRoom';
 
+// ✅ Set initial route to "/thread"
+const history = createMemoryHistory({ initialEntries: ['/'] });
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -34,19 +34,19 @@ export default function App() {
         await Font.loadAsync({
           'OpenSans': require('./assets/fonts/OpenSansRegular.ttf'),
         });
-  
+
         Text.defaultProps = Text.defaultProps || {};
         Text.defaultProps.style = [
           Text.defaultProps.style || {},
           { fontFamily: 'OpenSans' },
         ];
-  
+
         setFontsLoaded(true);
       } catch (error) {
         console.warn('❌ Font failed to load:', error);
       }
     };
-  
+
     load();
   }, []);
 
@@ -69,18 +69,21 @@ export default function App() {
       <View style={styles.container}>
         <Navbar />
         <Routes>
-         <Route path="/" element={<ThreadHome />} />
-         <Route path="/new-post" element={<NewPost />} />
-         <Route path="/profile" element={<ProfileHome />} />
-         <Route path="/network/selected-profile" element={<SelectedProfile />} />
-         <Route path="/network/messaging" element={<MessagingHome />} />
-         <Route path="/network" element={<NetworkHome />} />
-         <Route path="/network/search" element={<NetworkSearch />} />
-         <Route path="/campaign" element={<CampaignHome />} />
-         <Route path="/burst" element={<BurstHome />} />
-         <Route path="/campaign/:id" element={<CampaignDetail />} />
-         <Route path="/campaign/:id/waitlist" element={<CampaignWaitlist />} />
-         <Route path="/campaign/category/:categoryName" element={<CampaignCategory />} />
+          {/* 🔁 Redirect "/" to "/thread" */}
+          <Route path="/" element={<Navigate to="/thread" replace />} />
+          <Route path="/thread" element={<ThreadHome />} />
+          <Route path="/thread/new-post" element={<NewPost />} />
+          <Route path="/messaging-room" element={<MessagingRoom />} />
+          <Route path="/profile" element={<ProfileHome />} />
+          <Route path="/network/selected-profile" element={<SelectedProfile />} />
+          <Route path="/network/messaging" element={<MessagingHome />} />
+          <Route path="/network" element={<NetworkHome />} />
+          <Route path="/network/search" element={<NetworkSearch />} />
+          <Route path="/campaign" element={<CampaignHome />} />
+          <Route path="/burst" element={<BurstHome />} />
+          <Route path="/campaign/:id" element={<CampaignDetail />} />
+          <Route path="/campaign/:id/waitlist" element={<CampaignWaitlist />} />
+          <Route path="/campaign/category/:categoryName" element={<CampaignCategory />} />
         </Routes>
       </View>
     </NativeRouter>

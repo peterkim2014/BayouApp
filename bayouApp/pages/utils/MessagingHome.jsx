@@ -52,7 +52,11 @@ export default function MessagingHome() {
       {/* Messages */}
       <ScrollView contentContainerStyle={styles.messagesList}>
         {[1, 2, 3].map((_, i) => (
-          <View key={i} style={styles.messageCard}>
+            <TouchableOpacity
+            key={i}
+            style={styles.messageCard}
+            onPress={() => navigate('/messaging-room', { state: brandData })}
+          >
             <View style={styles.messageAvatars}>
               <Image source={{ uri: brandData?.image }} style={styles.avatar} />
               <Image source={{ uri: 'https://via.placeholder.com/40x40' }} style={styles.avatarOverlay} />
@@ -64,7 +68,7 @@ export default function MessagingHome() {
             <TouchableOpacity style={styles.messageMenu}>
               <Text style={styles.menuDots}>⋮</Text>
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

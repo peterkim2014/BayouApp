@@ -81,15 +81,7 @@ const styles = StyleSheet.create({
   },
   
   scrollBody: {
-    // paddingBottom: 100,
-    paddingLeft: 5,
-    // paddingTop: 105,
   },
-
-  // scrollBodyContent: {
-  //   marginTop: 35,
-  // },
-  
 
   profileScroll: { 
     marginTop: 8,
@@ -174,18 +166,28 @@ const styles = StyleSheet.create({
   },
 
   gridItem: {
-    width: (width - 60) / 3,
-    height: 10,
-    aspectRatio: 1,
-    backgroundColor: '#fff', // ⬅️ match profileCard
+    width: (width - 50) / 3,
+    height: 110,
+    // aspectRatio: 1,
+    backgroundColor: '#ddd', // ⬅️ match profileCard
     borderRadius: 12,
-    marginBottom: 16,
+    marginBottom: 6,
     shadowColor: '#000',
     shadowOpacity: 0.10,
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 3 },
     elevation: 5,
   },
+  
+  gridItemPreview: {
+    padding: 10,
+  },
+  
+  gridItemTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  
   
 });
 

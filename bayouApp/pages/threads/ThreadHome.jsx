@@ -80,7 +80,7 @@ export default function ThreadHome() {
         <View style={styles.headerActions}>
           <TouchableOpacity
             style={styles.headerIconCircle}
-            onPress={() => navigate('/new-post')}
+            onPress={() => navigate('/thread/new-post')}
           >
             <Text style={styles.iconText}>＋</Text>
           </TouchableOpacity>
