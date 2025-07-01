@@ -275,6 +275,7 @@ function Body({
           scrollEventThrottle={16}
           bounces={false}
           overScrollMode="never"
+          showsVerticalScrollIndicator={false}
           style={[styles.scrollBodyContent, { paddingTop }]}
         >
           <View style={styles.gridContainer}>
