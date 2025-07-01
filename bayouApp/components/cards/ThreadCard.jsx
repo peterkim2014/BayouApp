@@ -53,10 +53,12 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
             <Text style={styles.statValue}>87%</Text>
             <Text style={styles.statLabel}>Looks</Text>
           </View>
+          <View style={styles.divider} />
           <View style={styles.statColumn}>
             <Text style={styles.statValue}>91%</Text>
             <Text style={styles.statLabel}>Feel</Text>
           </View>
+          <View style={styles.divider} />
           <View style={styles.statColumn}>
             <Text style={styles.statValue}>$$</Text>
             <Text style={styles.statLabel}>Cost</Text>
