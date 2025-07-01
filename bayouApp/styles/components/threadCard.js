@@ -43,11 +43,12 @@ const styles = StyleSheet.create({
   watchingText: {
     fontSize: 12.5,
     fontWeight: '600',
+    marginRight: 7,
   },
 
   cardImage: {
     width: width,
-    height: 200,
+    height: 250,
     marginBottom: 10,
     backgroundColor: 'lightgrey'
   },
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
   },  
 
   iconCircle: {
-    width: 30,
-    height: 30,
+    width: 33,
+    height: 33,
     backgroundColor: '#fff',
     borderRadius: 17,
     justifyContent: 'center',
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   },
 
   metaRow: {
+    marginTop: 6,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -101,7 +103,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 15,
     alignItems: 'flex-end',
-    height: '85%'
+    height: '85%',
+    marginRight: 4,
   },
 
   statColumn: {
@@ -109,27 +112,35 @@ const styles = StyleSheet.create({
   },
 
   statValue: {
-    fontWeight: '700',
-    fontSize: 15,
+    fontWeight: '600',
+    fontSize: 16,
   },
 
   statLabel: {
-    fontSize: 11.25,
+    fontSize: 12.25,
     color: '#333',
+  },
+
+  divider: {
+    width: 1.2,
+    height: '90%',
+    backgroundColor: 'black',
+    marginHorizontal: -3,
   },
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: 15.25,
+    fontSize: 17.5,
     marginBottom: 2,
   },
 
   cardDescription: {
-    marginTop: 6,
+    marginTop: 5,
     marginBottom: 10,
     color: '#444',
-    fontSize: 12.25,
+    fontSize: 14.25,
     paddingHorizontal: 14,
+    lineHeight: 20,
   },
 
   commentButton: {
@@ -139,6 +150,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     alignSelf: 'flex-start',
     marginLeft: 14,
+    marginTop: 2,
   },
 
   commentButtonText: {
