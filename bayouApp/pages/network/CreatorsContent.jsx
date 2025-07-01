@@ -92,6 +92,11 @@ function Header({ translateY, navigate }) {
         >
           <View style={styles.profileContainer}>
             {mockPeople.map((person, i) => (
+            <TouchableOpacity
+              key={i}
+              activeOpacity={0.85}
+              onPress={() => navigate('/network/selected-profile', { state: person })}
+            >
               <Animated.View
                 key={i}
                 style={[
@@ -144,6 +149,7 @@ function Header({ translateY, navigate }) {
                   {person.title}
                 </Animated.Text>
               </Animated.View>
+            </TouchableOpacity>
             ))}
   
             {/* See All Button */}
