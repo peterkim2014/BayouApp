@@ -214,11 +214,21 @@ function Header({ translateY, navigate }) {
 }
 
 
-function Body({ translateY, collapsed, scrollRef, onScrollY }) {
+function Body({
+  translateY,
+  collapsed,
+  scrollRef,
+  onScrollY,
+  selectedPost,
+  expandedThreadId,
+  onSelectPost,
+  onBack,
+}) {
+
   const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
   const collapseDistance = -115;
 
-  const [expandedThreadId, setExpandedThreadId] = useState(null);
+  // const [expandedThreadId, setExpandedThreadId] = useState(null);
   const [scrollYBeforeExpand, setScrollYBeforeExpand] = useState(0);
 
   const scrollBodyMarginTop = translateY.interpolate({
@@ -259,47 +269,48 @@ function Body({ translateY, collapsed, scrollRef, onScrollY }) {
     >
       <Text style={styles.sectionTitle}>Popular Posts</Text>
 
-      {expandedThreadId ? (
-        <ScrollView
-          contentContainerStyle={{ padding: 20 }}
-          style={{ flexGrow: 1 }}
-        >
-          <TouchableOpacity onPress={handleCollapse} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: 16, fontWeight: '600' }}>← Back to Explore</Text>
-          </TouchableOpacity>
+      {selectedPost ? (
+  <ScrollView
+    contentContainerStyle={{ padding: 20 }}
+    style={{ flexGrow: 1 }}
+  >
+    <TouchableOpacity onPress={onBack} style={{ marginBottom: 20 }}>
+      <Text style={{ fontSize: 16, fontWeight: '600' }}>← Back to Explore</Text>
+    </TouchableOpacity>
 
-          <ThreadCard
-            item={mockThreads.find(t => t.id === expandedThreadId)}
-            expandedId={expandedThreadId}
-            toggleComments={setExpandedThreadId}
-          />
-        </ScrollView>
-      ) : (
-        <AnimatedScrollView
-          ref={scrollRef}
-          scrollEnabled={collapsed}
-          onScroll={(e) => {
-            onScrollY.current = e.nativeEvent.contentOffset.y;
-          }}
-          scrollEventThrottle={16}
-          bounces={false}
-          overScrollMode="never"
-          style={[styles.scrollBodyContent, { paddingTop }]}
+    <ThreadCard
+      item={selectedPost}
+      expandedId={expandedThreadId}
+      toggleComments={() => {}}
+    />
+  </ScrollView>
+) : (
+  <AnimatedScrollView
+    ref={scrollRef}
+    scrollEnabled={collapsed}
+    onScroll={(e) => {
+      onScrollY.current = e.nativeEvent.contentOffset.y;
+    }}
+    scrollEventThrottle={16}
+    bounces={false}
+    overScrollMode="never"
+    style={[styles.scrollBodyContent, { paddingTop }]}
+  >
+    <View style={styles.gridContainer}>
+      {mockThreads.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          onPress={() => onSelectPost(item)}
+          activeOpacity={0.85}
+          style={[styles.gridItem]}
         >
-          <View style={styles.gridContainer}>
-            {mockThreads.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => handleExpand(item.id)}
-                activeOpacity={0.85}
-                style={[styles.gridItem]}
-              >
-                <View style={styles.gridItemPreview} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </AnimatedScrollView>
-      )}
+          <View style={styles.gridItemPreview} />
+        </TouchableOpacity>
+      ))}
+    </View>
+  </AnimatedScrollView>
+)}
+
     </Animated.View>
   );
 }

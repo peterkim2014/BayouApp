@@ -14,7 +14,7 @@ export default function NavBar() {
   const currentPath = location.pathname;
 
   const tabs = [
-    { path: '/', label: 'Threads', icon: threads },
+    { path: '/thread', label: 'Threads', icon: threads },
     { path: '/network', label: 'Network', icon: network },
     { path: '/campaign', label: 'Campaigns', icon: campaign },
     { path: '/burst', label: 'Bursts', icon: burst },

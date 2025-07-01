@@ -24,12 +24,48 @@ export default function NetworkHome() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Creators');
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [expandedThreadId, setExpandedThreadId] = useState(null);
+  
+  const handlePostSelect = (item) => {
+    setSelectedPost(item);
+    setExpandedThreadId(item.id);
+  
+    Animated.timing(translateY, {
+      toValue: collapseDistance,
+      duration: 280,
+      useNativeDriver: false,
+    }).start(() => {
+      setCollapsed(true);
+      collapsedRef.current = true;
+    });
+  };
+  
+  const handleBackFromDetail = () => {
+    setSelectedPost(null);
+    setExpandedThreadId(null);
+  
+    Animated.timing(translateY, {
+      toValue: collapseDistance,
+      duration: 280,
+      useNativeDriver: false,
+    }).start(() => {
+      setCollapsed(true);
+      collapsedRef.current = true;
+    });
+  };
+  
 
   const translateY = useRef(new Animated.Value(0)).current;
   const scrollOffsetY = useRef(0);
   const collapsedRef = useRef(false);
   const scrollRef = useRef(null);
   const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+
+  const toggleComments = (id) => {
+    setExpandedThreadId((prev) => (prev === id ? null : id));
+  };
+  
 
   const panResponder = useRef(
     PanResponder.create({
@@ -188,6 +224,10 @@ export default function NetworkHome() {
             collapsed={collapsed}
             scrollRef={scrollRef}
             onScrollY={scrollOffsetY}
+            selectedPost={selectedPost}
+            expandedThreadId={expandedThreadId}
+            onSelectPost={handlePostSelect}
+            onBack={handleBackFromDetail}
           />
         )}
         {activeTab === 'Brands' && (
