@@ -53,30 +53,36 @@ export default function ThreadHome() {
 
     {/* Header: Threads + Tabs */}
     <View style={styles.headerContainer}>
+
       <View style={styles.headerTopRow}>
+        <View style={styles.headerLeftSection}>
           <Image source={logo} style={styles.headerIcon} />
-        <View style={styles.logoTitleGroup}>
-          <Text style={styles.headerTitle}>In the Thread</Text>
-          <View style={styles.tabRow}>
-            {['Lifestyle', 'Campaigns'].map((tab) => (
-              <TouchableOpacity
-                key={tab}
-                onPress={() => setActiveTab(tab)}
-                style={[
-                  styles.tab,
-                  activeTab === tab && styles.activeTab,
-                ]}
-              >
-                <Text style={[
-                  styles.tabText,
-                  activeTab === tab && styles.activeTabText,
-                ]}>
-                  {tab}
-                </Text>
-              </TouchableOpacity>
-            ))}
+
+          <View style={styles.logoTitleGroup}>
+            <Text style={styles.headerTitle}>In the Thread</Text>
+
+            <View style={styles.tabRow}>
+              {['Lifestyle', 'Campaigns'].map((tab) => (
+                <TouchableOpacity
+                  key={tab}
+                  onPress={() => setActiveTab(tab)}
+                  style={[
+                    styles.tab,
+                    activeTab === tab && styles.activeTab,
+                  ]}
+                >
+                  <Text style={[
+                    styles.tabText,
+                    activeTab === tab && styles.activeTabText,
+                  ]}>
+                    {tab}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
         </View>
+
         <View style={styles.headerActions}>
           <TouchableOpacity
             style={styles.headerIconCircle}
@@ -90,6 +96,7 @@ export default function ThreadHome() {
             <View style={styles.redDot} />
           </TouchableOpacity>
         </View>
+
       </View>
 
       
