@@ -24,8 +24,8 @@ export default StyleSheet.create({
 
   backButton: {
     position: 'absolute',
-    left: 0,
-    top: 0,
+    left: 1.3,
+    top: -10,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -49,7 +49,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     columnGap: 25,
-    marginTop: -20,
+    marginTop: 0,
   },
 
   profileColumn: {
@@ -86,24 +86,24 @@ export default StyleSheet.create({
   newMessageButton: {
     position: 'absolute',
     right: 0,
-    top: -10,
+    top: -18,
     width: 40,
     height: 40,
-    borderRadius: 20,
+    // borderRadius: 20,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
+    // elevation: 3,
+    // shadowColor: '#000',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
+    // shadowOffset: { width: 0, height: 2 },
   },
 
-  plusIcon: {
+  dotsIcon: {
     fontSize: 26,
-    fontWeight: '300',
-    marginBottom: 2,
+    fontWeight: '900',
+    marginTop: 18
   },
 
   // Message bubble

@@ -51,7 +51,7 @@ export default function MessagingRoom() {
             </View>
 
             <TouchableOpacity style={styles.newMessageButton}>
-            <Text style={styles.plusIcon}>＋</Text>
+            <Text style={styles.dotsIcon}>⋮</Text>
             </TouchableOpacity>
         </View>
 
