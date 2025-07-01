@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-native';
 import likeIcon from '../../assets/likeIcon.png';
 import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
+import firstPostImage from '../../assets/firstPostImage.jpg'
 
 export default function ThreadCard({ item, expandedId, toggleComments }) {
   const [showActions, setShowActions] = useState(false);
@@ -35,7 +36,7 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
       {/* Image (clickable to go to campaign detail) */}
       <TouchableOpacity onPress={handlePostPress}>
         <Image
-          source={{ uri: 'https://via.placeholder.com/600x400.png?text=Thread+Image' }}
+          source={firstPostImage}
           style={styles.cardImage}
         />
       </TouchableOpacity>
