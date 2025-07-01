@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 50,
-    marginRight: -67,
+    // marginRight: -67,
     marginLeft: -10,
   },
 
@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
 
+  headerLeftSection: {
+    flexDirection: 'row',
+    gap: 3,
+  },
+
   activeTab: {
     backgroundColor: '#e6e6e6',
   },
@@ -92,6 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'start',
     gap: 5,
+    // marginRight: 45,
   },
   
   headerActions: {
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
   
   tab: {
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 3,
     // marginRight: 1,
   },
   
