@@ -129,6 +129,18 @@ const styles = StyleSheet.create({
     marginHorizontal: -3,
   },
 
+  watchingContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    gap: 1,
+  },
+
+  watchingIcon: {
+    width: 20,
+    height: 16,
+    opacity: .75,
+  },
+
   cardTitle: {
     fontWeight: '600',
     fontSize: 17.5,
@@ -139,9 +151,9 @@ const styles = StyleSheet.create({
     // marginTop: -1,
     marginBottom: 10,
     color: '#444',
-    fontSize: 14.25,
+    fontSize: 13.25,
     paddingHorizontal: 14,
-    lineHeight: 20,
+    lineHeight: 18,
   },
 
   commentButton: {

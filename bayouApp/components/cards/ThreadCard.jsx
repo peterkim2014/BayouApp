@@ -7,6 +7,7 @@ import likeIcon from '../../assets/likeIcon.png';
 import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
 import firstPostImage from '../../assets/firstPostImage.jpg'
+import watchingIcon from '../../assets/watchingIcon.png'
 
 export default function ThreadCard({ item, expandedId, toggleComments }) {
   const [showActions, setShowActions] = useState(false);
@@ -30,7 +31,10 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
             <Text style={styles.username}>Jane Doe</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.watchingText}>👥 2.1M Watching</Text>
+        <View style={styles.watchingContainer}>
+          <Image source={watchingIcon} style={styles.watchingIcon}/>
+          <Text style={styles.watchingText}> 2.1M Watching</Text>
+        </View>
       </View>
 
       {/* Image (clickable to go to campaign detail) */}
