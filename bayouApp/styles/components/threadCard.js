@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 
   cardImage: {
     width: width,
-    height: 250,
+    height: 300,
     marginBottom: 10,
     backgroundColor: 'lightgrey'
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   metaRow: {
-    marginTop: 6,
+    // marginTop: 3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 12.25,
     color: '#333',
+    fontWeight: '600',
   },
 
   divider: {
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   },
 
   cardDescription: {
-    marginTop: 5,
+    // marginTop: -1,
     marginBottom: 10,
     color: '#444',
     fontSize: 14.25,

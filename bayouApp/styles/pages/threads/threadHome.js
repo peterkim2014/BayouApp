@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   
 
   headerContainer: {
-    paddingTop: 73,
+    paddingTop: 68,
     paddingBottom: 16,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 50,
-    marginRight: -40,
+    marginRight: -47,
     marginLeft: -10,
   },
 
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
   },
   
   activeTab: {
-    backgroundColor: '#e6e6e6',
-    borderRadius: 8,
+    backgroundColor: '#497E8D',
+    borderRadius: 5,
   },
   
   tab: {
@@ -151,11 +151,12 @@ const styles = StyleSheet.create({
   tabText: {
     fontWeight: '500',
     fontSize: 12,
-    color: '#333',
+    color: '#000000',
   },
 
   activeTabText: {
     fontWeight: '700',
+    color: '#FFFFFF'
   },
 
   feed: {
