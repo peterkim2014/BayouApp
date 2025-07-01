@@ -85,7 +85,7 @@ export default function ThreadHome() {
             <Text style={styles.iconText}>＋</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerIconCircle}>
-            <Image source={alert} style={styles.alertIcon} />
+            <Image source={alert} style={styles.notificationIcon} />
             {/* <Text style={styles.iconTextAlert}>🔔</Text> */}
             <View style={styles.redDot} />
           </TouchableOpacity>

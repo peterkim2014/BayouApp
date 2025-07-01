@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
-  alertIcon: {
+  notificationIcon: {
     width: 20,
     height: 20,
   },
