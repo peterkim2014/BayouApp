@@ -5,14 +5,27 @@ import {
   Animated,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import styles from '../../styles/pages/network/networkHome';
+const { width, height } = Dimensions.get('window');
+import ThreadCard from '../../components/cards/ThreadCard';
 
 const mockPeople = [
   { name: 'John Doe', title: 'Golf Influencer' },
   { name: 'Jane Doe', title: 'Beauty Influencer' },
   { name: 'James Doe', title: 'Music Producer' },
 ];
+
+const mockThreads = Array(24).fill(0).map((_, i) => ({
+  id: `thread-${i}`,
+  title: `Thread Title ${i + 1}`,
+  description: `This is the description for thread ${i + 1}.`,
+  comments: [
+    { name: 'Alice', text: 'Amazing!', likes: 3, dislikes: 0 },
+    { name: 'Bob', text: 'Could be better.', likes: 1, dislikes: 2 },
+  ],
+}));
 
 function Header({ translateY, navigate }) {
     const width = 320;
@@ -91,7 +104,7 @@ function Header({ translateY, navigate }) {
           style={styles.profileScroll}
         >
           <View style={styles.profileContainer}>
-            {mockPeople.map((person, i) => (
+            {mockThreads.map((person, i) => (
             <TouchableOpacity
               key={i}
               activeOpacity={0.85}
@@ -204,6 +217,7 @@ function Header({ translateY, navigate }) {
   function Body({ translateY, collapsed, scrollRef, onScrollY }) {
     const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
     const collapseDistance = -115;
+    const [expandedThreadId, setExpandedThreadId] = React.useState(null);
   
     const scrollBodyMarginTop = translateY.interpolate({
       inputRange: [collapseDistance, 0],
@@ -217,13 +231,12 @@ function Header({ translateY, navigate }) {
       extrapolate: 'clamp',
     });
   
+    const toggleComments = (id) => {
+      setExpandedThreadId(prev => (prev === id ? null : id));
+    };
+  
     return (
-      <Animated.View
-        style={[
-          styles.scrollBody,
-          { marginTop: scrollBodyMarginTop },
-        ]}
-      >
+      <Animated.View style={[styles.scrollBody, { marginTop: scrollBodyMarginTop }]}>
         <Text style={styles.sectionTitle}>Popular Posts</Text>
         <AnimatedScrollView
           ref={scrollRef}
@@ -234,22 +247,37 @@ function Header({ translateY, navigate }) {
           scrollEventThrottle={16}
           bounces={false}
           overScrollMode="never"
-          style={[
-            styles.scrollBodyContent,
-            { paddingTop },
-          ]}
+          style={[styles.scrollBodyContent, { paddingTop }]}
         >
           <View style={styles.gridContainer}>
-            {Array(24)
-              .fill(null)
-              .map((_, i) => (
-                <View key={i} style={styles.gridItem} />
-              ))}
+            {mockThreads.map((item) => (
+              <View key={item.id} style={{ width: (width - 60) / 3 }}>
+                {expandedThreadId === item.id ? (
+                  <ThreadCard
+                    item={item}
+                    expandedId={expandedThreadId}
+                    toggleComments={toggleComments}
+                  />
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => toggleComments(item.id)}
+                    activeOpacity={0.8}
+                    style={styles.gridItem}
+                  >
+                    <View style={styles.gridItemPreview}>
+                      {/* <Text style={styles.gridItemTitle}>{item.title}</Text> */}
+                    </View>
+                  </TouchableOpacity>
+                )}
+              </View>
+            ))}
           </View>
         </AnimatedScrollView>
       </Animated.View>
     );
   }
+  
+  
   
 
 export default { Header, Body };
