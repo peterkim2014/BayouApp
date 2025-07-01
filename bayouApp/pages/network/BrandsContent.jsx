@@ -191,27 +191,34 @@ const products = [
     
   
     const renderProductCard = ({ item }) => (
-      <Animated.View style={[
-        styles.brand__card,
-        {
-          opacity: opacityNewSection,
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-      ]}>
-        <Animated.Image
-          source={{ uri: item.image }}
-          style={{
-            width: 100,
-            height: 120,
-            borderRadius: 8,
-          }}
-          resizeMode="cover"
-        />
-        <Text style={{ marginTop: 6, fontSize: 12 }}>{item.name}</Text>
-        <Text style={{ fontSize: 10, opacity: 0.6 }}>{item.category}</Text>
-      </Animated.View>
+      <TouchableOpacity
+        activeOpacity={0.85}
+        onPress={() => navigate(`/campaign/${item.name.toLowerCase()}`, { state: { post: item } })}
+      >
+        <Animated.View style={[
+          styles.brand__card,
+          {
+            opacity: opacityNewSection,
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        ]}>
+          <Animated.Image
+            source={{ uri: item.image }}
+            style={{
+              width: 100,
+              height: 120,
+              borderRadius: 8,
+              backgroundColor: 'lightgrey'
+            }}
+            resizeMode="cover"
+          />
+          <Text style={{ marginTop: 6, fontSize: 12 }}>{item.name}</Text>
+          <Text style={{ fontSize: 10, opacity: 0.6 }}>{item.category}</Text>
+        </Animated.View>
+      </TouchableOpacity>
     );
+    
   
     return (
       <Animated.View
@@ -298,7 +305,7 @@ function Body({
 
   const scrollBodyMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [0, 150],
+    outputRange: [0, 125],
     extrapolate: 'clamp',
   });
 

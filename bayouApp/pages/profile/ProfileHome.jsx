@@ -219,7 +219,7 @@ export default function ProfileHome() {
         {/* Tabs */}
         {!selectedPost && (
           <View style={styles.tabRow}>
-            {['Lifestyle', 'Campaigns', 'Comments'].map((tab) => (
+            {['Lifestyle', 'Campaigns', 'Bursts'].map((tab) => (
               <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
                 <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
                   {tab}
