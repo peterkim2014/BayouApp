@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 50,
-    marginRight: -47,
+    marginRight: -67,
     marginLeft: -10,
   },
 
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   
   tab: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     paddingVertical: 4,
     // marginRight: 1,
   },

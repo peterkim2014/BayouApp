@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
 
+  
+
   link: {
     flex: 1,
     height: '80%',
