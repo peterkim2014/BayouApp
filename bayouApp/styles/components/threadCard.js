@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: width,
     alignSelf: 'center',
     marginBottom: 28,
-    marginTop: 12,
+    marginTop: 10,
     backgroundColor: '#fff',
     borderRadius: 12,
     elevation: 1,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
     paddingHorizontal: 14,
-  },
+  }, 
 
   profileRow: {
     flexDirection: 'row',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   metaRow: {
-    // marginTop: 3,
+    marginTop: 3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',

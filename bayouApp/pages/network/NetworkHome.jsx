@@ -139,7 +139,7 @@ export default function NetworkHome() {
 
   const scrollBodyMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [0, 75],
+    outputRange: [0, 67],
     extrapolate: 'clamp',
   });
 
@@ -158,7 +158,7 @@ export default function NetworkHome() {
               bottom: 55,
               top: translateY.interpolate({
                 inputRange: [collapseDistance, 0],
-                outputRange: [145, 280],
+                outputRange: [155, 280],
                 extrapolate: 'clamp',
               }),
               height: 30,

@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
 
   networkHeaderTitle: {
+    marginTop: 13,
     fontSize: 22,
     lineHeight: 22,
     fontWeight: '700',
@@ -52,28 +53,29 @@ const styles = StyleSheet.create({
 
   tabRow: {
     flexDirection: 'row',
-    marginTop: 12,
+    marginTop: 6,
     paddingHorizontal: 25,
     zIndex: 10,
   },
 
   tab: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 5,
   },
 
   activeTab: {
-    backgroundColor: '#e6e6e6',
+    backgroundColor: '#497E8D',
   },
 
   tabText: {
     fontSize: 12,
     fontWeight: '400',
   },
-
+  
   activeTabText: {
-    fontWeight: '600',
+    color: '#FFFFFF',
+    fontWeight: '700',
   },
 
   scrollBodyWrapper: {
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   profileContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   }, 
 
   featuredHeaderRow: {
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginLeft: 5,
     width: width * 0.96,
-    marginTop: 50,
+    marginTop: 62,
     // marginBottom: 10,
   },
   
@@ -120,9 +122,9 @@ const styles = StyleSheet.create({
     // width: width * 0.32,
     marginRight: 10,
     shadowColor: '#000',
-    shadowOpacity: 0.10,
-    shadowRadius: 2,
-    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.20,
+    shadowRadius: 3,
+    shadowOffset: { width: 1, height: 3 },
     elevation: 5,
   },
 
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
     paddingHorizontal: 20,
-    marginTop: 10,
+    marginTop: 18,
     marginBottom: 10,
   },
 
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    marginTop: 10,
+    marginTop: 8,
     height: height * 1.5,
     flexGrow: 1,
   },
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     height: 110,
     // aspectRatio: 1,
     backgroundColor: '#ddd', // ⬅️ match profileCard
-    borderRadius: 12,
+    borderRadius: 8,
     marginBottom: 6,
     shadowColor: '#000',
     shadowOpacity: 0.10,
