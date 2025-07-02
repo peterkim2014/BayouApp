@@ -42,12 +42,13 @@ export default StyleSheet.create({
     width: width * 0.81,
     backgroundColor: 'transparent',
     borderRadius: 8,
-    marginBottom: 60,
+    marginBottom: 50,
     elevation: 5,
     // position: 'relative',
     justifyContent: 'flex-start',
     minHeight: 30,
   },
+  
   heroCard: {
     padding: 15,
     borderRadius: 8,
