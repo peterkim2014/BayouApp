@@ -39,19 +39,30 @@ export default StyleSheet.create({
     elevation: 5,
   },
   card: {
-    width: width * 0.9,
-    backgroundColor: '#ffffffee',
+    width: width * 0.81,
+    backgroundColor: 'transparent',
     borderRadius: 8,
-    padding: 20,
-    marginBottom: 125,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
+    marginBottom: 60,
     elevation: 5,
-    position: 'relative',
+    // position: 'relative',
     justifyContent: 'flex-start',
-    minHeight: 130
+    minHeight: 30,
+  },
+  heroCard: {
+    padding: 15,
+    borderRadius: 8,
+    overflow: 'hidden', // to match borderRadius
+    backgroundColor: '#ffffff40',
+  },  
+  heroCardWrapper: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: .6,
+    shadowRadius: 6,
+    elevation: 6, // For Android
+    backgroundColor: 'transparent', // prevent background layering
+    marginBottom: 120,
+    // minHeight: 180,
   },
   cardTopRightArrow: {
     position: 'absolute',

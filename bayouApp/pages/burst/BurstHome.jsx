@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import styles from '../../styles/pages/burst/burstHome';
 import { useNavigate } from 'react-router-native';
+import violentShoeCollabb from '../../assets/violentShoeCollabb.webp';
+import { BlurView } from 'expo-blur';
 
 
 const { width, height } = Dimensions.get('window');
@@ -77,22 +79,27 @@ export default function BurstHome() {
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
       >
+        
         {burstData.map((burst, i) => (
           <ImageBackground
             key={burst.id}
-            source={{ uri: burst.image }}
+            source={violentShoeCollabb}
             style={styles.page}
             imageStyle={styles.backgroundImage}
           >
-            <View style={styles.card}>
-              <TouchableOpacity
-                style={styles.cardTopRightArrow}
-                onPress={() => navigate(`/campaign/${burst.id}`, { state: { campaign: burst } })}
-              >
-                <Text style={styles.cardButtonArrow}>→</Text>
-              </TouchableOpacity>
-              <Text style={styles.cardTitle}>{burst.title}</Text>
-              <Text style={styles.cardDescription}>{burst.description}</Text>
+            <View style={styles.heroCardWrapper}>
+              <BlurView intensity={40} tint="light" style={styles.heroCard}>
+              <View style={styles.card}>
+                <TouchableOpacity
+                  style={styles.cardTopRightArrow}
+                  onPress={() => navigate(`/campaign/${burst.id}`, { state: { campaign: burst } })}
+                >
+                  <Text style={styles.cardButtonArrow}>→</Text>
+                </TouchableOpacity>
+                <Text style={styles.cardTitle}>{burst.title}</Text>
+                <Text style={styles.cardDescription}>{burst.description}</Text>
+              </View>
+            </BlurView>
             </View>
           </ImageBackground>
         ))}

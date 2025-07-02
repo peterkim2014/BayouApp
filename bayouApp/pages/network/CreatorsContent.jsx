@@ -34,13 +34,13 @@ function Header({ translateY, navigate }) {
 
   const profileCardWidth = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [width * 0.16, width * 0.32],
+    outputRange: [width * 0.16, width * 0.36],
     extrapolate: 'clamp',
   });
 
   const profileCardHeight = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [50, 170],
+    outputRange: [50, 150],
     extrapolate: 'clamp',
   });
 
@@ -231,7 +231,7 @@ function Body({
 
   const scrollBodyMarginTop = translateY.interpolate({
     inputRange: [collapseDistance, 0],
-    outputRange: [0, 0],
+    outputRange: [0, -10],
     extrapolate: 'clamp',
   });
 
