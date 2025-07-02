@@ -60,8 +60,8 @@ export default function ThreadCard({ item, expandedId, toggleComments }) {
         <View style={styles.leftMeta}>
           <TouchableOpacity onPress={handlePostPress}>
             <Text style={styles.cardTitle}>{item.title}</Text>
-          </TouchableOpacity>
           <Text style={styles.ratingStars}>★★★★☆</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.rightStats}>
           <View style={styles.statColumn}>
