@@ -14,6 +14,8 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from '../../styles/pages/campaign/campaignCategory';
 import { useNavigate } from 'react-router-native';
 import BackSwipeWrapper from '../../components/BackSwipeWrapper';
+import nikeCollab from '../../assets/nikeCollab.webp'
+import { BlurView } from 'expo-blur';
 
 const { width } = Dimensions.get('window');
 
@@ -118,26 +120,30 @@ export default function CampaignCategory() {
 
     
     <View style={styles.campaignCategory__container}>
-      <ImageBackground
-        source={{ uri: 'https://via.placeholder.com/800x400?text=Hero' }}
-        style={styles.campaignCategory__heroImage}
-      >
-        <TouchableOpacity
-          onPress={() => navigate(-1)}
-          style={styles.campaignCategory__backButton}
+              <TouchableOpacity
+                onPress={() => navigate(-1)}
+                style={styles.campaignCategory__backButton}
+              >
+                <Text style={styles.campaignCategory__backArrow}>←</Text>
+              </TouchableOpacity>
+        <ImageBackground
+          source={nikeCollab}
+          style={styles.campaignCategory__heroImage}
         >
-          <Text style={styles.campaignCategory__backArrow}>←</Text>
-        </TouchableOpacity>
-        <View style={styles.campaignCategory__heroOverlay}>
-          <Text style={styles.campaignCategory__heroTitle}>Vans / Violent</Text>
-          <Text style={styles.campaignCategory__heroSubtitle}>
-            Collaboration for shoe enthusiasts to feel the comfort and luxury feel
-          </Text>
-          <TouchableOpacity style={styles.campaignCategory__heroArrow}>
-            <Ionicons name="arrow-forward" size={18} color="#000" />
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+          <View style={styles.heroCardWrapper}>
+            <BlurView intensity={40} tint="light" style={styles.heroCard}>  
+              <View style={styles.campaignCategory__heroOverlay}>
+                <Text style={styles.campaignCategory__heroTitle}>Vans / Violent</Text>
+                <Text style={styles.campaignCategory__heroSubtitle}>
+                  Collaboration for shoe enthusiasts to feel the comfort and luxury feel
+                </Text>
+                <TouchableOpacity style={styles.campaignCategory__heroArrow}>
+                  <Ionicons name="arrow-forward" size={18} color="#000" />
+                </TouchableOpacity>
+              </View>
+            </BlurView>
+          </View>
+        </ImageBackground>
 
       <Animated.View style={{ transform: [{ translateY }] }} {...panResponder.panHandlers}>
         <View style={{ backgroundColor: '#fff' }}>
