@@ -200,15 +200,17 @@ export default function ProfileHome() {
         </Animated.View>
 
         <Animated.View style={{ opacity: fadeOutOpacityStats }}>
-          <View style={styles.statsCard}>
+          <View style={styles.statsRow}>
             <View style={styles.statBlock}>
               <Text style={styles.statNumber}>354</Text>
               <Text style={styles.statLabel}>Audience</Text>
             </View>
+            <View style={styles.divider} />
             <View style={styles.statBlock}>
               <Text style={styles.statNumber}>13</Text>
               <Text style={styles.statLabel}>Impact</Text>
             </View>
+            <View style={styles.divider} />
             <View style={styles.statBlock}>
               <Text style={styles.statNumber}>4</Text>
               <Text style={styles.statLabel}>Connects</Text>
@@ -219,7 +221,7 @@ export default function ProfileHome() {
         {/* Tabs */}
         {!selectedPost && (
           <View style={styles.tabRow}>
-            {['Lifestyle', 'Campaigns', 'Bursts'].map((tab) => (
+            {['Lifestyle', 'Campaigns', 'Bursts', 'Collections'].map((tab) => (
               <TouchableOpacity key={tab} onPress={() => setActiveTab(tab)}>
                 <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
                   {tab}
@@ -233,7 +235,7 @@ export default function ProfileHome() {
 
         {/* Conditional Detail View */}
         {selectedPost ? (
-          <View style={{ marginTop: -60 }}>
+          <View style={{ marginTop: -30 }}>
           <TouchableOpacity
             onPress={() => {
               setSelectedPost(null);
@@ -247,9 +249,9 @@ export default function ProfileHome() {
                 collapsedRef.current = true;
               });
             }}
-            style={{ padding: 10, marginLeft: 15 }}
+            style={styles.backButton}
           >
-            <Text style={{ fontSize: 24 }}>←</Text>
+            <Text style={styles.backArrow}>←</Text>
           </TouchableOpacity>
 
             <ThreadCard

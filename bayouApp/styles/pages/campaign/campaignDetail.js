@@ -8,11 +8,21 @@ const styles = StyleSheet.create({
 
   headerImage: {
     width: width,
-    height: 320,
+    height: 380,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     position: 'relative',
     backgroundColor: 'grey',
+    
+  },
+
+  divider: {
+    width: .6,
+    height: '75%',
+    backgroundColor: 'black',
+    marginHorizontal: -3,
+    opacity: .4,
+    // gap: 1,
   },
 
   imageRounded: {
@@ -22,7 +32,7 @@ const styles = StyleSheet.create({
 
   backButton: {
     position: 'absolute',
-    top: 50,
+    top: 60,
     left: 16,
     backgroundColor: '#fff',
     paddingHorizontal: 7,
@@ -30,6 +40,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     zIndex: 10,
     elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
 
   backArrow: {
@@ -39,7 +53,7 @@ const styles = StyleSheet.create({
 
   viewerRibbon: {
     position: 'absolute',
-    top: 50,
+    top: 62,
     right: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -50,12 +64,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    paddingRight: 10,
-    paddingLeft: 6,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    paddingRight: 12,
+    paddingLeft: 8,
     borderRadius: 8,
     elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
 
   viewerIcon: {
@@ -70,21 +88,21 @@ const styles = StyleSheet.create({
 
   bodyWrapper: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
     overflow: 'hidden',
-    paddingHorizontal: 30,
+    paddingHorizontal: 22,
     paddingTop: 50,
   },
 
   actionRow: {
     position: 'absolute',
-    top: 305,
+    top: 360,
     left: 20,
-    right: 30,
+    right: 25,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 12,
+    gap: 10,
     zIndex: 10,
   },
 
@@ -123,20 +141,24 @@ const styles = StyleSheet.create({
 
   infoRight: {
     alignItems: 'flex-end',
-    gap: 8,
+    gap: 6,
   },
 
   cardTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
-    marginBottom: 4,
+    // marginBottom: 4,
     color: '#000',
+
   },
 
   subtitleText: {
-    fontSize: 13.5,
-    color: '#777',
+    fontSize: 15.5,
+    color: '#000',
     marginBottom: 4,
+    flexDirection: 'row',
+    display: 'flex',
+    fontWeight: '300',
   },
 
   ratingRow: {
@@ -144,20 +166,20 @@ const styles = StyleSheet.create({
   },
 
   ratingStars: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#333',
   },
 
   followButton: {
-    borderWidth: 1,
+    borderWidth: .7,
     borderColor: '#333',
-    paddingVertical: 4,
-    paddingHorizontal: 12,
+    paddingVertical: 3,
+    paddingHorizontal: 20,
     borderRadius: 20,
   },
 
   followText: {
-    fontSize: 13,
+    fontSize: 13.5,
     fontWeight: '600',
     color: '#333',
   },
@@ -165,8 +187,8 @@ const styles = StyleSheet.create({
   statusPill: {
     backgroundColor: '#3E2FE1',
     borderRadius: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
+    paddingHorizontal: 45,
+    paddingVertical: 1.8,
   },
 
   statusText: {
@@ -177,13 +199,20 @@ const styles = StyleSheet.create({
 
   statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 30,
     width: '100%',
-    borderWidth: 1,
+    gap: 40,
+    // borderWidth: 1,
     borderRadius: 8,
-    borderColor: 'grey'
+    // borderColor: 'white',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
   },
 
   statBox: {

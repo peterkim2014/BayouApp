@@ -19,14 +19,18 @@ const styles = StyleSheet.create({
 
   campaignCategory__backButton: {
     position: 'absolute',
-    top: 50,
+    top: 60,
     left: 16,
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
+    paddingHorizontal: 7,
     paddingVertical: 4,
     borderRadius: 20,
     zIndex: 10,
     elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   heroCardWrapper: {
     // margin: 20,
@@ -60,6 +64,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff40',
   },  
 
+  campaignCategory__heroOverlay: {
+    width: width * .85,
+    gap: 4,
+  },
 
   campaignCategory__backArrow: {
     fontSize: 20,
@@ -88,8 +96,9 @@ const styles = StyleSheet.create({
 
   campaignCategory__heroArrow: {
     position: 'absolute',
-    right: 12,
-    top: 12,
+    right: 1,
+    top: -4,
+    // bottom: 20,
     padding: 4,
   },
 
@@ -118,16 +127,21 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
     paddingHorizontal: 16,
-    width: width,
+    // backgroundColor: 'black',
+    // width: width * .9,
+    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignContent: 'flex-start',
+    // width: width,
     marginTop: 6,
   },
 
   campaignCategory__tabText: {
     paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 8,
+    paddingVertical: 3,
+    borderRadius: 5,
     color: '#444',
-    marginRight: 8,
+    marginRight: 3,
     // marginBottom: 4,
   },
   

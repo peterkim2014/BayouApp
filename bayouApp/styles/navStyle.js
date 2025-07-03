@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -8, 
+    // marginTop: -8, 
   },
 
   iconWrapper: {
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
   
 
   icon: {
-    width: 22,
-    height: 22,
+    width: 27,
+    height: 27,
     resizeMode: 'contain',
   },
 

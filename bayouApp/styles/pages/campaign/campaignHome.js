@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     backgroundColor: '#999',
-    borderRadius: 8,
+    borderRadius: 5,
     marginBottom: 10,
   },
 
@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 4,
+    marginBottom: -6,
+    // marginTop: 50,
     // shadowColor: '#000',
     // shadowOffset: { width: 0, height: 2 },
     // shadowOpacity: 0.6,
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 6, // For Android
     backgroundColor: 'transparent', // prevent background layering
+    // marginTop: 30,
   },
 
   heroTitle: {
