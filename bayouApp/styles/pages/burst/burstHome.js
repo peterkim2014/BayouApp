@@ -15,9 +15,9 @@ export default StyleSheet.create({
   pageDots: {
     position: 'absolute',
     right: 20,
-    top: height / 6,
+    top: height / 8,
     zIndex: 10,
-    gap: 5,
+    // gap: 3,
   },
   dot: {
     width: 38,
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     width: width * 0.81,
     backgroundColor: 'transparent',
     borderRadius: 8,
-    marginBottom: 50,
+    marginBottom: 40,
     elevation: 5,
     // position: 'relative',
     justifyContent: 'flex-start',
@@ -58,7 +58,7 @@ export default StyleSheet.create({
   heroCardWrapper: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: .6,
+    shadowOpacity: .5,
     shadowRadius: 6,
     elevation: 6, // For Android
     backgroundColor: 'transparent', // prevent background layering
@@ -67,18 +67,19 @@ export default StyleSheet.create({
   },
   cardTopRightArrow: {
     position: 'absolute',
-    top: 15,
-    right: 15,
-    width: 36,
-    height: 36,
+    top: 1,
+    right: 3,
+    // width: 36,
+    // height: 36,
     borderRadius: 18,
-    backgroundColor: '#f0f0f0',
+    // backgroundColor: '#f0f0f0',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 5,
   },
   cardButtonArrow: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: '700',
   },
   cardTitle: {
     fontSize: 20,

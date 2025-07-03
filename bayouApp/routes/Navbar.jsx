@@ -13,12 +13,19 @@ export default function NavBar() {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  // const tabs = [
+  //   { path: '/thread', label: 'Threads', icon: threads },
+  //   { path: '/network', label: 'Network', icon: network },
+  //   { path: '/campaign', label: 'Campaigns', icon: campaign },
+  //   { path: '/burst', label: 'Bursts', icon: burst },
+  //   { path: '/profile', label: 'Profile', icon: profile },
+  // ];
   const tabs = [
-    { path: '/thread', label: 'Threads', icon: threads },
-    { path: '/network', label: 'Network', icon: network },
-    { path: '/campaign', label: 'Campaigns', icon: campaign },
-    { path: '/burst', label: 'Bursts', icon: burst },
-    { path: '/profile', label: 'Profile', icon: profile },
+    { path: '/thread', icon: threads },
+    { path: '/network', icon: network },
+    { path: '/campaign', icon: campaign },
+    { path: '/burst', icon: burst },
+    { path: '/profile', icon: profile },
   ];
 
   return (

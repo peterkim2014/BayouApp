@@ -23,6 +23,27 @@ export default StyleSheet.create({
     borderBottomRightRadius: 57,
   },
 
+  backArrow: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+
+  backButton: {
+    position: 'absolute',
+    top: -48,
+    left: -3,
+    backgroundColor: '#fff',
+    paddingHorizontal: 7,
+    paddingVertical: 4,
+    borderRadius: 25,
+    zIndex: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+
   curveWrapper: {
     position: 'absolute',
     bottom: 0,
@@ -32,7 +53,7 @@ export default StyleSheet.create({
 
   settingsIcon: {
     position: 'absolute',
-    top: 40,
+    top: 60,
     right: 20,
     backgroundColor: '#fff',
     padding: 8,
@@ -111,6 +132,34 @@ export default StyleSheet.create({
     marginBottom: 18,
   },
 
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 30,
+    width: '100%',
+    gap: 38,
+    paddingVertical: 11,
+    // borderWidth: 1,
+    borderRadius: 5,
+    // borderColor: 'white',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+  },
+
+  divider: {
+    width: .6,
+    height: '90%',
+    backgroundColor: 'black',
+    marginHorizontal: -3,
+    opacity: .4,
+    // gap: 1,
+  },
+
   statBlock: {
     alignItems: 'center',
   },
@@ -127,41 +176,52 @@ export default StyleSheet.create({
 
   tabRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    // alignItems: 'flex-start',
+    gap: 12,
     marginBottom: 10,
+    marginTop: 4,
   },
 
   tabText: {
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+    borderRadius: 5,
+    color: '#444',
     fontSize: 13,
-    fontWeight: '500',
-    color: '#555',
+    // marginRight: 3,
   },
 
   activeTabText: {
-    color: '#000',
-    fontWeight: '700',
+    fontWeight: '600',
+    backgroundColor: '#2f7c8f',
+    color: '#fff',
   },
 
-  tabIndicator: {
-    height: 3,
-    backgroundColor: '#3B9CA1',
-    borderRadius: 10,
-    marginTop: 4,
-  },
+  // tabIndicator: {
+  //   height: 3,
+  //   backgroundColor: '#3B9CA1',
+  //   borderRadius: 10,
+  //   marginTop: 4,
+  // },
 
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    
+    // marginTop:
   },
 
   gridBox: {
-    width: (width - 55) / 3, // total side + inner spacing removed
+    width: (width - 53) / 3, // total side + inner spacing removed
     aspectRatio: 1,
     backgroundColor: '#e0e0e0',
-    borderRadius: 10,
-    marginBottom: 12,
+    borderRadius: 7,
+    marginBottom: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1.5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
 });

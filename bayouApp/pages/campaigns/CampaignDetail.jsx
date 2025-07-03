@@ -17,6 +17,7 @@ import BackSwipeWrapper from '../../components/BackSwipeWrapper';
 import likeIcon from '../../assets/likeIcon.png';
 import thoughtsIcon from '../../assets/thoughtsIcon.png';
 import waitlistIcon from '../../assets/waitlistIcon.png';
+import firstPostImage from '../../assets/firstPostImage.jpg'
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -117,9 +118,9 @@ export default function CampaignDetail() {
     <BackSwipeWrapper>
       <View style={styles.container}>
         <ImageBackground
-          source={{ uri: 'https://via.placeholder.com/600x400' }}
+          source={firstPostImage}
           style={styles.headerImage}
-          imageStyle={styles.imageRounded}
+          // imageStyle={styles.imageRounded}
         >
           <TouchableOpacity onPress={() => navigate(-1)} style={styles.backButton}>
             <Text style={styles.backArrow}>←</Text>
@@ -157,9 +158,11 @@ export default function CampaignDetail() {
             {/* Info Row */}
             <View style={styles.infoRow}>
               <View style={styles.infoLeft}>
-                <Text style={styles.cardTitle}>{campaign.title}</Text>
+                {/* <Text style={styles.cardTitle}>{campaign.title}</Text> */}
+                <Text style={styles.cardTitle}>Nike Driveway</Text>
                 <Text style={styles.subtitleText}>
-                  {campaign.brand} / {campaign.creator}
+                  {/* {campaign.brand} / {campaign.creator} */}
+                  Nike / Nigel Sylvester
                 </Text>
                 <View style={styles.ratingRow}>
                   <Text style={styles.ratingStars}>★★★★☆</Text>
@@ -182,10 +185,12 @@ export default function CampaignDetail() {
                 <Text style={styles.statNumber}>{campaign.likes}</Text>
                 <Text style={styles.statLabel}>Likes</Text>
               </View>
+              <View style={styles.divider} />
               <View style={styles.statBox}>
                 <Text style={styles.statNumber}>{campaign.thoughts}</Text>
                 <Text style={styles.statLabel}>Thoughts</Text>
               </View>
+              <View style={styles.divider} />
               <View style={styles.statBox}>
                 <Text style={styles.statNumber}>{campaign.waitlist}</Text>
                 <Text style={styles.statLabel}>Waitlist</Text>
